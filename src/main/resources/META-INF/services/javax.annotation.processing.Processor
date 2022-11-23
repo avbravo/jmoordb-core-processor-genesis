@@ -5,3 +5,4 @@ com.jmoordb.core.processor.AutoImplementProcessor
 com.jmoordb.core.processor.AutosecuenceRepositoryProcessor
 com.jmoordb.core.processor.JsonObjectProcessor
 com.jmoordb.core.processor.DateSupportProcessor
+com.jmoordb.core.processor.ViewProcessor

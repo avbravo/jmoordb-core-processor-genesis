@@ -45,6 +45,10 @@ import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
+import com.jmoordb.core.annotation.view.VForm;
+import com.jmoordb.core.annotation.view.VTemplate;
+import com.jmoordb.core.annotation.view.VMenu;
+import com.jmoordb.core.processor.methods.view.ViewMethod;
 
 /**
  *
@@ -304,6 +308,55 @@ public class ProcessorUtil {
 
                 comparatorList.add(repositoryMethod.getTokenWhere().get(comparatorPos).replace(".", "").trim());
                 paramList.add(repositoryMethod.getTokenWhere().get(paramPos).replace("@", "").trim());
+                index += 4;
+                fieldPos += 4;
+                comparatorPos += 4;
+                paramPos += 4;
+                logicalPos += 4;
+            }
+            whereDescomposed.setComparatorList(comparatorList);
+            whereDescomposed.setFieldList(fieldList);
+            whereDescomposed.setLogicalList(logicalList);
+            whereDescomposed.setParamList(paramList);
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return whereDescomposed;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="WhereDescomposed generateWhereDescomposed(RepositoryMethod repositoryMethod)">
+    /**
+     * *
+     * Descompone el where() en elmentos de tipo List<String> almancenado en la
+     * clase WhereDescomposer
+     *
+     * @param repositoryMethod
+     * @return
+     */
+    public static WhereDescomposed generateWhereDescomposed(ViewMethod viewMethod) {
+        WhereDescomposed whereDescomposed = new WhereDescomposed();
+        List<String> fieldList = new ArrayList<>();
+        List<String> paramList = new ArrayList<>();
+        List<String> comparatorList = new ArrayList<>();
+        List<String> logicalList = new ArrayList<>();
+
+        Integer fieldPos = 0;
+        Integer comparatorPos = 1;
+        Integer paramPos = 2;
+        Integer logicalPos = 3;
+        try {
+            Integer index = 3;
+
+            while (index <= viewMethod.getTokenWhere().size()) {
+
+                fieldList.add(viewMethod.getTokenWhere().get(fieldPos));
+                if (index != viewMethod.getTokenWhere().size()) {
+                    logicalList.add(viewMethod.getTokenWhere().get(logicalPos).replace(".", "").trim());
+                }
+
+                comparatorList.add(viewMethod.getTokenWhere().get(comparatorPos).replace(".", "").trim());
+                paramList.add(viewMethod.getTokenWhere().get(paramPos).replace("@", "").trim());
                 index += 4;
                 fieldPos += 4;
                 comparatorPos += 4;
@@ -863,6 +916,27 @@ public class ProcessorUtil {
         return param;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String parametersOfMethod(RepositoryMethod repositoryMethod)">
+    /**
+     *
+     * @param repositoryMethod
+     * @return Los parametros del metodo como una cadena
+     */
+    public static String parametersOfMethod(ViewMethod viewMethod) {
+        String param = "";
+        try {
+            for (ParamTypeElement p : viewMethod.getParamTypeElement()) {
+                if (param != "") {
+                    param += ",";
+                }
+                param += p.getType() + " " + p.getName();
+            }
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return param;
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="String editorFold(RepositoryMethod repositoryMethod, String param)">
     public static String editorFold(RepositoryMethod repositoryMethod, String param) {
@@ -870,6 +944,20 @@ public class ProcessorUtil {
         String result = "";
         try {
             editorFoldStart = repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + " ) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFold(RepositoryMethod repositoryMethod, String param)">
+    public static String editorFold(ViewMethod viewMethod, String param) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+            editorFoldStart = viewMethod.getReturnTypeValue() + " " + viewMethod.getNameOfMethod() + "(" + param + " ) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1279,6 +1367,31 @@ public class ProcessorUtil {
             LikeBy likeBy = executableElement.getAnnotation(LikeBy.class);
             CountLikeBy countlikeBy = executableElement.getAnnotation(CountLikeBy.class);
             if (countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
+
+            } else {
+                return Boolean.TRUE;
+            }
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return isValid;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=" Boolean isValidAnnotationOfView(ExecutableElement executableElement)">
+    /**
+     * Verifica que tenga un anotación valida para el repositorio
+     *
+     * @param method
+     * @return
+     */
+    public static Boolean isValidAnnotationOfView(ExecutableElement executableElement) {
+        Boolean isValid = Boolean.FALSE;
+        try {
+            VForm  vForm = executableElement.getAnnotation(VForm.class);
+            VTemplate vTemplate = executableElement.getAnnotation(VTemplate.class);
+            VMenu vMenu = executableElement.getAnnotation(VMenu.class);
+            if (vForm == null && vTemplate == null && vMenu == null) {
 
             } else {
                 return Boolean.TRUE;
