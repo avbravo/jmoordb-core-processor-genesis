@@ -1,6 +1,5 @@
 package com.jmoordb.core.processor;
 
-
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -59,17 +58,17 @@ public class ViewProcessor extends AbstractProcessor {
             for (Element element : elements) {
                 View view = element.getAnnotation(View.class);
 
-/*
+                /*
                 Busca el archivo index.html
-                */                
+                 */
                 System.out.println("Quitar-->===========@ViewProcessor==============");
                 Filer filer = processingEnv.getFiler();
-FileObject fileObject = filer.getResource(StandardLocation.CLASS_OUTPUT, "", "index.html");
-File extensionsFile = new File(fileObject.toUri());
-                System.out.println("Quitar--> extensionsFile >> "+extensionsFile);
-                System.out.println("Quitar--> fileObject.getName()>> "+fileObject.getName());
-                System.out.println("Quitar--> fileObject.toUri()>> "+fileObject.toUri());
-                
+                FileObject fileObject = filer.getResource(StandardLocation.CLASS_OUTPUT, "", "index.html");
+                File extensionsFile = new File(fileObject.toUri());
+                System.out.println("Quitar--> extensionsFile >> " + extensionsFile);
+                System.out.println("Quitar--> fileObject.getName()>> " + fileObject.getName());
+                System.out.println("Quitar--> fileObject.toUri()>> " + fileObject.toUri());
+
                 System.out.println("Quitar--> =====================r==============");
 
                 /**
@@ -127,38 +126,26 @@ File extensionsFile = new File(fileObject.toUri());
             throws Exception {
         try {
 
-            String database = view.database().trim();
-            if (view.database().equals("")) {
-                database = "{mongodb.database}";
-            } else {
-                database = view.database().replace("{", "").replace("}", "");
-            }
-                        String collection ="";
-                        if(view.collection().equals("")){
-                           collection = viewData.getNameOfEntityLower();
-                        }else{
-                        collection = view.collection().trim();
-                        }
+            Boolean generate = view.generate();
+        
 
             /**
-             * List<ViewMethod> almacena la información de los métodos de
-             * los repositorios
+             * List<ViewMethod> almacena la información de los métodos de los
+             * repositorios
              */
             List<ViewMethod> viewMethodList = new ArrayList<>();
             /**
              *
              * Procesa el contenido de la interface
              */
-            ViewAnalizer viewAnalizer = ViewAnalizer.get(element, messager, database, typeEntity, viewMethodList);
-
+            ViewAnalizer viewAnalizer = ViewAnalizer.get(element, messager, generate, typeEntity, viewMethodList);
 
             /**
              * Construye la clase
              */
             ViewSourceBuilder viewSourceBuilder = new ViewSourceBuilder();
 
-            viewSourceBuilder.init(view, viewData, viewMethodList, database, collection);
-
+            viewSourceBuilder.init(view, viewData, viewMethodList);
 
             generateJavaFile(viewData.getPackageOfView() + "." + viewData.getInterfaceName() + "Impl", viewSourceBuilder.end());
         } catch (Exception e) {
@@ -166,7 +153,6 @@ File extensionsFile = new File(fileObject.toUri());
         }
     }
 // </editor-fold>
-    
 
     // <editor-fold defaultstate="collapsed" desc="generateJavaFile(String qfn, String end)">
     private void generateJavaFile(String qfn, String end) throws IOException {
@@ -213,19 +199,13 @@ File extensionsFile = new File(fileObject.toUri());
     }
 // </editor-fold>
 
-    
-
     // <editor-fold defaultstate="collapsed" desc="error(String msg, Element e)">
     private void error(String msg, Element e) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg, e);
     }
     // </editor-fold>
 
- 
-   
-    
 // <editor-fold defaultstate="collapsed" desc="init(ProcessingEnvironment processingEnvironment)">
-
     @Override
     public void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
@@ -234,9 +214,8 @@ File extensionsFile = new File(fileObject.toUri());
         messager = processingEnvironment.getMessager();
     }
 // </editor-fold>    
-    
-// <editor-fold defaultstate="collapsed" desc="printError(Element element, String message)">
 
+// <editor-fold defaultstate="collapsed" desc="printError(Element element, String message)">
     private void printError(Element element, String message) {
         messager.printMessage(Diagnostic.Kind.ERROR, message, element);
     }

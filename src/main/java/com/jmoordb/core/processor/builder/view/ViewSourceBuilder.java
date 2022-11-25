@@ -27,13 +27,13 @@ public class ViewSourceBuilder {
     }
 
     // <editor-fold defaultstate="collapsed" desc="ViewSourceBuilder init(View view, ViewData viewData, List<ViewMethod> viewMethodList, String database, String collection)">
-    public ViewSourceBuilder init(View view, ViewData viewData, List<ViewMethod> viewMethodList, String database, String collection) {
+       public ViewSourceBuilder init(View view, ViewData viewData, List<ViewMethod> viewMethodList) {
         builder.append(sourceUtilBuilder.definePackage(viewData.getPackageOfView()));
         builder.append(sourceUtilBuilder.generateImport(view, viewData));
         builder.append(sourceUtilBuilder.addApplicationScoped());
         builder.append(sourceUtilBuilder.defineClass(viewData.getInterfaceName() + "Impl", " implements " + viewData.getInterfaceName()));
 
-        builder.append(sourceUtilBuilder.inject(view, viewData, database, collection));
+        builder.append(sourceUtilBuilder.inject(view, viewData));
 
         /**
          * Generar los metodos encontrados

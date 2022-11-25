@@ -14,18 +14,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface View {
  
-   Class<?> entity();
+    Class<?> entity();
 
     JakartaSource jakartaSource() default JakartaSource.JAKARTA;
+    
+    boolean generate() default true;
 
-    String collection() default "";
-
-    /**
-     * database_name --> Es un nombre de base de datos que indique el
-     * desarrollador {mongodb.database} --> Es el parametro en
-     * Microorofile-config.properties
-     *
-     * @return
-     */
-    String database() default "{mongodb.database}";
+  
 }

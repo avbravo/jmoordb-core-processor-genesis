@@ -54,7 +54,7 @@ public class ViewAnalizer {
      * @param element
      * @return
      */
-    public static ViewAnalizer get(Element element, Messager messager, String database, TypeMirror typeEntity, List<ViewMethod> viewMethodList) {
+       public static ViewAnalizer get(Element element, Messager messager, Boolean generate, TypeMirror typeEntity, List<ViewMethod> viewMethodList) {
         LinkedHashMap<String, String> fields = new LinkedHashMap<>();
         List<String> mandatoryFields = new ArrayList<>();
 
