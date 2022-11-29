@@ -398,8 +398,8 @@ public class AutosecuenceRepositorySourceBuilder {
                  */
                 addImport("jakarta.enterprise.context.ApplicationScoped");
                 addImport("jakarta.inject.Inject");
-                addImport("jakarta.json.bind.Jsonb");
-                addImport("jakarta.json.bind.JsonbBuilder");
+//                addImport("jakarta.json.bind.Jsonb");
+//                addImport("jakarta.json.bind.JsonbBuilder");
 
             }
             /**
