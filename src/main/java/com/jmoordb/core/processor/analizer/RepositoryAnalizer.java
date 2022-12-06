@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.enumerations.CaseSensitive;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
+import com.jmoordb.core.annotation.repository.CountAll;
 import com.jmoordb.core.annotation.repository.CountBy;
 import com.jmoordb.core.annotation.repository.CountLikeBy;
 import com.jmoordb.core.annotation.repository.DeleteBy;
@@ -136,22 +137,21 @@ public class RepositoryAnalizer {
                     VariableElement param = parameters.get(i);
 
                     TypeMirror secondArgumentType = param.asType();
-                    
 
                     if (parameters.get(i).getAnnotation(IncludeTime.class) != null) {
-                    
+
                         isIncludeTime = Boolean.TRUE;
                     } else {
 
                         if (parameters.get(i).getAnnotation(ExcludeTime.class) != null) {
-                    
+
                             isExcludeTime = Boolean.TRUE;
                         } else {
                             isIncludeTime = Boolean.FALSE;
                             isExcludeTime = Boolean.FALSE;
                         }
                     }
-                   
+
                     ParamTypeElement paramTypeElement = new ParamTypeElement.Builder()
                             .type(param.asType().toString())
                             .name(param.getSimpleName().toString())
@@ -177,7 +177,24 @@ public class RepositoryAnalizer {
 
                 return new RepositoryAnalizer();
             }
+            System.out.println("[*****************************************************]");
+            System.out.println("ReversrViendo si es Count");
+            CountAll countx = executableElement.getAnnotation(CountAll.class);
+            if (countx == null) {
+                System.out.println(">>>>>  No es countAll   <<<<<");
+            } else {
+                System.out.println(">>>>> Si es countAll <<<<<");
+            }
 
+            
+                Save save2 = executableElement.getAnnotation(Save.class);
+            if (save2 == null) {
+                System.out.println("Save es null...");
+            }
+            else{
+                System.out.println("Si es Save.....");
+            }
+            System.out.println("[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]");
             /**
              * Verifico si el metodo tiene anotación Query.classs E invoco el
              * analizador de la anotación

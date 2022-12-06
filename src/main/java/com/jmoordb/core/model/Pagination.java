@@ -5,6 +5,8 @@
 package com.jmoordb.core.model;
 
 import com.jmoordb.core.util.MessagesUtil;
+import static com.jmoordb.core.util.MessagesUtil.nameOfClass;
+import static com.jmoordb.core.util.MessagesUtil.nameOfMethod;
 
 /**
  *
@@ -95,4 +97,60 @@ public class Pagination {
 
     }
     // </editor-fold>
+    
+    
+     public static class Move {
+          // <editor-fold defaultstate="collapsed" desc="Integer numberOfPages(Integer rows,Integer rowForPage)">
+   static Integer numberOfPages(Integer rows, Integer rowForPage) {
+        Integer numberOfPage = 1;
+        try {
+
+            if (rows > 0) {
+                numberOfPage = rows / rowForPage;
+                if ((rows % rowForPage) > 0) {
+                    numberOfPage++;
+                }
+            }
+         } catch (Exception e) {
+            System.out.println(
+                    "------------------------------------------------------------------------------------------------");
+            System.out.println(
+                    "Class:" + nameOfClass() + " Metodo:" + nameOfMethod());
+            System.out.println("Error " + e.getLocalizedMessage());
+            System.out.println(
+                    "------------------------------------------------------------------------------------------------");
+          
+        }
+        return numberOfPage;
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Long numberOfPages(Long rows,Long rowForPage)">
+   static Long numberOfPages(Long rows,Long rowForPage) {
+     Long numberOfPage = 1L;
+        try {
+
+            if (rows > 0) {
+                numberOfPage = rows / rowForPage;
+                if ((rows % rowForPage) > 0) {
+                    numberOfPage++;
+                }
+            }
+         } catch (Exception e) {
+            System.out.println(
+                    "------------------------------------------------------------------------------------------------");
+            System.out.println(
+                    "Class:" + nameOfClass() + " Metodo:" + nameOfMethod());
+            System.out.println("Error " + e.getLocalizedMessage());
+            System.out.println(
+                    "------------------------------------------------------------------------------------------------");
+          
+        }
+        return numberOfPage;
+    }
+    // </editor-fold>
+
+         
+     }
+    
+   
 }

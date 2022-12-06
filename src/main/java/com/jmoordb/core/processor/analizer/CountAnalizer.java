@@ -122,7 +122,7 @@ public class CountAnalizer {
                 message = nameOfMethod + "() should start with count";
                 return Boolean.FALSE;
             }
-            Count regexCount = executableElement.getAnnotation(Count.class);
+            Count count = executableElement.getAnnotation(Count.class);
 
             return Boolean.TRUE;
         } catch (Exception e) {
