@@ -11,7 +11,7 @@ import com.jmoordb.core.annotation.Referenced;
 import com.jmoordb.core.annotation.enumerations.ParamType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.repository.Count;
-import com.jmoordb.core.annotation.repository.CountAll;
+
 import com.jmoordb.core.annotation.repository.CountBy;
 import com.jmoordb.core.annotation.repository.CountLikeBy;
 import com.jmoordb.core.annotation.repository.Delete;
@@ -1354,7 +1354,7 @@ public class ProcessorUtil {
         Boolean isValid = Boolean.FALSE;
         try {
             Query query = executableElement.getAnnotation(Query.class);
-           CountAll countAll = executableElement.getAnnotation(CountAll.class);
+
             Find find = executableElement.getAnnotation(Find.class);
             Lookup searcher = executableElement.getAnnotation(Lookup.class);
             Regex queryRegex = executableElement.getAnnotation(Regex.class);
@@ -1368,7 +1368,7 @@ public class ProcessorUtil {
             CountBy countBy = executableElement.getAnnotation(CountBy.class);
             LikeBy likeBy = executableElement.getAnnotation(LikeBy.class);
             CountLikeBy countlikeBy = executableElement.getAnnotation(CountLikeBy.class);
-            if (countAll == null && countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
+            if ( countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
 
             } else {
                 return Boolean.TRUE;
