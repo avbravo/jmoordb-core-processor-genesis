@@ -173,11 +173,12 @@ public class RepositoryAnalizer {
              */
             if (!ProcessorUtil.isValidAnnotationOfRepository(executableElement)) {
                 // No tiene anotaciones validas
+                System.out.println("°°°°°°°°°°>>>>>>>>>>>> !isValidAnnotation");
                 messager.printMessage(Diagnostic.Kind.ERROR, "Methods " + methodName + " without declaring valid annotation for a Repository interface", element);
 
                 return new RepositoryAnalizer();
             }
-            
+            System.out.println("°°°°°°°°°°>>>>>>>>>>>> isValidAnnotation");
             
           
            
@@ -185,6 +186,8 @@ public class RepositoryAnalizer {
              * Verifico si el metodo tiene anotación Query.classs E invoco el
              * analizador de la anotación
              */
+              
+            
             Query query = executableElement.getAnnotation(Query.class);
             if (query != null) {
 
@@ -334,13 +337,13 @@ public class RepositoryAnalizer {
              */
             Save save = executableElement.getAnnotation(Save.class);
             if (save != null) {
-                System.out.println("................ is Save");
+             
                 if (!SaveAnalizer.analizer(save, element, executableElement, typeEntity)) {
                     messager.printMessage(Diagnostic.Kind.ERROR, SaveAnalizer.getMessage(), element);
                 }
                 repositoryMethod.setAnnotationType(AnnotationType.SAVE);
             }else{
-                System.out.println(".................not is Save");
+            
             }
             /**
              * Lee la anotacion @Delete

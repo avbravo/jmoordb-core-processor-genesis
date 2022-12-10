@@ -1354,6 +1354,7 @@ public class ProcessorUtil {
         Boolean isValid = Boolean.FALSE;
         try {
             Query query = executableElement.getAnnotation(Query.class);
+           
 
             Find find = executableElement.getAnnotation(Find.class);
             Lookup searcher = executableElement.getAnnotation(Lookup.class);
@@ -1368,7 +1369,7 @@ public class ProcessorUtil {
             CountBy countBy = executableElement.getAnnotation(CountBy.class);
             LikeBy likeBy = executableElement.getAnnotation(LikeBy.class);
             CountLikeBy countlikeBy = executableElement.getAnnotation(CountLikeBy.class);
-            if ( countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
+            if (  countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
 
             } else {
                 return Boolean.TRUE;
