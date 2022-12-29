@@ -36,11 +36,7 @@ import javax.tools.Diagnostic;
  * @@code Analiza la anotación @Entity y genera List<EntityField>
  */
 public class EntityAnalizer {
-// <editor-fold defaultstate="collapsed" desc="fields()">
 
-  
-  
-    // </editor-fold>
 
     public EntityAnalizer() {
     }

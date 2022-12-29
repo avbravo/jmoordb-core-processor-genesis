@@ -55,6 +55,7 @@ public class DocumentEmbeddableSupplierSourceBuilder {
     builder.append(SupplierToDocumentBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList,element));
     builder.append(SupplierToDocumentBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList,element));
 
+     builder.append(SupplierToDocumentBuilder.toUpdate(documentEmbeddableData, documentEmbeddableFieldList,element));
             }
         
         //    builder.append(FindByPkOfDocumentEmbeddableBuilder.findByPKOfDocumentEmbeddable(repositoryData));

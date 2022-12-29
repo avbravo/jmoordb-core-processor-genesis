@@ -38,42 +38,18 @@ public interface SupplierEmbeddedBuilder {
             if (entityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Embedded List<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List);\n";
 
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Embedded Set<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(new java.util.HashSet<>(" + fieldLower + "List));\n";
 
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Embedded Stream<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List.stream());\n";
 
                 result += sourceSupplier;
                 return result;
@@ -113,53 +89,24 @@ public interface SupplierEmbeddedBuilder {
             if (entityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Embedded List<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List);\n";
 
                  result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Embedded Set<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(new java.util.HashSet<>(" + fieldLower + "List));\n";
-//                
-                
+
                   result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Embedded Stream<" + fieldLower + ">\n";
-//                result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-//                result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-//                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-//
-//                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-//                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-//                result += "\t};\n";
-//                result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List.stream());\n";
-                
+
                result += sourceSupplier;
                 return result;
             }
             result += "\t// Embedded of " + fieldLower + "\n";
-//            result += "\tDocument " + fieldLower + "Doc = (Document) document.get(\"" + entityField.getNameOfMethod() + "\");\n";
-//            result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, " + fieldLower + "Doc);\n";
-//            result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + ");\n";
-//            
-             
+       
  
   result += sourceSupplier;
   
@@ -174,7 +121,103 @@ public interface SupplierEmbeddedBuilder {
     
     
     
-         // <editor-fold defaultstate="collapsed" desc="String embeddedProcess(EntityData entityData, EntityField entityField)">
+          // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(EntityData entityData, EntityField entityField, String caracterComa)">
 
+    /**
+     * Procesa los documentos embebidos
+     *
+     * @param entityData
+     * @param entityField
+     * @return
+     */
+    public static String embeddedProcessUpdate(EntityData entityData, EntityField entityField, String caracterComa) {
+        String result = "";
+        String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
+        String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
+        String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
+        String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
+        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        
+        try {
+
+            if (entityField.getReturnTypeValue().contains("List")) {
+
+                result += "\t// Embedded List<" + fieldLower + ">\n";
+
+                result += sourceSupplier;
+                return result;
+            }
+            if (entityField.getReturnTypeValue().contains("Set")) {
+                result += "\t// Embedded Set<" + fieldLower + ">\n";
+
+                result += sourceSupplier;
+                return result;
+            }
+            if (entityField.getReturnTypeValue().contains("Stream")) {
+                result += "\t// Embedded Stream<" + fieldLower + ">\n";
+
+                result += sourceSupplier;
+                return result;
+            }
+            result += "\t// Embedded of " + fieldLower + "\n";
+
+
+            result += sourceSupplier;
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+    // </editor-fold>
+    
+ // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField, String caracterComa)">
+
+    /**
+     * Procesa los documentos embebidos
+     *
+     * @param documentEmbeddableData
+     * @param documentEmbeddableField
+     * @return
+     */
+    public static String embeddedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, String caracterComa) {
+        String result = "";
+        String documentEmbeddableNameUpper = JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName());
+        String entityNameLower = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
+        String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
+        String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
+        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        try {
+
+            if (entityField.getReturnTypeValue().contains("List")) {
+
+                result += "\t// Embedded List<" + fieldLower + ">\n";
+
+                 result += sourceSupplier;
+                return result;
+            }
+            if (entityField.getReturnTypeValue().contains("Set")) {
+                result += "\t// Embedded Set<" + fieldLower + ">\n";
+         
+                  result += sourceSupplier;
+                return result;
+            }
+            if (entityField.getReturnTypeValue().contains("Stream")) {
+                result += "\t// Embedded Stream<" + fieldLower + ">\n";
+
+               result += sourceSupplier;
+                return result;
+            }
+            result += "\t// Embedded of " + fieldLower + "\n";
+       
+ 
+  result += sourceSupplier;
+  
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+    // </editor-fold>
    
 }

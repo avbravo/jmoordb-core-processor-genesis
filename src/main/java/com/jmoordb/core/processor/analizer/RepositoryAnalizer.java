@@ -173,12 +173,12 @@ public class RepositoryAnalizer {
              */
             if (!ProcessorUtil.isValidAnnotationOfRepository(executableElement)) {
                 // No tiene anotaciones validas
-                System.out.println("°°°°°°°°°°>>>>>>>>>>>> !isValidAnnotation");
+            
                 messager.printMessage(Diagnostic.Kind.ERROR, "Methods " + methodName + " without declaring valid annotation for a Repository interface", element);
 
                 return new RepositoryAnalizer();
             }
-            System.out.println("°°°°°°°°°°>>>>>>>>>>>> isValidAnnotation");
+          
             
           
            

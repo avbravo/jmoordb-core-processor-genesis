@@ -151,6 +151,9 @@ public class SupplierSourceBuilderUtil {
                     + "* MongoDB\n"
                     + "*/\n"
                     + "import org.bson.Document;\n"
+                    + "import com.mongodb.client.model.Filters;\n"
+                    + "import com.mongodb.client.model.Updates;\n"
+                    + "import org.bson.conversions.Bson;\n"
                     + "import " + entityData.getPackageOfEntity() + "." + entityData.getEntityName() + ";\n"
                     + "import " + entityData.getPackageOfEntity() + ".*;\n\n\n"
                     + "// </editor-fold>\n";
