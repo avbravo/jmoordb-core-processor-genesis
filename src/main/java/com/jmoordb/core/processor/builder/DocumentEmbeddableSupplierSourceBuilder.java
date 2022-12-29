@@ -32,7 +32,7 @@ public class DocumentEmbeddableSupplierSourceBuilder {
         builder.append(sourceDocumentEmbeddableUtilBuilder.generateImport(documentEmbeddable, documentEmbeddableData,element));
         builder.append(sourceDocumentEmbeddableUtilBuilder.addRequestScoped());
         builder.append(sourceDocumentEmbeddableUtilBuilder.defineClass(documentEmbeddableData.getDocumentEmbeddableName() + "Supplier", " implements Serializable"));
-//
+
         Boolean haveEmbedded = DocumentEmbeddableSupplierSourceBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
         Boolean haveReferenced = DocumentEmbeddableSupplierSourceBuilderUtil.haveReferenced(documentEmbeddableFieldList);
         if(haveReferenced || haveEmbedded){
@@ -50,8 +50,7 @@ public class DocumentEmbeddableSupplierSourceBuilder {
              
          
                  builder.append(DocumentEmbeddableSupplierBuilder.get(documentEmbeddableData, documentEmbeddableFieldList,element));
-//    builder.append(DocumentEmbeddableSupplierBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList,element));
-//    builder.append(DocumentEmbeddableSupplierBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList,element));
+
     builder.append(SupplierToDocumentBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList,element));
     builder.append(SupplierToDocumentBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList,element));
 
