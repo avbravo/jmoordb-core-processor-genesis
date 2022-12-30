@@ -196,7 +196,7 @@ public interface SupplierReferencedGetBuilder {
                 if (!isEmbeddedReferenced) {
                     result += "\t// Referenced List<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
@@ -221,7 +221,7 @@ public interface SupplierReferencedGetBuilder {
 
                     result += "\t// Referenced Set<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
@@ -245,7 +245,7 @@ public interface SupplierReferencedGetBuilder {
                 if (!isEmbeddedReferenced) {
                     result += "\t// Referenced Stream<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";

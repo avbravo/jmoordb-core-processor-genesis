@@ -27,36 +27,34 @@ public class DocumentEmbeddableSupplierSourceBuilder {
     }
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection,Element element)">
-    public DocumentEmbeddableSupplierSourceBuilder init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection,Element element) {
+    public DocumentEmbeddableSupplierSourceBuilder init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection, Element element) {
         builder.append(sourceDocumentEmbeddableUtilBuilder.definePackage(documentEmbeddableData.getPackageOfDocumentEmbeddable()));
-        builder.append(sourceDocumentEmbeddableUtilBuilder.generateImport(documentEmbeddable, documentEmbeddableData,element));
+        builder.append(sourceDocumentEmbeddableUtilBuilder.generateImport(documentEmbeddable, documentEmbeddableData, element));
         builder.append(sourceDocumentEmbeddableUtilBuilder.addRequestScoped());
         builder.append(sourceDocumentEmbeddableUtilBuilder.defineClass(documentEmbeddableData.getDocumentEmbeddableName() + "Supplier", " implements Serializable"));
 
         Boolean haveEmbedded = DocumentEmbeddableSupplierSourceBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
         Boolean haveReferenced = DocumentEmbeddableSupplierSourceBuilderUtil.haveReferenced(documentEmbeddableFieldList);
-        if(haveReferenced || haveEmbedded){
-            builder.append(sourceDocumentEmbeddableUtilBuilder.inject(documentEmbeddable, documentEmbeddableData, database, collection, documentEmbeddableFieldList,element,haveReferenced,haveEmbedded));
+        if (haveReferenced || haveEmbedded) {
+            builder.append(sourceDocumentEmbeddableUtilBuilder.inject(documentEmbeddable, documentEmbeddableData, database, collection, documentEmbeddableFieldList, element, haveReferenced, haveEmbedded));
         }
-          
 
         /**
          * Generar los metodos encontrados
          */
         if (documentEmbeddableFieldList.isEmpty()) {
-         //   MessagesUtil.warning("No hay información de los métodos");
+            //   MessagesUtil.warning("No hay información de los métodos");
         } else {
-           
-             
-         
-                 builder.append(DocumentEmbeddableSupplierBuilder.get(documentEmbeddableData, documentEmbeddableFieldList,element));
 
-    builder.append(SupplierToDocumentBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList,element));
-    builder.append(SupplierToDocumentBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList,element));
+            builder.append(DocumentEmbeddableSupplierBuilder.get(documentEmbeddableData, documentEmbeddableFieldList, element));
 
-     builder.append(SupplierToDocumentBuilder.toUpdate(documentEmbeddableData, documentEmbeddableFieldList,element));
-            }
-        
+            builder.append(SupplierToDocumentBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList, element));
+            builder.append(SupplierToDocumentBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList, element));
+
+            builder.append(SupplierToDocumentBuilder.toUpdate(documentEmbeddableData, documentEmbeddableFieldList, element));
+            builder.append(SupplierToDocumentBuilder.toUpdateList(documentEmbeddableData, documentEmbeddableFieldList, element));
+        }
+
         //    builder.append(FindByPkOfDocumentEmbeddableBuilder.findByPKOfDocumentEmbeddable(repositoryData));
         return this;
 

@@ -145,6 +145,7 @@ public class RepositorySourceBuilderUtil {
                     + "import org.bson.BsonDocument;\n"
                     + "import com.mongodb.client.model.Filters;\n"
                     + "import com.mongodb.client.result.UpdateResult;\n"
+                    + "import com.mongodb.client.model.UpdateOptions;\n"
                     + "/**\n"
                     + "* Java\n"
                     + "*/\n"

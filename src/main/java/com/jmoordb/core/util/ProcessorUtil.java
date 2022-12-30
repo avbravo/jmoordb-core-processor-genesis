@@ -1114,6 +1114,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdateList(DocumentEmbeddableData documentEmbeddableData)">
+
+    public static String editorFoldToUpdateList(DocumentEmbeddableData documentEmbeddableData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Bson> toUpdate (List<" + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + "> " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFoldToDocument(DocumentEmbeddableData documentEmbeddableData)">
 
     public static String editorFoldToDocument(DocumentEmbeddableData documentEmbeddableData) {

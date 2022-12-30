@@ -6,11 +6,12 @@ import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 
-public class UpdateBuilder {
+public class UpdateBuilderoLD {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
+
 
     // <editor-fold defaultstate="collapsed" desc="StringBuilder update(RepositoryData repositoryData, RepositoryMethod repositoryMethod)">
     public static StringBuilder update(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
@@ -33,9 +34,8 @@ public class UpdateBuilder {
                     + "                    return Boolean.FALSE;\n"
                     + "               }\n"
                     + "               Bson filter = Filters.empty();\n"
-                    + "               filter = Filters.eq(\"" + repositoryData.getFieldPk() + "\"," + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "());\n"
-                    + "               UpdateOptions options = new UpdateOptions().upsert(false);\n"
-                    + "               UpdateResult result = collection.updateOne(filter," + repositoryData.getNameOfEntityLower() + "Supplier.toUpdate(" + repositoryData.getNameOfEntityLower() + "),options);\n"
+                    + "               filter = Filters.eq(\"" + repositoryData.getFieldPk() + "\"," + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "());\n"                    
+                    + "               UpdateResult result = collection.updateOne(filter,"+ repositoryData.getNameOfEntityLower()+"Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + "));\n"
                     + "               if (result.getModifiedCount() > 0) {\n"
                     + "                  return Boolean.TRUE;\n"
                     + "               }\n"
@@ -58,17 +58,19 @@ public class UpdateBuilder {
     public static StringBuilder updateOfCrud(RepositoryData repositoryData) {
         StringBuilder builder = new StringBuilder();
         try {
-
-            String nameOfEntityUpper = JmoordbCoreUtil.letterToUpper(repositoryData.getNameOfEntity());
+            
+             String nameOfEntityUpper = JmoordbCoreUtil.letterToUpper(repositoryData.getNameOfEntity());
             String nameOfEntityLower = JmoordbCoreUtil.letterToLower(repositoryData.getNameOfEntity());
 
+            
+        
             String calculateReturn = "";
             String catchReturn = "";
 
             String code
-                    = ProcessorUtil.editorFold("Boolean update(" + nameOfEntityUpper + " " + nameOfEntityLower + ")") + "\n\n"
+                    = ProcessorUtil.editorFold("Boolean update("+ nameOfEntityUpper + " "+nameOfEntityLower+")")+ "\n\n"
                     + "    @Override\n"
-                    + "    public Boolean update(" + nameOfEntityUpper + " " + nameOfEntityLower + ") {\n"
+                    + "    public Boolean update("+ nameOfEntityUpper + " "+nameOfEntityLower + ") {\n"
                     + "        try {\n"
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
@@ -78,8 +80,8 @@ public class UpdateBuilder {
                     + "               }\n"
                     + "               Bson filter = Filters.empty();\n"
                     + "               filter = Filters.eq(\"" + repositoryData.getFieldPk() + "\"," + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "());\n"
-                    + "               UpdateOptions options = new UpdateOptions().upsert(false);\n"
-                    + "               UpdateResult result = collection.updateOne(filter," + repositoryData.getNameOfEntityLower() + "Supplier.toUpdate(" + repositoryData.getNameOfEntityLower() + "),options);\n"
+                    
+                    + "               UpdateResult result = collection.updateOne(filter,"+ repositoryData.getNameOfEntityLower()+"Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + "));\n"
                     + "               if (result.getModifiedCount() > 0) {\n"
                     + "                  return Boolean.TRUE;\n"
                     + "               }\n"
@@ -98,4 +100,5 @@ public class UpdateBuilder {
     }
 
     // </editor-fold>
+
 }

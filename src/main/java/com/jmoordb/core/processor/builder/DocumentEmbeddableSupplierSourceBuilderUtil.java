@@ -123,7 +123,7 @@ public class DocumentEmbeddableSupplierSourceBuilderUtil {
                  */
                 code += "import jakarta.enterprise.context.RequestScoped;\n"
                         + "import jakarta.inject.Inject;\n";
-                        
+
             }
             /**
              * Microprofile
@@ -149,6 +149,9 @@ public class DocumentEmbeddableSupplierSourceBuilderUtil {
                     + "* MongoDB\n"
                     + "*/\n"
                     + "import org.bson.Document;\n"
+                    + "import com.mongodb.client.model.Filters;\n"
+                    + "import com.mongodb.client.model.Updates;\n"
+                    + "import org.bson.conversions.Bson;\n"
                     + "import " + documentEmbeddableData.getPackageOfDocumentEmbeddable() + "." + documentEmbeddableData.getDocumentEmbeddableName() + ";\n"
                     + "import " + documentEmbeddableData.getPackageOfDocumentEmbeddable() + ".*;\n\n\n"
                     + "// </editor-fold>\n";
@@ -183,7 +186,7 @@ public class DocumentEmbeddableSupplierSourceBuilderUtil {
             }
             if (haveEmbedded) {
                 for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {      
+                    if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {
                         code += "    @Inject\n"
                                 + "   " + JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Supplier " + ef.getNameOfMethod() + "Supplier ;\n";
                     }
