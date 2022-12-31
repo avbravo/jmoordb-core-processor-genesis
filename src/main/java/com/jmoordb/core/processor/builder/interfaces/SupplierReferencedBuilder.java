@@ -155,7 +155,7 @@ public interface SupplierReferencedBuilder {
      * @param entityField
      * @return
      */
-    public static String referencedProcessUpdate(EntityData entityData, EntityField entityField, Element element, String caracterComa) {
+    public static String toUpdate(EntityData entityData, EntityField entityField, Element element, String caracterComa) {
         String result = "";
         String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
@@ -170,7 +170,10 @@ public interface SupplierReferencedBuilder {
         String foreignField = idData.getFieldName();
         String from = entityField.getReferenced().from();
         String localField = entityField.getReferenced().localField();
-        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+       /**
+        * Para listas 
+        */  
+        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
@@ -195,7 +198,11 @@ public interface SupplierReferencedBuilder {
                 result += sourceSupplier;
                 return result;
             }
-
+            
+            /**
+             * Referencias simples
+             */
+            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
             result += "\t// Referenced of " + fieldLower + "\n";
 
 
@@ -217,7 +224,7 @@ public interface SupplierReferencedBuilder {
      * @param documentEmbeddableField
      * @return
      */
-    public static String referencedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, Element element ,String caracterComa) {
+    public static String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, Element element ,String caracterComa) {
         String result = "";
         String documentEmbeddableNameUpper = JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName());
         String entityNameLower= JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
@@ -232,8 +239,10 @@ public interface SupplierReferencedBuilder {
         String foreignField = idData.getFieldName();
         String from =entityField.getReferenced().from();
         String localField = entityField.getReferenced().localField();
-        
-        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        /**
+         * Listas de referencias
+         */
+        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
@@ -255,6 +264,11 @@ public interface SupplierReferencedBuilder {
                result += sourceSupplier;
                 return result;
             }
+            
+            /**
+             * Referencias simples
+            */
+             sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
             
             result += "\t// Referenced of " + fieldLower + "\n";
 

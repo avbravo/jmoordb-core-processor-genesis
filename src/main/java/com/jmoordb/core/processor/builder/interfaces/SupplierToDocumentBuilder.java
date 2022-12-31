@@ -14,7 +14,6 @@ import com.jmoordb.core.processor.builder.SupplierSourceBuilderUtil;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcessUpdate;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcess;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcessUpdate;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.processor.model.DocumentEmbeddableData;
@@ -411,7 +410,7 @@ public interface SupplierToDocumentBuilder {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcessUpdate(entityData, entityField,caracterComa);
+                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -420,10 +419,10 @@ public interface SupplierToDocumentBuilder {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += SupplierEmbeddedBuilder.embeddedProcessUpdate(entityData, entityField,caracterComa);
+                            sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
                         } else {
                            
-                            sentence += " " + coma + referencedProcessUpdate(entityData, entityField, element,caracterComa);
+                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                         }
                         count++;
                         break;
@@ -513,7 +512,7 @@ public interface SupplierToDocumentBuilder {
                             sentence += embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
                         } else {
                             //   sentence += "+// Embedded of" + coma + referencedProcess(entityData, entityField, element);
-                            sentence += " " + coma + referencedProcessUpdate(documentEmbeddableData, entityField, element,caracterComa);
+                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
                         }
                         count++;
                         break;
@@ -600,7 +599,7 @@ public interface SupplierToDocumentBuilder {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcessUpdate(entityData, entityField,caracterComa);
+                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -610,10 +609,10 @@ public interface SupplierToDocumentBuilder {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += SupplierEmbeddedBuilder.embeddedProcessUpdate(entityData, entityField,caracterComa);
+                            sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
                         } else {
                             
-                            sentence += " " + coma + referencedProcessUpdate(entityData, entityField, element,caracterComa);
+                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                         }
                         count++;
                         break;
@@ -715,7 +714,7 @@ public interface SupplierToDocumentBuilder {
                             sentence += SupplierEmbeddedBuilder.embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
                         } else {
                             
-                            sentence += " " + coma + referencedProcessUpdate(documentEmbeddableData, entityField, element,caracterComa);
+                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
                         }
                         count++;
                         break;

@@ -130,13 +130,15 @@ public interface SupplierEmbeddedBuilder {
      * @param entityField
      * @return
      */
-    public static String embeddedProcessUpdate(EntityData entityData, EntityField entityField, String caracterComa) {
+    public static String toUpdate(EntityData entityData, EntityField entityField, String caracterComa) {
         String result = "";
         String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
         String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
         String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
-        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        //Si es una lista
+//        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + " .$[]\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         
         try {
 
@@ -159,6 +161,11 @@ public interface SupplierEmbeddedBuilder {
                 result += sourceSupplier;
                 return result;
             }
+            /**
+             * Embedded Simple
+             */
+           sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+           
             result += "\t// Embedded of " + fieldLower + "\n";
 
 
@@ -186,7 +193,11 @@ public interface SupplierEmbeddedBuilder {
         String entityNameLower = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
         String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
         String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
-        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+        
+        /**
+         * Coleccion de Referencias
+         */
+        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
@@ -208,6 +219,10 @@ public interface SupplierEmbeddedBuilder {
                result += sourceSupplier;
                 return result;
             }
+            /**
+             * Simple
+             */
+           sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
             result += "\t// Embedded of " + fieldLower + "\n";
        
  
