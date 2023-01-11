@@ -43,7 +43,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
             for (EntityField entityField : entityFieldList) {
                 switch (entityField.getAnnotationType()) {
                     case EMBEDDED:
@@ -132,7 +133,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
             for (EntityField entityField : entityFieldList) {
                 switch (entityField.getAnnotationType()) {
                     case EMBEDDED:
@@ -212,12 +214,13 @@ public interface SupplierToDocumentBuilder {
             Boolean haveReferenced = DocumentEmbeddableSupplierSourceBuilderUtil.haveReferenced(documentEmbeddableFieldList);
 
 //            String sentence = "\t Document document = new Document();\n";
-            String sentence = "\t \n";
+//            String sentence = "\t \n";
+            String sentence = "\t ";
 
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+            String coma = "\n ";
             for (DocumentEmbeddableField entityField : documentEmbeddableFieldList) {
                 switch (entityField.getAnnotationType()) {
                     case EMBEDDED:
@@ -301,7 +304,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
 
             /**
              * for
@@ -396,7 +400,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n";
             String caracterComa=",";
             for (EntityField entityField : entityFieldList) {
                  if((count +1)== entityFieldList.size()){
@@ -486,7 +491,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
                  String caracterComa=",";
             for (DocumentEmbeddableField entityField : documentEmbeddableFieldList) {
                    if((count + 1) == documentEmbeddableFieldList.size()){
@@ -587,7 +593,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
                 String caracterComa=",";
             for (EntityField entityField : entityFieldList) {
                  if((count + 1) == entityFieldList.size()){
@@ -689,7 +696,8 @@ public interface SupplierToDocumentBuilder {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-            String coma = "\\n \\\"";
+//            String coma = "\\n \\\"";
+            String coma = "\n ";
                 String caracterComa=",";
             for (DocumentEmbeddableField entityField : documentEmbeddableFieldList) {
                  if((count + 1) == documentEmbeddableFieldList.size()){

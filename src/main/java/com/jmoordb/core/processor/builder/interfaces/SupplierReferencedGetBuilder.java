@@ -133,15 +133,11 @@ public interface SupplierReferencedGetBuilder {
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
 //                result += "\t" + fieldUpper + " " + fieldLower + " = (" + fieldUpper + ") document_.get(\"" + fieldLower + "\");\n";
-                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower+"Supplier.get("
-                        +fieldUpper+ "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
-               
-                
-                
+                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
+
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";
 
-                 
-                
             } else {
                 result = SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
             }
@@ -268,11 +264,11 @@ public interface SupplierReferencedGetBuilder {
 
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
-//                result += "\t" + fieldUpper + " " + fieldLower + " = (" + fieldUpper + ") document_.get(\"" + fieldLower + "\");\n";
 
-result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower+"Supplier.get("
-                        +fieldUpper+ "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
-               
+
+                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
+
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";
 
             } else {
