@@ -77,11 +77,13 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
                     String nameOfEntity = ProcessorUtil.nameOfEntity(typeEntity);
                     String packageOfEntity = ProcessorUtil.packageOfTypeMirror(typeEntity);
                    
-
-                    if (uniqueIdCheckList.contains(nameOfEntity)) {
-                        error("AutosecuenceRepository has should be uniquely defined", element);
-                        error = true;
-                    }
+/**
+ * Aqui verificaba que solo existiera uno
+ */
+//                    if (uniqueIdCheckList.contains(nameOfEntity)) {
+//                        error("AutosecuenceRepository has should be uniquely defined", element);
+//                        error = true;
+//                    }
 
                     error = !checkIdValidity(nameOfEntity, element);
                     if (!error) {
