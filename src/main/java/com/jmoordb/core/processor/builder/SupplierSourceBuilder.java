@@ -50,11 +50,18 @@ public class SupplierSourceBuilder {
             builder.append(SupplierBuilder.get(entityData, entityFieldList, element));
 
             builder.append(SupplierToDocumentBuilder.toDocument(entityData, entityFieldList, element));
-
             builder.append(SupplierToDocumentBuilder.toDocumentList(entityData, entityFieldList, element));
-           
+            
+            
             builder.append(SupplierToDocumentBuilder.toUpdate(entityData, entityFieldList, element));
             builder.append(SupplierToDocumentBuilder.toUpdateList(entityData, entityFieldList, element));
+            
+            /**
+             * Metodos para devolver solo la llave primaria
+             */
+            builder.append(SupplierToDocumentBuilder.toReferenced(entityData, entityFieldList, element));
+            builder.append(SupplierToDocumentBuilder.toReferencedList(entityData, entityFieldList, element));
+            
         }
 
         return this;

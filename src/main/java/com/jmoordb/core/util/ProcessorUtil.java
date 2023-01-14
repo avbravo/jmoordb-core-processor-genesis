@@ -1062,6 +1062,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldTReferenced(EntityData entityData)">
+
+    public static String editorFoldToReferenced(EntityData entityData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public Document toReferenced (" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ") ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdate(EntityData entityData)">
 
@@ -1090,6 +1106,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public List<Document> toDocument (List<" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + "> " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToReferenceList(EntityData entityData)">
+
+    public static String editorFoldToReferencedList(EntityData entityData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Document> toReferenced(List<" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + "> " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "List) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1146,6 +1178,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToReferenced(DocumentEmbeddableData documentEmbeddableData)">
+
+    public static String editorFoldToReferenced(DocumentEmbeddableData documentEmbeddableData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public Document toReferenced (" + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + " " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ") ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdate(DocumentEmbeddableData documentEmbeddableData)">
 
     public static String editorFoldToUpdate(DocumentEmbeddableData documentEmbeddableData) {
@@ -1170,6 +1218,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public List<Document> toDocument (List<" + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + "> " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToReferencedList(DocumentEmbeddableData documentEmbeddableData)">
+
+    public static String editorFoldToReferencedList(DocumentEmbeddableData documentEmbeddableData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Document> toReferenced (List<" + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + "> " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "List) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {

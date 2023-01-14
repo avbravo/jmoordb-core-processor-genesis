@@ -48,11 +48,19 @@ public class DocumentEmbeddableSupplierSourceBuilder {
 
             builder.append(DocumentEmbeddableSupplierBuilder.get(documentEmbeddableData, documentEmbeddableFieldList, element));
 
+            
+            //ToDocument
             builder.append(SupplierToDocumentBuilder.toDocument(documentEmbeddableData, documentEmbeddableFieldList, element));
             builder.append(SupplierToDocumentBuilder.toDocumentList(documentEmbeddableData, documentEmbeddableFieldList, element));
 
+            //toUpdate
             builder.append(SupplierToDocumentBuilder.toUpdate(documentEmbeddableData, documentEmbeddableFieldList, element));
             builder.append(SupplierToDocumentBuilder.toUpdateList(documentEmbeddableData, documentEmbeddableFieldList, element));
+            
+            //toReferenced
+             builder.append(SupplierToDocumentBuilder.toReferenced(documentEmbeddableData, documentEmbeddableFieldList, element));
+            builder.append(SupplierToDocumentBuilder.toReferencedList(documentEmbeddableData, documentEmbeddableFieldList, element));
+
         }
 
         //    builder.append(FindByPkOfDocumentEmbeddableBuilder.findByPKOfDocumentEmbeddable(repositoryData));
