@@ -55,7 +55,8 @@ public interface SupplierToJsonBuilder {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += embeddedProcess(entityData, entityField);
+                            //sentence += embeddedProcess(entityData, entityField);
+                              sentence += "+" + coma + referencedProcess(entityData, entityField, element);
                         } else {
                             sentence += "+" + coma + referencedProcess(entityData, entityField, element);
                         }

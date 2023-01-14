@@ -39,7 +39,8 @@ public class SupplierBuilder  implements SupplierToDocumentBuilder{
 
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
+//                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
+                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
                         } else {
                             sentence += SupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
                         }

@@ -40,8 +40,11 @@ public class DocumentEmbeddableSupplierBuilder {
                     case REFERENCED:
 
                         if (documentEmbeddableField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+ /**
+  * Anteriromente lo leia como embebido
+  **/
+ //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
                             sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         }
