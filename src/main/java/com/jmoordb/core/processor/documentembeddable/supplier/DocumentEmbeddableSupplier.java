@@ -1,5 +1,6 @@
-package com.jmoordb.core.processor.builder;
+package com.jmoordb.core.processor.documentembeddable.supplier;
 
+import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
@@ -17,7 +18,7 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class DocumentEmbeddableSupplierBuilder {
+public class DocumentEmbeddableSupplier {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -27,8 +28,8 @@ public class DocumentEmbeddableSupplierBuilder {
     public static StringBuilder get(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = DocumentEmbeddableSupplierSourceBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
-            Boolean haveReferenced = DocumentEmbeddableSupplierSourceBuilderUtil.haveReferenced(documentEmbeddableFieldList);
+            Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
+            Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
 
             String sentence = "\t";
             String cast = "";

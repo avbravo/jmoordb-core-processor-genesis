@@ -10,7 +10,7 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.builder.SupplierSourceBuilderUtil;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcess;
 import com.jmoordb.core.processor.methods.EntityField;
@@ -31,8 +31,8 @@ public interface SupplierToJsonBuilder {
     public static StringBuilder toJson(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = SupplierSourceBuilderUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = SupplierSourceBuilderUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
 
             String sentence = "\t StringBuilder sb = new StringBuilder();\n";
             sentence += "\t\tsb.append(\"{\");\n";

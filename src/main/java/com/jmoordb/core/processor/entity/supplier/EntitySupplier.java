@@ -1,4 +1,4 @@
-package com.jmoordb.core.processor.builder;
+package com.jmoordb.core.processor.entity.supplier;
 
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
@@ -13,9 +13,9 @@ import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.builder.interfaces.SupplierToDocumentBuilder;
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
 
-public class SupplierBuilder  implements SupplierToDocumentBuilder{
+public class EntitySupplier  implements EntitySupplierGenerateToDocument{
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -25,8 +25,8 @@ public class SupplierBuilder  implements SupplierToDocumentBuilder{
     public static StringBuilder get(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = SupplierSourceBuilderUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = SupplierSourceBuilderUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
 
             String sentence = "\t";
             String cast = "";

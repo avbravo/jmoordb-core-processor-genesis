@@ -14,8 +14,8 @@ import java.util.*;
 
 import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.processor.model.EntityDataSupplier;
-import com.jmoordb.core.processor.builder.SupplierSourceBuilder;
-import com.jmoordb.core.processor.analizer.EntityAnalizer;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierSource;
+import com.jmoordb.core.processor.entity.analizer.EntityAnalizer;
 import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -121,9 +121,9 @@ public class EntityProcessor extends AbstractProcessor {
             /**
              * Construye la clase Supplier
              */
-            SupplierSourceBuilder supplierSourceBuilder = new SupplierSourceBuilder();
+            EntitySupplierSource entitySupplierSourceBuilder = new EntitySupplierSource();
 
-            supplierSourceBuilder.init(entity, entityData, entityFieldList, entityData.getDatabase(), entityData.getCollection(),element);
+            entitySupplierSourceBuilder.init(entity, entityData, entityFieldList, entityData.getDatabase(), entityData.getCollection(),element);
 
             /**
              * SupplierServices
@@ -131,7 +131,7 @@ public class EntityProcessor extends AbstractProcessor {
             /**
              * Crea el archivo
              */
-            generateJavaFile(entityData.getPackageOfEntity() + "." + entityData.getEntityName() + "Supplier", supplierSourceBuilder.end());
+            generateJavaFile(entityData.getPackageOfEntity() + "." + entityData.getEntityName() + "Supplier", entitySupplierSourceBuilder.end());
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
