@@ -4,10 +4,7 @@
  */
 package com.jmoordb.core.processor.entity.supplier.generate.util;
 
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.processor.model.IdData;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
@@ -120,6 +117,7 @@ public interface EntitySupplierReferencedUtil {
              sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         }else{
             
+//             sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdateReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
              sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         }
         
@@ -149,8 +147,9 @@ public interface EntitySupplierReferencedUtil {
              * Referencias simples
              */
               if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
               }else{
+//                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdateReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
                 sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
             }
             result += "\t// Referenced of " + fieldLower + "\n";

@@ -9,6 +9,7 @@ import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToReferenced;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToUpdate;
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToUpdateReferenced;
 
 /**
  * This class only works if we add elements in proper sequence.
@@ -63,6 +64,17 @@ public class EntitySupplierSource {
             //toReferenced
             builder.append(EntitySupplierGenerateToReferenced.toReferenced(entityData, entityFieldList, element));
             builder.append(EntitySupplierGenerateToReferenced.toReferencedList(entityData, entityFieldList, element));
+            
+            /**
+             * Genera los metodos toUpdateReferenced que seran usados por los metodos Update cuendo es 
+             * un Referenciado de tipo REFERENCED
+             * toReferencedUpdate
+             * 
+             */
+             //toReferenced
+            builder.append(EntitySupplierGenerateToUpdateReferenced.toUpdateReferenced(entityData, entityFieldList, element));
+            builder.append(EntitySupplierGenerateToUpdateReferenced.toUpdateListReferenced(entityData, entityFieldList, element));
+            
             
         }
 

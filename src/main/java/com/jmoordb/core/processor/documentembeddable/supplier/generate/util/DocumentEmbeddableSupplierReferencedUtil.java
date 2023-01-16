@@ -4,11 +4,8 @@
  */
 package com.jmoordb.core.processor.documentembeddable.supplier.generate.util;
 
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.processor.model.DocumentEmbeddableData;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.processor.model.IdData;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -21,7 +18,6 @@ import javax.lang.model.element.Element;
  */
 public interface DocumentEmbeddableSupplierReferencedUtil {
 
-
     // <editor-fold defaultstate="collapsed" desc="String referencedProcess(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField,, Boolean typeReferencedEmbedded)">
     /**
      * Procesa los documentos Referenciados
@@ -31,7 +27,7 @@ public interface DocumentEmbeddableSupplierReferencedUtil {
      * @return
      */
     public static String referencedProcess(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField,
-            Element element,Boolean typeReferencedEmbedded) {
+            Element element, Boolean typeReferencedEmbedded) {
         String result = "";
         String documentEmbeddableNameUpper = JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
@@ -86,9 +82,7 @@ public interface DocumentEmbeddableSupplierReferencedUtil {
     }
     // </editor-fold>
 
-
-
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcess(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField,String caracterComa,Boolean typeReferencedEmbedded)">
+    // <editor-fold defaultstate="collapsed" desc="String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField,String caracterComa,Boolean typeReferencedEmbedded)">
     /**
      * Procesa los documentos Referenciados
      *
@@ -96,7 +90,7 @@ public interface DocumentEmbeddableSupplierReferencedUtil {
      * @param documentEmbeddableField
      * @return
      */
-    public static String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, Element element, String caracterComa,Boolean typeReferencedEmbedded) {
+    public static String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, Element element, String caracterComa, Boolean typeReferencedEmbedded) {
         String result = "";
         String documentEmbeddableNameUpper = JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
@@ -116,13 +110,14 @@ public interface DocumentEmbeddableSupplierReferencedUtil {
          */
 //        String sourceSupplier= "\t\tUpdates.set(\"" + fieldLower+ ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
 
- String sourceSupplier = "";
+        String sourceSupplier = "";
         if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-        }else{
-         sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-    }
-        
+            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+        } else {
+//            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdateReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+        }
+
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
@@ -143,16 +138,22 @@ public interface DocumentEmbeddableSupplierReferencedUtil {
 
                 result += sourceSupplier;
                 return result;
-            }
-
-            /**
+            }else{
+                 /**
              * Referencias simples
              */
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            if (typeReferencedEmbedded) {
+                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            } else {
+                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdateReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            }
 
             result += "\t// Referenced of " + fieldLower + "\n";
 
             result += sourceSupplier;
+            }
+
+           
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());

@@ -18,15 +18,9 @@ import javax.lang.model.element.Element;
  *
  * @author avbravo
  */
-public interface EntitySupplierGenerateToReferenced {
-   
-    
-    
-    
-    
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element)">
-
-    public static StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element) {
+public interface EntitySupplierGenerateToUpdateReferenced {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder toUpdateReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element)">
+    public static StringBuilder toUpdateReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
@@ -38,19 +32,23 @@ public interface EntitySupplierGenerateToReferenced {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
+            String coma = "\n";
 
-            String coma = "\n ";
             for (EntityField entityField : entityFieldList) {
+                
+                 
                 switch (entityField.getAnnotationType()) {
-
+                   
+                 
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
                         getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ "\n";
                         count++;
                         break;
+                   
 
                 }
 
@@ -58,15 +56,17 @@ public interface EntitySupplierGenerateToReferenced {
 
             sentence += "\t\n";
             String code
-                    = ProcessorUtil.editorFoldToReferenced(entityData) + "\n\n"
-                    + "    public Document toReferenced(" + entityData.getEntityName() + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ") {\n"
-                    + "        Document document_ = new Document();\n"
+                    = ProcessorUtil.editorFoldToUpdateReferenced(entityData) + "\n\n"
+                    + "    public Bson toUpdateReferenced(" + entityData.getEntityName() + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ") {\n"
+                    + "        Bson update_ = Filters.empty();\n"
                     + "        try {\n"
+                    + "        update_ = Updates.combine(\n"
                     + sentence + "\n"
+                    + "        );" + "\n"
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
-                    + "         return document_;\n"
+                    + "         return update_;\n"
                     + "     }\n"
                     + "// </editor-fold>\n";
 
@@ -79,13 +79,17 @@ public interface EntitySupplierGenerateToReferenced {
     }
 
     // </editor-fold>
+   
     
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toRefernecedList(EntityData entityData, List<EntityField> entityFieldList, Element element)">
-    public static StringBuilder toReferencedList(EntityData entityData, List<EntityField> entityFieldList, Element element) {
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder toUpdateListReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element)">
+    public static StringBuilder toUpdateListReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+
 
             String sentence = "\t \n";
 
@@ -95,42 +99,50 @@ public interface EntitySupplierGenerateToReferenced {
             String upper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
             String lower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
 
-            sentence += "\t for(" + upper + " " + lower + " : " + lower + "List){\n";
-            sentence += "\t\t Document document_ = new Document();\n";
+        
+      
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
+
             for (EntityField entityField : entityFieldList) {
+                 
                 switch (entityField.getAnnotationType()) {
-                  
+                 
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
                         getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+"\n";
                         count++;
                         break;
-                   
+                 
+
                 }
 
             }
-            sentence += "\t\tdocumentList_.add(document_);\n";
-//            sentence += "\treturn document;\n";
+
+
             sentence += "\t\n";
             String code
-                    = ProcessorUtil.editorFoldToReferencedList(entityData) + "\n\n"
-                    + "    public List<Document> toReferenced(List<" + entityData.getEntityName() + "> " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "List) {\n"
-                    + "        List<Document> documentList_ = new ArrayList<>();\n"
+                    = ProcessorUtil.editorFoldToUpdateListReferenced(entityData) + "\n\n"
+                    + "    public List<Bson> toUpdateReferenced(List<" + entityData.getEntityName() + "> " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "List) {\n"
+                    + "        List<Bson> bsonList_ = new ArrayList<>();\n"
                     + "        try {\n"
+                    + "\t for(" + upper + " " + lower + " : " + lower + "List){\n"
+                    + "\t\t Bson update_ = Filters.empty();\n"
+                    + "\t\t\tupdate_ = Updates.combine(\n"
                     + sentence + "\n"
+                       + "        );" + "\n"
+                    + "\t\tbsonList_.add(update_);\n "+ "\n"
                     + "       }\n"
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
-                    + "         return documentList_;\n"
+                    + "         return bsonList_;\n"
                     + "     }\n"
                     + "// </editor-fold>\n";
 
@@ -143,8 +155,10 @@ public interface EntitySupplierGenerateToReferenced {
     }
 
     // </editor-fold>
+
     
     
-   
+    
+    
     
 }

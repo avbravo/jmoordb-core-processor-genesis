@@ -10,7 +10,6 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
-import com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.processor.model.EntityData;
@@ -39,7 +38,6 @@ public interface EntitySupplierGenerateToUpdate {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
             String coma = "\n";
             String caracterComa=",";
             for (EntityField entityField : entityFieldList) {
@@ -62,14 +60,12 @@ public interface EntitySupplierGenerateToUpdate {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                            System.out.println("Test>>>>>>> es TypeReferenced.EMBEDDED [" +entityData.getEntityName()+"].{"+entityField.getReferenced().from()+"}");
+                            
                            // sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
 //                           sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
-                           System.out.println("Test>>>>>>> no es TypeReferenced.EMBEDDED [" +entityData.getEntityName()+"].{"+entityField.getReferenced().from()+"}");
                            
-                            System.out.println("Test>>>>> lo que devuelve "+EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE));
 //                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                             sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
                         }
