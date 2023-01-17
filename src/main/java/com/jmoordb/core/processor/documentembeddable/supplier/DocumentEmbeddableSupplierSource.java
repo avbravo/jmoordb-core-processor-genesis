@@ -9,7 +9,6 @@ import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateToDocument;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateToReferenced;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateToUpdate;
-import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateToUpdateReferenced;
 
 /**
  * This class only works if we add elements in proper sequence.
@@ -65,17 +64,7 @@ public class DocumentEmbeddableSupplierSource {
             builder.append(DocumentEmbeddableSupplierGenerateToReferenced.toReferencedList(documentEmbeddableData, documentEmbeddableFieldList, element));
 
             
-              /**
-             * Genera los metodos toUpdateReferenced que seran usados por los metodos Update cuendo es 
-             * un Referenciado de tipo REFERENCED
-             * toReferencedUpdate
-             * 
-             */
-             //toReferenced
-             
-           builder.append(DocumentEmbeddableSupplierGenerateToUpdateReferenced.toUpdateReferenced(documentEmbeddableData, documentEmbeddableFieldList, element));
-            builder.append(DocumentEmbeddableSupplierGenerateToUpdateReferenced.toUpdateListReferenced(documentEmbeddableData, documentEmbeddableFieldList, element));
-
+            
         }
 
         //    builder.append(FindByPkOfDocumentEmbeddableBuilder.findByPKOfDocumentEmbeddable(repositoryData));
