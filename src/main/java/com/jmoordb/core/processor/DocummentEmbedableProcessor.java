@@ -116,19 +116,7 @@ public class DocummentEmbedableProcessor extends AbstractProcessor {
              */
             DocumentEmbeddableAnalizer documentEmbeddableAnalizer = DocumentEmbeddableAnalizer.get(element, messager, documentEmbeddableData.getDatabase(), documentEmbeddableFieldList, documentEmbeddableData);
 
-            /**
-             * Imprimo información de los metodos
-             */
-//            if (documentEmbeddableFieldList.isEmpty()) {
-//                MessagesUtil.test("No hay información de los métodos para recorrer");
-//            } else {
-//                MessagesUtil.test("....................................................");
-//                MessagesUtil.test("Imprimiendo List<DocumentEmbeddableField>");
-//                for (DocumentEmbeddableField documentEmbeddableField : documentEmbeddableFieldList) {
-//                    System.out.println(" " + documentEmbeddableField.toString());
-//                }
-//                MessagesUtil.test("....................................................");
-//            }
+
             /**
              * Construye la clase Supplier
              */
