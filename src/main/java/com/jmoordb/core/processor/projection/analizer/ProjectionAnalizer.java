@@ -1,4 +1,4 @@
-package com.jmoordb.core.processor.entity.analizer;
+package com.jmoordb.core.processor.projection.analizer;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Embedded;
@@ -16,8 +16,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.VariableElement;
-import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.EntityData;
+import com.jmoordb.core.processor.methods.ProjectionField;
+import com.jmoordb.core.processor.model.ProjectionData;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
@@ -26,17 +26,17 @@ import javax.tools.Diagnostic;
 /**
  * 
  * @author avbravo
- * @@code Analiza la anotación @Entity y genera List<EntityField>
+ * @@code Analiza la anotación @Projection y genera List<ProjectionField>
  */
-public class EntityAnalizer {
+public class ProjectionAnalizer {
 
 
-    public EntityAnalizer() {
+    public ProjectionAnalizer() {
     }
 
 
 
-// <editor-fold defaultstate="collapsed" desc="EntityAnalizer get(Element element, Messager messager, String database, TypeMirror typeEntity, List<EntityMethod> entityMethodList)">
+// <editor-fold defaultstate="collapsed" desc="ProjectionAnalizer get(Element element, Messager messager, String database, TypeMirror typeProjection, List<ProjectionMethod> projectionMethodList)">
 
     /**
      * Procesa los metodos definidos en la interface
@@ -44,7 +44,7 @@ public class EntityAnalizer {
      * @param element
      * @return
      */
-    public static EntityAnalizer get(Element element, Messager messager, String database, List<EntityField> entityFieldList, EntityData entityData) {
+    public static ProjectionAnalizer get(Element element, Messager messager, String database, List<ProjectionField> projectionFieldList, ProjectionData projectionData) {
         LinkedHashMap<String, String> fields = new LinkedHashMap<>();
         List<String> mandatoryFields = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class EntityAnalizer {
 
             String type = ProcessorUtil.getTypeOfField(v);
 
-            EntityField entityField = new EntityField.Builder()
+            ProjectionField projectionField = new ProjectionField.Builder()
                     .nameOfMethod(nameOfField)
                     .returnTypeValue(type)                    
                     .annotationType(AnnotationType.NONE)
@@ -70,7 +70,7 @@ public class EntityAnalizer {
                     
                     .build();
 
-           if(!ProcessorUtil.isValidAnnotationForEntity(v)){
+           if(!ProcessorUtil.isValidAnnotationForProjection(v)){
                 messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " You do not have a valid annotation.", element);
                 return;
            }
@@ -88,8 +88,8 @@ public class EntityAnalizer {
 
             Id id = v.getAnnotation(Id.class);
             if (id != null) {
-                entityField.setAnnotationType(AnnotationType.ID);
-                entityField.setId(id);
+                projectionField.setAnnotationType(AnnotationType.ID);
+                projectionField.setId(id);
                 if (!type.startsWith("java.lang.String") && !type.startsWith("java.lang.Long")) {
                     messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " Must be of type String or Long.", element);
                 }
@@ -100,29 +100,29 @@ public class EntityAnalizer {
             }
             Column column = v.getAnnotation(Column.class);
             if (column != null) {
-                entityField.setAnnotationType(AnnotationType.COLUMN);
-                entityField.setColumn(column);
+                projectionField.setAnnotationType(AnnotationType.COLUMN);
+                projectionField.setColumn(column);
             }
             Embedded embedded = v.getAnnotation(Embedded.class);
             if (embedded != null) {
              
-                entityField.setAnnotationType(AnnotationType.EMBEDDED);
-                entityField.setEmbedded(embedded);
+                projectionField.setAnnotationType(AnnotationType.EMBEDDED);
+                projectionField.setEmbedded(embedded);
 
             }
             Referenced referenced = v.getAnnotation(Referenced.class);
             if (referenced != null) {
 
-                entityField.setAnnotationType(AnnotationType.REFERENCED);
-                entityField.setReferenced(referenced);
-                entityField.setTypeReferenced(referenced.typeReferenced());
+                projectionField.setAnnotationType(AnnotationType.REFERENCED);
+                projectionField.setReferenced(referenced);
+                projectionField.setTypeReferenced(referenced.typeReferenced());
             }
 
-            entityFieldList.add(entityField);
+            projectionFieldList.add(projectionField);
         }
         });
 
-        return new EntityAnalizer();
+        return new ProjectionAnalizer();
 
     }
 // </editor-fold>

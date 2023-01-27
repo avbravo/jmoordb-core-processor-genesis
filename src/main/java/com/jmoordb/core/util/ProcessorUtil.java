@@ -50,6 +50,7 @@ import com.jmoordb.core.annotation.view.VForm;
 import com.jmoordb.core.annotation.view.VTemplate;
 import com.jmoordb.core.annotation.view.VMenu;
 import com.jmoordb.core.processor.methods.view.ViewMethod;
+import com.jmoordb.core.processor.model.ProjectionData;
 
 /**
  *
@@ -998,6 +999,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFold(ProjectionData projectionData)">
+
+    public static String editorFold(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + " get(Supplier<? extends" + projectionData.getProjectionName() + "> s, Document document) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFold(DateSupportData dateSupportData)">
 
     public static String editorFold(DateSupportData dateSupportData) {
@@ -1062,6 +1079,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToDocument(ProjectionData projectionData)">
+
+    public static String editorFoldToDocument(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public Document toDocument (" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + " " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ") ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFoldTReferenced(EntityData entityData)">
 
     public static String editorFoldToReferenced(EntityData entityData) {
@@ -1070,6 +1103,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public Document toReferenced (" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ") ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldTReferenced(ProjectionData projectionData)">
+
+    public static String editorFoldToReferenced(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public Document toReferenced (" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + " " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ") ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1087,6 +1136,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public Bson toUpdate (" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ") ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdate(ProjectionData projectionData)">
+
+    public static String editorFoldToUpdate(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public Bson toUpdate (" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + " " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ") ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1130,6 +1195,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToDocumentList(ProjectionData projectionData)">
+
+    public static String editorFoldToDocumentList(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Document> toDocument (List<" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + "> " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFoldToReferenceList(EntityData entityData)">
 
     public static String editorFoldToReferencedList(EntityData entityData) {
@@ -1146,6 +1227,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToReferenceList(ProjectionData projectionData)">
+
+    public static String editorFoldToReferencedList(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Document> toReferenced(List<" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + "> " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdateList(EntityData entityData)">
 
     public static String editorFoldToUpdateList(EntityData entityData) {
@@ -1154,6 +1251,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public List<Bson> toUpdate (List<" + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + "> " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "List) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdateList(ProjectionData projectionData)">
+
+    public static String editorFoldToUpdateList(ProjectionData projectionData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public List<Bson> toUpdate (List<" + JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName()) + "> " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + "List) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1459,6 +1572,34 @@ public class ProcessorUtil {
      * @return
      */
     public static Boolean isValidAnnotationForEntity(VariableElement variableElement) {
+        Boolean isValid = Boolean.FALSE;
+        try {
+            Id id = variableElement.getAnnotation(Id.class);
+            Column column = variableElement.getAnnotation(Column.class);
+            Embedded embedded = variableElement.getAnnotation(Embedded.class);
+            Referenced referenced = variableElement.getAnnotation(Referenced.class);
+
+            if (id == null && column == null && embedded == null && referenced == null) {
+
+            } else {
+                return Boolean.TRUE;
+            }
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return isValid;
+    }
+
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc=" public static Boolean isValidAnnotationForProjection(ExecutableElement executableElement)">
+    /**
+     * Valida que sea una anotación valida para un Entity
+     *
+     * @param executableElement
+     * @return
+     */
+    public static Boolean isValidAnnotationForProjection(VariableElement variableElement) {
         Boolean isValid = Boolean.FALSE;
         try {
             Id id = variableElement.getAnnotation(Id.class);

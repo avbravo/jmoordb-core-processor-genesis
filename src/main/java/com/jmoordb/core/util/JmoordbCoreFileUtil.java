@@ -352,6 +352,31 @@ public class JmoordbCoreFileUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="readProjectionIdAnnotationOfFile(Element element, String fileToRead)">
+
+    /**
+     * Lee el contenido de un archivo
+     *
+     * @param fileToRead
+     * @return
+     */
+    public static IdData readIdAnnotationOfProjectionFile(Element element, String fileToRead, IdData idData) {
+        IdData result = idData;
+        try {
+            fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
+            Path path = Paths.get(fileToRead);
+         
+            Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
+            if (lineEndId != 0) {
+                procesarPK(Files.lines(path), idData, lineEndId);
+            }
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="readIdAnnotationOfDocumentEmbeddableFile(Element element, String fileToRead)">
 
     /**
