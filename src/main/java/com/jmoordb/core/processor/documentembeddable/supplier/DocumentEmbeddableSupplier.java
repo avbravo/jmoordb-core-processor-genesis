@@ -1,6 +1,5 @@
 package com.jmoordb.core.processor.documentembeddable.supplier;
 
-import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
@@ -30,6 +29,7 @@ public class DocumentEmbeddableSupplier {
         try {
             Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
             Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
+            Boolean haveViewReferenced = DocumentEmbeddableSupplierSourceUtil.haveViewReferenced(documentEmbeddableFieldList);
 
             String sentence = "\t";
             String cast = "";
@@ -48,6 +48,19 @@ public class DocumentEmbeddableSupplier {
                             sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
                             sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                        }
+
+                        break;
+                    case VIEWREFERENCED:
+
+                        if (documentEmbeddableField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+ /**
+  * Anteriromente lo leia como embebido
+  **/
+ //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                        } else {
+                            sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         }
 
                         break;

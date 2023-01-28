@@ -43,6 +43,8 @@ public class EntityField {
         this.typeReferenced = typeReferenced;
     }
 
+   
+
     public ViewReferenced getViewReferenced() {
         return viewReferenced;
     }
@@ -129,16 +131,16 @@ public class EntityField {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("EntityField{");
-        sb.append("returnTypeValue=").append(returnTypeValue);
-        sb.append(", nameOfMethod=").append(nameOfMethod);
-        sb.append(", annotationType=").append(annotationType);
-        sb.append(", returnType=").append(returnType);
-        sb.append(", id=").append(id);
-        sb.append(", column=").append(column);
-        sb.append(", embedded=").append(embedded);
-        sb.append(", referenced=").append(referenced);
-        sb.append(", viewReferenced=").append(viewReferenced);
-        sb.append(", typeReferenced=").append(typeReferenced);
+        sb.append("\nreturnTypeValue=").append(returnTypeValue);
+        sb.append("\n, nameOfMethod=").append(nameOfMethod);
+        sb.append("\n, annotationType=").append(annotationType);
+        sb.append("\n, returnType=").append(returnType);
+        sb.append("\n, id=").append(id);
+        sb.append("\n, column=").append(column);
+        sb.append("\n, embedded=").append(embedded);
+        sb.append("\n, referenced=").append(referenced);
+        sb.append("\n, viewReferenced=").append(viewReferenced);
+        sb.append("\n, typeReferenced=").append(typeReferenced);
         sb.append('}');
         return sb.toString();
     }
@@ -208,7 +210,7 @@ public class EntityField {
         }
 
         public EntityField build() {
-            return new EntityField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, viewReferenced, viewReferenced, typeReferenced);
+            return new EntityField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
 
         }
 

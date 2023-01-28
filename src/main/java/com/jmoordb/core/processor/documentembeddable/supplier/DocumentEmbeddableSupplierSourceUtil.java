@@ -174,7 +174,8 @@ public class DocumentEmbeddableSupplierSourceUtil {
 
             if (haveReferenced) {
                 for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED) 
+                            || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
                         String packagePath = JmoordbCoreFileUtil.packageOfFileInProject(element, JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Repository.java");
                         code += "    @Inject\n"
@@ -238,6 +239,30 @@ public class DocumentEmbeddableSupplierSourceUtil {
         try {
             for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    result = Boolean.TRUE;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+
+    }
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="Boolean haveViewReferenced(List<DocumentEmbeddableField> documentEmbeddableFieldList)">
+    /**
+     * Verifica si tiene un Embedded definido
+     *
+     * @param documentEmbeddableFieldList
+     * @return
+     */
+    public static Boolean haveViewReferenced(List<DocumentEmbeddableField> documentEmbeddableFieldList) {
+        Boolean result = Boolean.FALSE;
+        try {
+            for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
+                if (ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
                     result = Boolean.TRUE;
                     break;
                 }

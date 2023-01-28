@@ -46,6 +46,8 @@ public class DocumentEmbeddableField {
         this.typeReferenced = typeReferenced;
     }
 
+  
+
     public ViewReferenced getViewReferenced() {
         return viewReferenced;
     }
@@ -211,7 +213,7 @@ public class DocumentEmbeddableField {
         }
 
         public DocumentEmbeddableField build() {
-            return new DocumentEmbeddableField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, viewReferenced, viewReferenced, typeReferenced);
+            return new DocumentEmbeddableField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
 
         }
 

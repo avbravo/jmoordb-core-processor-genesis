@@ -10,23 +10,16 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
-import com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder;
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcessUpdate;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcess;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.processor.model.DocumentEmbeddableData;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierReferencedUtil;
+import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierViewReferencedUtil;
 
 /**
  *
@@ -73,6 +66,23 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                             
 //                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField,element, Boolean.FALSE);
+                        }
+                        count++;
+                        break;
+                    case VIEWREFERENCED:
+                        if (count > 0) {
+//                            coma = "\n, \"";
+                            coma = "\n";
+                        }
+                        if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+
+                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
+//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                           sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
+                        } else {
+                            
+//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                            sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField,element, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -171,6 +181,23 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                            
 //                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.FALSE);
+                        }
+                        count++;
+                        break;
+                    case VIEWREFERENCED:
+                        if (count > 0) {
+//                            coma = "\n, \"";
+                            coma = "\n";
+                        }
+                        if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+
+                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
+//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                           sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
+                        } else {
+                           
+//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                            sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.FALSE);
                         }
                         count++;
                         break;

@@ -43,6 +43,7 @@ public class ProjectionField {
         this.typeReferenced = typeReferenced;
     }
 
+
     public ViewReferenced getViewReferenced() {
         return viewReferenced;
     }
@@ -209,7 +210,7 @@ public class ProjectionField {
         }
 
         public ProjectionField build() {
-            return new ProjectionField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, typeReferenced);
+            return new ProjectionField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
 
         }
 

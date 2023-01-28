@@ -33,6 +33,7 @@ public interface SupplierToJsonBuilder {
         try {
             Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+            Boolean haveViewReferenced = EntitySupplierSourceUtil.haveViewReferenced(entityFieldList);
 
             String sentence = "\t StringBuilder sb = new StringBuilder();\n";
             sentence += "\t\tsb.append(\"{\");\n";
@@ -62,6 +63,7 @@ public interface SupplierToJsonBuilder {
                         }
                         count++;
                         break;
+                   
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";

@@ -176,7 +176,8 @@ public class EntitySupplierSourceUtil {
 
             if (haveReferenced) {
                 for (EntityField ef : entityFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
+                            || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
                         String packagePath = JmoordbCoreFileUtil.packageOfFileInProject(element, JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Repository.java");
                         code += "    @Inject\n"
@@ -240,6 +241,30 @@ public class EntitySupplierSourceUtil {
         try {
             for (EntityField ef : entityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    result = Boolean.TRUE;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+
+    }
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="Boolean haveViewReferenced(List<EntityField> entityFieldList)">
+    /**
+     * Verifica si tiene un Embedded definido
+     *
+     * @param entityFieldList
+     * @return
+     */
+    public static Boolean haveViewReferenced(List<EntityField> entityFieldList) {
+        Boolean result = Boolean.FALSE;
+        try {
+            for (EntityField ef : entityFieldList) {
+                if (ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
                     result = Boolean.TRUE;
                     break;
                 }

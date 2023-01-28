@@ -37,7 +37,8 @@ public class DocumentEmbeddableSupplierSource {
 
         Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
         Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
-        if (haveReferenced || haveEmbedded) {
+        Boolean haveViewReferenced = DocumentEmbeddableSupplierSourceUtil.haveViewReferenced(documentEmbeddableFieldList);
+        if (haveReferenced || haveEmbedded || haveViewReferenced) {
             builder.append(sourceDocumentEmbeddableUtilBuilder.inject(documentEmbeddable, documentEmbeddableData, database, collection, documentEmbeddableFieldList, element, haveReferenced, haveEmbedded));
         }
 

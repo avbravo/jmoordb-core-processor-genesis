@@ -37,7 +37,8 @@ public class EntitySupplierSource {
 
         Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
         Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
-        if (haveReferenced || haveEmbedded) {
+        Boolean haveViewReferenced = EntitySupplierSourceUtil.haveViewReferenced(entityFieldList);
+        if (haveReferenced || haveEmbedded || haveViewReferenced) {
             builder.append(entitySupplierSourceUtil.inject(entity, entityData, database, collection, entityFieldList, element, haveReferenced, haveEmbedded));
         }
 

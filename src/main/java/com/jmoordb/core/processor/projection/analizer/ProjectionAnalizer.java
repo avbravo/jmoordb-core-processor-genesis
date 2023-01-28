@@ -123,7 +123,7 @@ public class ProjectionAnalizer {
             if (viewReferenced != null) {
 
                 projectionField.setAnnotationType(AnnotationType.VIEWREFERENCED);
-                projectionField.setReferenced(viewReferenced);
+                projectionField.setViewReferenced(viewReferenced);
                 projectionField.setTypeReferenced(viewReferenced.typeReferenced());
             }
 

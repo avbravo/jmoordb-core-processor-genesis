@@ -43,6 +43,8 @@ public class DateSupportField {
         this.typeReferenced = typeReferenced;
     }
 
+
+
     public ViewReferenced getViewReferenced() {
         return viewReferenced;
     }
@@ -210,7 +212,7 @@ public class DateSupportField {
         }
 
         public DateSupportField build() {
-            return new DateSupportField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, viewReferenced, viewReferenced, typeReferenced);
+            return new DateSupportField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
 
         }
 

@@ -176,7 +176,8 @@ public class ProjectionSupplierSourceUtil {
 
             if (haveReferenced) {
                 for (ProjectionField ef : projectionFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
+                            || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
                         String packagePath = JmoordbCoreFileUtil.packageOfFileInProject(element, JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Repository.java");
                         code += "    @Inject\n"
@@ -240,6 +241,30 @@ public class ProjectionSupplierSourceUtil {
         try {
             for (ProjectionField ef : projectionFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
+                    result = Boolean.TRUE;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+
+    }
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="  Boolean haveViewReferenced(List<ProjectionField> projectionFieldList)">
+    /**
+     * Verifica si tiene un Embedded definido
+     *
+     * @param projectionFieldList
+     * @return
+     */
+    public static Boolean haveViewReferenced(List<ProjectionField> projectionFieldList) {
+        Boolean result = Boolean.FALSE;
+        try {
+            for (ProjectionField ef : projectionFieldList) {
+                if (ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
                     result = Boolean.TRUE;
                     break;
                 }

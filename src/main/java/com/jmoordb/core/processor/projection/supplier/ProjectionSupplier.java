@@ -46,6 +46,17 @@ public class ProjectionSupplier  implements ProjectionSupplierGenerateToDocument
                         }
 
                         break;
+                    case VIEWREFERENCED:
+
+                        if (projectionField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+
+//                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(projectionData, projectionField);
+                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(projectionData, projectionField, element);
+                        } else {
+                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(projectionData, projectionField, element);
+                        }
+
+                        break;
                     case ID:
                         cast = castConverter(projectionField.getReturnTypeValue(), projectionField.getNameOfMethod());
                         sentence += "\n\t " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ".set" + JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod()) + "(" + cast + ");\n";

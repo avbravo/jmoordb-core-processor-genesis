@@ -117,7 +117,7 @@ public class DocumentEmbeddableAnalizer {
             if (viewReferenced != null) {
 
                 documentEmbeddableField.setAnnotationType(AnnotationType.VIEWREFERENCED);
-                documentEmbeddableField.setReferenced(viewReferenced);
+                documentEmbeddableField.setViewReferenced(viewReferenced);
                 documentEmbeddableField.setTypeReferenced(viewReferenced.typeReferenced());
             }
             

@@ -37,6 +37,7 @@ public class ProjectionSupplierSource {
 
         Boolean haveEmbedded = ProjectionSupplierSourceUtil.haveEmbedded(projectionFieldList);
         Boolean haveReferenced = ProjectionSupplierSourceUtil.haveReferenced(projectionFieldList);
+        Boolean haveViewReferenced = ProjectionSupplierSourceUtil.haveViewReferenced(projectionFieldList);
         if (haveReferenced || haveEmbedded) {
             builder.append(projectionSupplierSourceUtil.inject(projection, projectionData, database, collection, projectionFieldList, element, haveReferenced, haveEmbedded));
         }

@@ -123,7 +123,7 @@ public class EntityAnalizer {
             if (viewReferenced != null) {
 
                 entityField.setAnnotationType(AnnotationType.VIEWREFERENCED);
-                entityField.setReferenced(viewReferenced);
+                entityField.setViewReferenced(viewReferenced);
                 entityField.setTypeReferenced(viewReferenced.typeReferenced());
             }
 
