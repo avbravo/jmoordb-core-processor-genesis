@@ -8,10 +8,10 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
+import com.jmoordb.core.annotation.ViewReferenced;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import java.util.List;
 
 /**
  *
@@ -27,9 +27,10 @@ public class EntityField {
     private Column column;
     private Embedded embedded;
     private Referenced referenced;
+    private ViewReferenced viewReferenced;
     private TypeReferenced typeReferenced;
 
-    public EntityField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, TypeReferenced typeReferenced) {
+    public EntityField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, ViewReferenced viewReferenced, TypeReferenced typeReferenced) {
         this.returnTypeValue = returnTypeValue;
         this.nameOfMethod = nameOfMethod;
         this.annotationType = annotationType;
@@ -38,8 +39,19 @@ public class EntityField {
         this.column = column;
         this.embedded = embedded;
         this.referenced = referenced;
+        this.viewReferenced = viewReferenced;
         this.typeReferenced = typeReferenced;
     }
+
+    public ViewReferenced getViewReferenced() {
+        return viewReferenced;
+    }
+
+    public void setViewReferenced(ViewReferenced viewReferenced) {
+        this.viewReferenced = viewReferenced;
+    }
+
+  
 
     public TypeReferenced getTypeReferenced() {
         return typeReferenced;
@@ -117,18 +129,21 @@ public class EntityField {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("EntityField{");
-        sb.append("\n\treturnTypeValue=").append(returnTypeValue);
-        sb.append("\n\t, nameOfMethod=").append(nameOfMethod);
-        sb.append("\n\t, annotationType=").append(annotationType);
-        sb.append("\n\t, returnType=").append(returnType);
-        sb.append("\n\t, id=").append(id);
-        sb.append("\n\t, column=").append(column);
-        sb.append("\n\t, embedded=").append(embedded);
-        sb.append("\n\t, referenced=").append(referenced);
-        sb.append("\n\t, typeReferenced=").append(typeReferenced);
+        sb.append("returnTypeValue=").append(returnTypeValue);
+        sb.append(", nameOfMethod=").append(nameOfMethod);
+        sb.append(", annotationType=").append(annotationType);
+        sb.append(", returnType=").append(returnType);
+        sb.append(", id=").append(id);
+        sb.append(", column=").append(column);
+        sb.append(", embedded=").append(embedded);
+        sb.append(", referenced=").append(referenced);
+        sb.append(", viewReferenced=").append(viewReferenced);
+        sb.append(", typeReferenced=").append(typeReferenced);
         sb.append('}');
         return sb.toString();
     }
+
+  
 
     public static class Builder {
 
@@ -141,6 +156,7 @@ public class EntityField {
         private Column column;
         private Embedded embedded;
         private Referenced referenced;
+        private ViewReferenced viewReferenced;
         private TypeReferenced typeReferenced;
 
         public Builder id(Id id) {
@@ -166,6 +182,10 @@ public class EntityField {
             this.referenced = referenced;
             return this;
         }
+        public Builder viewReferenced(ViewReferenced viewReferenced) {
+            this.viewReferenced = viewReferenced;
+            return this;
+        }
 
         public Builder returnTypeValue(String returnTypeValue) {
             this.returnTypeValue = returnTypeValue;
@@ -188,7 +208,7 @@ public class EntityField {
         }
 
         public EntityField build() {
-            return new EntityField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, typeReferenced);
+            return new EntityField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, viewReferenced, viewReferenced, typeReferenced);
 
         }
 

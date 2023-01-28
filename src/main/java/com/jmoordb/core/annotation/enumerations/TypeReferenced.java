@@ -10,6 +10,6 @@ package com.jmoordb.core.annotation.enumerations;
  */
 public enum TypeReferenced {
  
-REFERENCED, EMBEDDED
+REFERENCED, EMBEDDED, VIEWREFERENCED
     
 }

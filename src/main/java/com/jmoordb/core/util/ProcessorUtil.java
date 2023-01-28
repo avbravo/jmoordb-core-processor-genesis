@@ -8,6 +8,7 @@ import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Embedded;
 import com.jmoordb.core.annotation.Id;
 import com.jmoordb.core.annotation.Referenced;
+import com.jmoordb.core.annotation.ViewReferenced;
 import com.jmoordb.core.annotation.enumerations.ParamType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.repository.Count;
@@ -1578,8 +1579,9 @@ public class ProcessorUtil {
             Column column = variableElement.getAnnotation(Column.class);
             Embedded embedded = variableElement.getAnnotation(Embedded.class);
             Referenced referenced = variableElement.getAnnotation(Referenced.class);
+            ViewReferenced viewReferenced = variableElement.getAnnotation(ViewReferenced.class);
 
-            if (id == null && column == null && embedded == null && referenced == null) {
+            if (id == null && column == null && embedded == null && referenced == null && viewReferenced == null) {
 
             } else {
                 return Boolean.TRUE;
@@ -1606,8 +1608,9 @@ public class ProcessorUtil {
             Column column = variableElement.getAnnotation(Column.class);
             Embedded embedded = variableElement.getAnnotation(Embedded.class);
             Referenced referenced = variableElement.getAnnotation(Referenced.class);
+            ViewReferenced viewReferenced = variableElement.getAnnotation(ViewReferenced.class);
 
-            if (id == null && column == null && embedded == null && referenced == null) {
+            if (id == null && column == null && embedded == null && referenced == null && viewReferenced == null ) {
 
             } else {
                 return Boolean.TRUE;
@@ -1634,8 +1637,9 @@ public class ProcessorUtil {
             Column column = variableElement.getAnnotation(Column.class);
             Embedded embedded = variableElement.getAnnotation(Embedded.class);
             Referenced referenced = variableElement.getAnnotation(Referenced.class);
+            ViewReferenced viewReferenced = variableElement.getAnnotation(ViewReferenced.class);
 
-            if (id == null && column == null && embedded == null && referenced == null) {
+            if (id == null && column == null && embedded == null && referenced == null && viewReferenced == null) {
 
             } else {
                 return Boolean.TRUE;

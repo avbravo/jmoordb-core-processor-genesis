@@ -14,12 +14,12 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface Referencedx {
+public @interface ViewReferenced {
 
     String from();
 
     String localField();
 
 
-    TypeReferenced typeReferenced() default TypeReferenced.REFERENCED;
+    TypeReferenced typeReferenced() default TypeReferenced.VIEWREFERENCED;
 }
