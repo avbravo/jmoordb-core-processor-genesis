@@ -1624,35 +1624,7 @@ public class ProcessorUtil {
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc=" public static Boolean isValidAnnotationForProjection(ExecutableElement executableElement)">
-    /**
-     * Valida que sea una anotación valida para un Entity
-     *
-     * @param executableElement
-     * @return
-     */
-    public static Boolean isValidAnnotationForProjection(VariableElement variableElement) {
-        Boolean isValid = Boolean.FALSE;
-        try {
-            Id id = variableElement.getAnnotation(Id.class);
-            Column column = variableElement.getAnnotation(Column.class);
-            Embedded embedded = variableElement.getAnnotation(Embedded.class);
-            Referenced referenced = variableElement.getAnnotation(Referenced.class);
-            ViewReferenced viewReferenced = variableElement.getAnnotation(ViewReferenced.class);
-
-            if (id == null && column == null && embedded == null && referenced == null && viewReferenced == null ) {
-
-            } else {
-                return Boolean.TRUE;
-            }
-
-        } catch (Exception e) {
-            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
-        }
-        return isValid;
-    }
-
-    // </editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc=" public static Boolean isValidAnnotationForEntity(ExecutableElement executableElement)">
     /**
      * Valida que sea una anotación valida para un Entity

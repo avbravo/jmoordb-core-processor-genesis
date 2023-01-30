@@ -417,7 +417,8 @@ public interface SupplierReferencedGetBuilder {
         return result;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcessGet(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField)">
+  
+  // <editor-fold defaultstate="collapsed" desc="String viewReferencedProcessGet(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, Element element)">
     /**
      * Procesa los documentos Referenciados
      *
@@ -435,13 +436,13 @@ public interface SupplierReferencedGetBuilder {
         IdData idData = new IdData();
         JmoordbCoreFileUtil.readIdAnnotationOfDocumentEmbeddableFile(element, fieldUpper + ".java", idData);
 
-        String as = entityField.getReferenced().from();
+        String as = entityField.getViewReferenced().from();
 
         String foreignField = idData.getFieldName();
 
         String foreignFieldUpper = JmoordbCoreUtil.letterToUpper(idData.getFieldName());
-        String from = entityField.getReferenced().from();
-        String localField = entityField.getReferenced().localField();
+        String from = entityField.getViewReferenced().from();
+        String localField = entityField.getViewReferenced().localField();
 
         String sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
 
@@ -459,13 +460,13 @@ public interface SupplierReferencedGetBuilder {
                 if (!isEmbeddedReferenced) {
                     result += "\t// Referenced List<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
                     result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
                     result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
                     result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
                     result += "\t\t}\n";
@@ -484,13 +485,13 @@ public interface SupplierReferencedGetBuilder {
 
                     result += "\t// Referenced Set<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
                     result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
                     result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
                     result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
@@ -508,13 +509,13 @@ public interface SupplierReferencedGetBuilder {
                 if (!isEmbeddedReferenced) {
                     result += "\t// Referenced Stream<" + fieldLower + ">\n";
 
-                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
+                    result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
                     result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
                     result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
                     result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
@@ -549,8 +550,7 @@ public interface SupplierReferencedGetBuilder {
         }
         return result;
     }
-    // </editor-fold>
-    
+        // </editor-fold>
     
           // <editor-fold defaultstate="collapsed" desc="String referencedProcessGet(ViewEntityData viewEntityData, ViewEntityField viewEntityField)">
 
@@ -811,4 +811,9 @@ public interface SupplierReferencedGetBuilder {
         return result;
     }
     // </editor-fold>
+    
+    
+    
+
+            
 }

@@ -8,10 +8,10 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
+import static com.jmoordb.core.annotation.enumerations.AnnotationType.VIEWREFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
 import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcessUpdate;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -20,6 +20,7 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierReferencedUtil;
+import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierViewReferencedUtil;
 
 /**
  *
@@ -55,7 +56,7 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
 
                             coma = "\n";
                         }
-                        sentence += coma + embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
+                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -71,6 +72,23 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                             
 //                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
+                        }
+                        count++;
+                        break;
+                        
+                        
+                          case VIEWREFERENCED:
+                        if (count > 0) {
+                            coma = "\n";
+                        }
+                        if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+                            
+                           
+                           sentence += " " + coma +DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.TRUE);
+                        } else {
+                           
+//                         
+                            sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -158,23 +176,30 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
+                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                            //sentence += SupplierEmbeddedBuilder.embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
-//                             sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
                              sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
                             
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
                             sentence += " " + coma+ DocumentEmbeddableSupplierReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
+                        }
+                        count++;
+                        break;
+                    case VIEWREFERENCED:
+                        if (count > 0) {
+                            coma = "\n";
+                        }
+                        if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
+                             sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.TRUE);
+                        } else {
+                            
+                            sentence += " " + coma+ DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
                         break;

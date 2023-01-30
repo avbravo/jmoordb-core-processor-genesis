@@ -290,7 +290,7 @@ public interface SupplierEmbeddedBuilder {
 
        
     
- // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField, String caracterComa)">
+ // <editor-fold defaultstate="collapsed" desc="String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField, String caracterComa)">
 
     /**
      * Procesa los documentos embebidos
@@ -299,7 +299,7 @@ public interface SupplierEmbeddedBuilder {
      * @param documentEmbeddableField
      * @return
      */
-    public static String embeddedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, String caracterComa) {
+    public static String toUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField entityField, String caracterComa) {
         String result = "";
         String documentEmbeddableNameUpper = JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName());
