@@ -62,12 +62,10 @@ public interface EntitySupplierGenerateToUpdate {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
                             
-                           // sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
-//                           sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
+
                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
                            
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                             sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
@@ -78,12 +76,11 @@ public interface EntitySupplierGenerateToUpdate {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
                             
-                           // sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
-//                           sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
+                           
                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
                            
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
+//                         
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;

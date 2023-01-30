@@ -110,34 +110,35 @@ public interface EntitySupplierViewReferencedUtil {
         /**
          * Para listas
          */
-//        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
+
+        String fromViewReferenced = entityField.getViewReferenced().from();
  String sourceSupplier = "";
         if (typeReferencedEmbedded) {
             
-             sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+             sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         }else{
             
 
-             sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+             sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         }
         
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
 
-                result += "\t// Referenced List<" + fieldLower + ">\n";
+                result += "\t// ViewReferenced List<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Set")) {
-                result += "\t// Referenced Set<" + fieldLower + ">\n";
+                result += "\t// ViewReferenced Set<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Stream")) {
-                result += "\t// Referenced Stream<" + fieldLower + ">\n";
+                result += "\t// ViewReferenced Stream<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
@@ -147,12 +148,12 @@ public interface EntitySupplierViewReferencedUtil {
              * Referencias simples
              */
               if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
               }else{
 
-                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+                sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
             }
-            result += "\t// Referenced of " + fieldLower + "\n";
+            result += "\t// ViewReferenced of " + fieldLower + "\n";
 
             result += sourceSupplier;
 

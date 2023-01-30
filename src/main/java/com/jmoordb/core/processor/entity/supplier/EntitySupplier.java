@@ -50,21 +50,13 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
 		
                     case VIEWREFERENCED:
 
-                        System.out.println("[[[[[[[[[[[ENTITY SUPPERLIER[[[[[[[[[[[[[[[[[[[[[[[[");
-                        System.out.println("===== es VIEWREFERENCED");
-                        System.out.println("===== AQUI NO GENERA EL GET EN EL SUPPLIER");
-                        
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-//                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
+
                             sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
                         } else {
-                            System.out.println("EntityData.toString() "+entityData.toString());
-                            System.out.println("entityField.toString() "+entityField.toString());
                             sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
                         }
-                        System.out.println("senentec es = "+sentence);
-                        System.out.println("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
                         break;
                     case ID:
                         cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
