@@ -12,11 +12,11 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.documentembeddable.analizer.DocumentEmbeddableAnalizer;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSource;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableDataSupplier;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableDataSupplier;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.io.IOException;

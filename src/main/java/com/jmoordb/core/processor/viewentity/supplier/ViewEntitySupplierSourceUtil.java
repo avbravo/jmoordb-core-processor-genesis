@@ -1,10 +1,10 @@
-package com.jmoordb.core.processor.projection.supplier;
+package com.jmoordb.core.processor.viewentity.supplier;
 
-import com.jmoordb.core.annotation.Projection;
+import com.jmoordb.core.annotation.ViewEntity;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
-import com.jmoordb.core.processor.model.ProjectionData;
-import com.jmoordb.core.processor.methods.ProjectionField;
+import com.jmoordb.core.processor.model.ViewEntityData;
+import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.methods.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -12,23 +12,23 @@ import com.jmoordb.core.util.MessagesUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class ProjectionSupplierSourceUtil {
+public class ViewEntitySupplierSourceUtil {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
 
-    // <editor-fold defaultstate="collapsed" desc="String numberOfParametersOfMethod(RepositoryMethod projectionMethod)">
+    // <editor-fold defaultstate="collapsed" desc="String numberOfParametersOfMethod(RepositoryMethod viewEntityMethod)">
     /**
      *
-     * @param projectionMethod
+     * @param viewEntityMethod
      * @return Los parametros del metodo como una cadena
      */
-    private Integer numberOfParametersOfMethod(RepositoryMethod projectionMethod) {
+    private Integer numberOfParametersOfMethod(RepositoryMethod viewEntityMethod) {
         Integer number = 0;
         try {
 
-            number = projectionMethod.getParamTypeElement().size();
+            number = viewEntityMethod.getParamTypeElement().size();
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
@@ -103,14 +103,14 @@ public class ProjectionSupplierSourceUtil {
     }
 // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder generateImport(Projection projection, ProjectionData projectionData)">
-    public StringBuilder generateImport(Projection projection, ProjectionData projectionData, Element element) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder generateImport(ViewEntity viewEntity, ViewEntityData viewEntityData)">
+    public StringBuilder generateImport(ViewEntity viewEntity, ViewEntityData viewEntityData, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"imports\">\n\n";
-            if (projection.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
+            if (viewEntity.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
                 /*
             Java EE
                  */
@@ -154,8 +154,8 @@ public class ProjectionSupplierSourceUtil {
                     + "import com.mongodb.client.model.Filters;\n"
                     + "import com.mongodb.client.model.Updates;\n"
                     + "import org.bson.conversions.Bson;\n"
-                    + "import " + projectionData.getPackageOfProjection() + "." + projectionData.getProjectionName() + ";\n"
-                    + "import " + projectionData.getPackageOfProjection() + ".*;\n\n\n"
+                    + "import " + viewEntityData.getPackageOfViewEntity() + "." + viewEntityData.getEntityName() + ";\n"
+                    + "import " + viewEntityData.getPackageOfViewEntity() + ".*;\n\n\n"
                     + "// </editor-fold>\n";
             builder.append(code);
 
@@ -166,8 +166,8 @@ public class ProjectionSupplierSourceUtil {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(Projection projection, ProjectionData projectionData, String database, String collectio">
-    public StringBuilder inject(Projection projection, ProjectionData projectionData, String database, String collection, List<ProjectionField> projectionFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collectio">
+    public StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collection, List<ViewEntityField> viewEntityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
@@ -175,7 +175,7 @@ public class ProjectionSupplierSourceUtil {
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"inject\">\n\n";
 
             if (haveReferenced) {
-                for (ProjectionField ef : projectionFieldList) {
+                for (ViewEntityField ef : viewEntityFieldList) {
                     if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
@@ -188,7 +188,7 @@ public class ProjectionSupplierSourceUtil {
                 }
             }
             if (haveEmbedded) {
-                for (ProjectionField ef : projectionFieldList) {
+                for (ViewEntityField ef : viewEntityFieldList) {
                     if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {      
                         code += "    @Inject\n"
                                 + "   " + JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Supplier " + ef.getNameOfMethod() + "Supplier ;\n";
@@ -205,17 +205,17 @@ public class ProjectionSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<ProjectionField> projectionFieldList)">
+// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<ViewEntityField> viewEntityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param projectionFieldList
+     * @param viewEntityFieldList
      * @return
      */
-    public static Boolean haveEmbedded(List<ProjectionField> projectionFieldList) {
+    public static Boolean haveEmbedded(List<ViewEntityField> viewEntityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (ProjectionField ef : projectionFieldList) {
+            for (ViewEntityField ef : viewEntityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {
                     result = Boolean.TRUE;
                     break;
@@ -229,17 +229,17 @@ public class ProjectionSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<ProjectionField> projectionFieldList)">
+// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<ViewEntityField> viewEntityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param projectionFieldList
+     * @param viewEntityFieldList
      * @return
      */
-    public static Boolean haveReferenced(List<ProjectionField> projectionFieldList) {
+    public static Boolean haveReferenced(List<ViewEntityField> viewEntityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (ProjectionField ef : projectionFieldList) {
+            for (ViewEntityField ef : viewEntityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
                     result = Boolean.TRUE;
                     break;
@@ -253,17 +253,17 @@ public class ProjectionSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="  Boolean haveViewReferenced(List<ProjectionField> projectionFieldList)">
+// <editor-fold defaultstate="collapsed" desc="Boolean haveViewReferenced(List<ViewEntityField> viewEntityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param projectionFieldList
+     * @param viewEntityFieldList
      * @return
      */
-    public static Boolean haveViewReferenced(List<ProjectionField> projectionFieldList) {
+    public static Boolean haveViewReferenced(List<ViewEntityField> viewEntityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (ProjectionField ef : projectionFieldList) {
+            for (ViewEntityField ef : viewEntityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
                     result = Boolean.TRUE;
                     break;

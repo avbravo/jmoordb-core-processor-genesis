@@ -6,10 +6,10 @@ package com.jmoordb.core.processor.builder.interfaces;
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.methods.ProjectionField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.methods.ViewEntityField;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.model.EntityData;
-import com.jmoordb.core.processor.model.ProjectionData;
+import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 
@@ -67,7 +67,7 @@ public interface SupplierEmbeddedBuilder {
     }
     // </editor-fold>
     
-     // <editor-fold defaultstate="collapsed" desc="String embeddedProcess(ProjectionData entityData, EntityField entityField)">
+     // <editor-fold defaultstate="collapsed" desc="String embeddedProcess(ViewEntityData viewEntityData, ViewEntityField viewEntityField)">
 
     /**
      * Procesa los documentos embebidos
@@ -76,29 +76,29 @@ public interface SupplierEmbeddedBuilder {
      * @param entityField
      * @return
      */
-    public static String embeddedProcess(ProjectionData projectionData, ProjectionField entityField) {
+    public static String embeddedProcess(ViewEntityData viewEntityData, ViewEntityField viewEntityField) {
         String result = "";
-        String entityNameUpper = JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName());
-        String entityNameLower = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName());
-        String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
-        String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
+        String entityNameUpper = JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName());
+        String entityNameLower = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName());
+        String fieldUpper = JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod());
+        String fieldLower = JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod());
         String sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
         try {
 
-            if (entityField.getReturnTypeValue().contains("List")) {
+            if (viewEntityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Embedded List<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
-            if (entityField.getReturnTypeValue().contains("Set")) {
+            if (viewEntityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Embedded Set<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
-            if (entityField.getReturnTypeValue().contains("Stream")) {
+            if (viewEntityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Embedded Stream<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
@@ -115,6 +115,7 @@ public interface SupplierEmbeddedBuilder {
         return result;
     }
     // </editor-fold>
+    
     
     
     
@@ -171,7 +172,7 @@ public interface SupplierEmbeddedBuilder {
     
     
     
-          // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(EntityData entityData, EntityField entityField, String caracterComa)">
+          // <editor-fold defaultstate="collapsed" desc="String toUpdate(EntityData entityData, EntityField entityField, String caracterComa)">
 
     /**
      * Procesa los documentos embebidos
@@ -228,7 +229,8 @@ public interface SupplierEmbeddedBuilder {
         return result;
     }
     // </editor-fold>
-          // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(ProjectionData entityData, ProjectionField entityField, String caracterComa)">
+    
+          // <editor-fold defaultstate="collapsed" desc="String toUpdate(ViewEntityData viewEntityData, ViewEntityField viewEntityField, String caracterComa)">
 
     /**
      * Procesa los documentos embebidos
@@ -237,12 +239,12 @@ public interface SupplierEmbeddedBuilder {
      * @param entityField
      * @return
      */
-    public static String toUpdate(ProjectionData projectionData, ProjectionField projectionField, String caracterComa) {
+    public static String toUpdate(ViewEntityData viewEntityData, ViewEntityField viewEntityField, String caracterComa) {
         String result = "";
-        String entityNameUpper = JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName());
-        String entityNameLower = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName());
-        String fieldUpper = JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod());
-        String fieldLower = JmoordbCoreUtil.letterToLower(projectionField.getNameOfMethod());
+        String entityNameUpper = JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName());
+        String entityNameLower = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName());
+        String fieldUpper = JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod());
+        String fieldLower = JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod());
         //Si es una lista
 //        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + " .$[]\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
 //        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
@@ -250,20 +252,20 @@ public interface SupplierEmbeddedBuilder {
         
         try {
 
-            if (projectionField.getReturnTypeValue().contains("List")) {
+            if (viewEntityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Embedded List<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
-            if (projectionField.getReturnTypeValue().contains("Set")) {
+            if (viewEntityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Embedded Set<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
                 return result;
             }
-            if (projectionField.getReturnTypeValue().contains("Stream")) {
+            if (viewEntityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Embedded Stream<" + fieldLower + ">\n";
 
                 result += sourceSupplier;
@@ -285,62 +287,8 @@ public interface SupplierEmbeddedBuilder {
         return result;
     }
     // </editor-fold>
-          // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(EntityData entityData, EntityField entityField, String caracterComa)">
 
-    /**
-     * Procesa los documentos embebidos
-     *
-     * @param entityData
-     * @param entityField
-     * @return
-     */
-    public static String toUpdate(ProjectionData projectionData, EntityField projectionField, String caracterComa) {
-        String result = "";
-        String entityNameUpper = JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName());
-        String entityNameLower = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName());
-        String fieldUpper = JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod());
-        String fieldLower = JmoordbCoreUtil.letterToLower(projectionField.getNameOfMethod());
-        //Si es una lista
-
-        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
-        
-        try {
-
-            if (projectionField.getReturnTypeValue().contains("List")) {
-
-                result += "\t// Embedded List<" + fieldLower + ">\n";
-
-                result += sourceSupplier;
-                return result;
-            }
-            if (projectionField.getReturnTypeValue().contains("Set")) {
-                result += "\t// Embedded Set<" + fieldLower + ">\n";
-
-                result += sourceSupplier;
-                return result;
-            }
-            if (projectionField.getReturnTypeValue().contains("Stream")) {
-                result += "\t// Embedded Stream<" + fieldLower + ">\n";
-
-                result += sourceSupplier;
-                return result;
-            }
-            /**
-             * Embedded Simple
-             */
-           sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
-           
-            result += "\t// Embedded of " + fieldLower + "\n";
-
-
-            result += sourceSupplier;
-
-        } catch (Exception e) {
-            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
-        }
-        return result;
-    }
-    // </editor-fold>
+       
     
  // <editor-fold defaultstate="collapsed" desc="String embeddedProcessUpdate(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField, String caracterComa)">
 

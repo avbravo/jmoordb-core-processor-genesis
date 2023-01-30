@@ -6,10 +6,10 @@ package com.jmoordb.core.processor.builder.interfaces;
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.methods.ProjectionField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.methods.ViewEntityField;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.model.EntityData;
-import com.jmoordb.core.processor.model.ProjectionData;
+import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 
@@ -96,7 +96,9 @@ public interface SupplierEmbeddedGetBuilder {
         return result;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String embeddedProcessGet(EntityData entityData, EntityField entityField)">
+   
+    
+    // <editor-fold defaultstate="collapsed" desc="String embeddedProcessGet(embeddedProcessGet(ViewEntityData viewEntityData, ViewEntityField viewEntityField))">
 
     /**
      * Procesa los documentos embebidos
@@ -105,17 +107,17 @@ public interface SupplierEmbeddedGetBuilder {
      * @param entityField
      * @return
      */
-    public static String embeddedProcessGet(ProjectionData projectionData, ProjectionField projectionField) {
+    public static String embeddedProcessGet(ViewEntityData viewEntityData, ViewEntityField viewEntityField) {
         String result = "";
-        String entityNameUpper = JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName());
-        String entityNameLower = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName());
-        String fieldUpper = JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod());
-        String fieldLower = JmoordbCoreUtil.letterToLower(projectionField.getNameOfMethod());
+        String entityNameUpper = JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName());
+        String entityNameLower = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName());
+        String fieldUpper = JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod());
+        String fieldLower = JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod());
 
         String sourceSupplier = "\t\t\n";
         try {
 
-            if (projectionField.getReturnTypeValue().contains("List")) {
+            if (viewEntityField.getReturnTypeValue().contains("List")) {
 
                 result += "\n\t// Embedded List<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
@@ -130,7 +132,7 @@ public interface SupplierEmbeddedGetBuilder {
                 result += sourceSupplier;
                 return result;
             }
-            if (projectionField.getReturnTypeValue().contains("Set")) {
+            if (viewEntityField.getReturnTypeValue().contains("Set")) {
                 result += "\n\t// Embedded Set<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
                 result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
@@ -144,7 +146,7 @@ public interface SupplierEmbeddedGetBuilder {
                 result += sourceSupplier;
                 return result;
             }
-            if (projectionField.getReturnTypeValue().contains("Stream")) {
+            if (viewEntityField.getReturnTypeValue().contains("Stream")) {
                 result += "\n\t// Embedded Stream<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
                 result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
@@ -173,6 +175,10 @@ public interface SupplierEmbeddedGetBuilder {
         return result;
     }
     // </editor-fold>
+   
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="String embeddedProcessGet(DocumentEmbeddableData documentEmbeddableData, DocumentEmbeddableField documentEmbeddableField)">
     /**

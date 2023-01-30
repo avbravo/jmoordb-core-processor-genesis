@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.jmoordb.core.processor.model;
+package com.jmoordb.core.processor.documentembeddable.model;
 
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
 
@@ -10,23 +10,23 @@ import com.jmoordb.core.annotation.enumerations.JakartaSource;
  *
  * @author avbravo Se utiliza para gestionar los datos leidos del repositorio
  */
-public class ProjectionData {
+public class DocumentEmbeddableData {
 
     private String collection;
     private String database;
     private JakartaSource jakartaSource;
-    private String packageOfProjection;
-    private String projectionName;
+    private String packageOfDocumentEmbeddable;
+    private String documentEmbeddableName;
 
-    public ProjectionData() {
+    public DocumentEmbeddableData() {
     }
 
-    public ProjectionData(String collection, String database, JakartaSource jakartaSource, String packageOfProjection, String projectionName) {
+    public DocumentEmbeddableData(String collection, String database, JakartaSource jakartaSource, String packageOfDocumentEmbeddable, String documentEmbeddableName) {
         this.collection = collection;
         this.database = database;
         this.jakartaSource = jakartaSource;
-        this.packageOfProjection = packageOfProjection;
-        this.projectionName = projectionName;
+        this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
+        this.documentEmbeddableName = documentEmbeddableName;
     }
 
     public JakartaSource getJakartaSource() {
@@ -37,20 +37,20 @@ public class ProjectionData {
         this.jakartaSource = jakartaSource;
     }
 
-    public String getProjectionName() {
-        return projectionName;
+    public String getDocumentEmbeddableName() {
+        return documentEmbeddableName;
     }
 
-    public void setProjectionName(String projectionName) {
-        this.projectionName = projectionName;
+    public void setDocumentEmbeddableName(String documentEmbeddableName) {
+        this.documentEmbeddableName = documentEmbeddableName;
     }
 
-    public String getPackageOfProjection() {
-        return packageOfProjection;
+    public String getPackageOfDocumentEmbeddable() {
+        return packageOfDocumentEmbeddable;
     }
 
-    public void setPackageOfProjection(String packageOfProjection) {
-        this.packageOfProjection = packageOfProjection;
+    public void setPackageOfDocumentEmbeddable(String packageOfDocumentEmbeddable) {
+        this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
     }
 
     public String getCollection() {
@@ -72,12 +72,12 @@ public class ProjectionData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ProjectionData{");
+        sb.append("DocumentEmbeddableData{");
         sb.append("\n\tcollection=").append(collection);
         sb.append("\n\t, database=").append(database);
         sb.append("\n\t, jakartaSource=").append(jakartaSource);
-        sb.append("\n\t, packageOfProjection=").append(packageOfProjection);
-        sb.append("\n\t, projectionName=").append(projectionName).append("\n");
+        sb.append("\n\t, packageOfDocumentEmbeddable=").append(packageOfDocumentEmbeddable);
+        sb.append("\n\t, documentEmbeddableName=").append(documentEmbeddableName).append("\n");
         sb.append('}');
         return sb.toString();
     }
@@ -86,8 +86,8 @@ public class ProjectionData {
 
         private String collection;
         private String database;
-        private String packageOfProjection;
-        private String projectionName;
+        private String packageOfDocumentEmbeddable;
+        private String documentEmbeddableName;
         JakartaSource jakartaSource;
 
         public Builder jakartaSource(JakartaSource jakartaSource) {
@@ -100,13 +100,13 @@ public class ProjectionData {
             return this;
         }
 
-        public Builder projectionName(String projectionName) {
-            this.projectionName = projectionName;
+        public Builder documentEmbeddableName(String documentEmbeddableName) {
+            this.documentEmbeddableName = documentEmbeddableName;
             return this;
         }
 
-        public Builder packageOfProjection(String packageOfProjection) {
-            this.packageOfProjection = packageOfProjection;
+        public Builder packageOfDocumentEmbeddable(String packageOfDocumentEmbeddable) {
+            this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
             return this;
         }
 
@@ -115,8 +115,8 @@ public class ProjectionData {
             return this;
         }
 
-        public ProjectionData build() {
-            return new ProjectionData(collection, database, jakartaSource, packageOfProjection, projectionName);
+        public DocumentEmbeddableData build() {
+            return new DocumentEmbeddableData(collection, database, jakartaSource, packageOfDocumentEmbeddable, documentEmbeddableName);
 
         }
     }

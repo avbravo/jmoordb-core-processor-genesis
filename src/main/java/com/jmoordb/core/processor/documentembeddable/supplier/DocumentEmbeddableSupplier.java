@@ -10,7 +10,7 @@ import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedGetBuilder;
 import com.jmoordb.core.processor.builder.interfaces.SupplierReferencedGetBuilder;
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

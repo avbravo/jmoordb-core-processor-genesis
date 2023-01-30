@@ -13,7 +13,7 @@ import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddable
 import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcessUpdate;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.documentembeddable.supplier;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.methods.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;

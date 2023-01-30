@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.jmoordb.core.processor.builder.interfaces;
+package com.jmoordb.core.processor.builder.interfaces.tojson;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
@@ -10,6 +10,7 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
+import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
 import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcess;

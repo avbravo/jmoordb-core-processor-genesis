@@ -1,4 +1,4 @@
-package com.jmoordb.core.processor.projection.analizer;
+package com.jmoordb.core.processor.viewviewEntity.analizer;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Embedded;
@@ -17,8 +17,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.VariableElement;
-import com.jmoordb.core.processor.methods.ProjectionField;
-import com.jmoordb.core.processor.model.ProjectionData;
+import com.jmoordb.core.processor.methods.ViewEntityField;
+import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;
@@ -27,17 +27,17 @@ import javax.tools.Diagnostic;
 /**
  * 
  * @author avbravo
- * @@code Analiza la anotación @Projection y genera List<ProjectionField>
+ * @@code Analiza la anotación @ViewEntity y genera List<ViewEntityField>
  */
-public class ProjectionAnalizer {
+public class ViewEntityAnalizer {
 
 
-    public ProjectionAnalizer() {
+    public ViewEntityAnalizer() {
     }
 
 
 
-// <editor-fold defaultstate="collapsed" desc="ProjectionAnalizer get(Element element, Messager messager, String database, TypeMirror typeProjection, List<ProjectionMethod> projectionMethodList)">
+// <editor-fold defaultstate="collapsed" desc="ViewEntityAnalizer get(Element element, Messager messager, String database, TypeMirror typeViewEntity, List<ViewEntityMethod> viewEntityMethodList)">
 
     /**
      * Procesa los metodos definidos en la interface
@@ -45,7 +45,7 @@ public class ProjectionAnalizer {
      * @param element
      * @return
      */
-    public static ProjectionAnalizer get(Element element, Messager messager, String database, List<ProjectionField> projectionFieldList, ProjectionData projectionData) {
+    public static ViewEntityAnalizer get(Element element, Messager messager, String database, List<ViewEntityField> viewEntityFieldList, ViewEntityData viewEntityData) {
         LinkedHashMap<String, String> fields = new LinkedHashMap<>();
         List<String> mandatoryFields = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class ProjectionAnalizer {
 
             String type = ProcessorUtil.getTypeOfField(v);
 
-            ProjectionField projectionField = new ProjectionField.Builder()
+            ViewEntityField viewEntityField = new ViewEntityField.Builder()
                     .nameOfMethod(nameOfField)
                     .returnTypeValue(type)                    
                     .annotationType(AnnotationType.NONE)
@@ -71,7 +71,7 @@ public class ProjectionAnalizer {
                     
                     .build();
 
-           if(!ProcessorUtil.isValidAnnotationForProjection(v)){
+           if(!ProcessorUtil.isValidAnnotationForViewEntity(v)){
                 messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " You do not have a valid annotation.", element);
                 return;
            }
@@ -89,8 +89,8 @@ public class ProjectionAnalizer {
 
             Id id = v.getAnnotation(Id.class);
             if (id != null) {
-                projectionField.setAnnotationType(AnnotationType.ID);
-                projectionField.setId(id);
+                viewEntityField.setAnnotationType(AnnotationType.ID);
+                viewEntityField.setId(id);
                 if (!type.startsWith("java.lang.String") && !type.startsWith("java.lang.Long")) {
                     messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " Must be of type String or Long.", element);
                 }
@@ -101,37 +101,37 @@ public class ProjectionAnalizer {
             }
             Column column = v.getAnnotation(Column.class);
             if (column != null) {
-                projectionField.setAnnotationType(AnnotationType.COLUMN);
-                projectionField.setColumn(column);
+                viewEntityField.setAnnotationType(AnnotationType.COLUMN);
+                viewEntityField.setColumn(column);
             }
             Embedded embedded = v.getAnnotation(Embedded.class);
             if (embedded != null) {
              
-                projectionField.setAnnotationType(AnnotationType.EMBEDDED);
-                projectionField.setEmbedded(embedded);
+                viewEntityField.setAnnotationType(AnnotationType.EMBEDDED);
+                viewEntityField.setEmbedded(embedded);
 
             }
             Referenced referenced = v.getAnnotation(Referenced.class);
             if (referenced != null) {
 
-                projectionField.setAnnotationType(AnnotationType.REFERENCED);
-                projectionField.setReferenced(referenced);
-                projectionField.setTypeReferenced(referenced.typeReferenced());
+                viewEntityField.setAnnotationType(AnnotationType.REFERENCED);
+                viewEntityField.setReferenced(referenced);
+                viewEntityField.setTypeReferenced(referenced.typeReferenced());
             }
             
             ViewReferenced viewReferenced = v.getAnnotation(ViewReferenced.class);
             if (viewReferenced != null) {
 
-                projectionField.setAnnotationType(AnnotationType.VIEWREFERENCED);
-                projectionField.setViewReferenced(viewReferenced);
-                projectionField.setTypeReferenced(viewReferenced.typeReferenced());
+                viewEntityField.setAnnotationType(AnnotationType.VIEWREFERENCED);
+                viewEntityField.setViewReferenced(viewReferenced);
+                viewEntityField.setTypeReferenced(viewReferenced.typeReferenced());
             }
 
-            projectionFieldList.add(projectionField);
+            viewEntityFieldList.add(viewEntityField);
         }
         });
 
-        return new ProjectionAnalizer();
+        return new ViewEntityAnalizer();
 
     }
 // </editor-fold>

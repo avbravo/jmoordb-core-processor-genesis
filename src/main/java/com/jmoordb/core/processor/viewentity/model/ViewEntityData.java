@@ -10,23 +10,23 @@ import com.jmoordb.core.annotation.enumerations.JakartaSource;
  *
  * @author avbravo Se utiliza para gestionar los datos leidos del repositorio
  */
-public class DocumentEmbeddableData {
+public class ViewEntityData {
 
     private String collection;
     private String database;
     private JakartaSource jakartaSource;
-    private String packageOfDocumentEmbeddable;
-    private String documentEmbeddableName;
+    private String packageOfViewEntity;
+    private String entityName;
 
-    public DocumentEmbeddableData() {
+    public ViewEntityData() {
     }
 
-    public DocumentEmbeddableData(String collection, String database, JakartaSource jakartaSource, String packageOfDocumentEmbeddable, String documentEmbeddableName) {
+    public ViewEntityData(String collection, String database, JakartaSource jakartaSource, String packageOfViewEntity, String entityName) {
         this.collection = collection;
         this.database = database;
         this.jakartaSource = jakartaSource;
-        this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
-        this.documentEmbeddableName = documentEmbeddableName;
+        this.packageOfViewEntity = packageOfViewEntity;
+        this.entityName = entityName;
     }
 
     public JakartaSource getJakartaSource() {
@@ -37,21 +37,23 @@ public class DocumentEmbeddableData {
         this.jakartaSource = jakartaSource;
     }
 
-    public String getDocumentEmbeddableName() {
-        return documentEmbeddableName;
+    public String getEntityName() {
+        return entityName;
     }
 
-    public void setDocumentEmbeddableName(String documentEmbeddableName) {
-        this.documentEmbeddableName = documentEmbeddableName;
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
-    public String getPackageOfDocumentEmbeddable() {
-        return packageOfDocumentEmbeddable;
+    public String getPackageOfViewEntity() {
+        return packageOfViewEntity;
     }
 
-    public void setPackageOfDocumentEmbeddable(String packageOfDocumentEmbeddable) {
-        this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
+    public void setPackageOfViewEntity(String packageOfViewEntity) {
+        this.packageOfViewEntity = packageOfViewEntity;
     }
+
+   
 
     public String getCollection() {
         return collection;
@@ -72,12 +74,12 @@ public class DocumentEmbeddableData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("DocumentEmbeddableData{");
+        sb.append("ViewEntityData{");
         sb.append("\n\tcollection=").append(collection);
         sb.append("\n\t, database=").append(database);
         sb.append("\n\t, jakartaSource=").append(jakartaSource);
-        sb.append("\n\t, packageOfDocumentEmbeddable=").append(packageOfDocumentEmbeddable);
-        sb.append("\n\t, documentEmbeddableName=").append(documentEmbeddableName).append("\n");
+        sb.append("\n\t, packageOfViewEntity=").append(packageOfViewEntity);
+        sb.append("\n\t, entityName=").append(entityName).append("\n");
         sb.append('}');
         return sb.toString();
     }
@@ -86,8 +88,8 @@ public class DocumentEmbeddableData {
 
         private String collection;
         private String database;
-        private String packageOfDocumentEmbeddable;
-        private String documentEmbeddableName;
+        private String packageOfViewEntity;
+        private String entityName;
         JakartaSource jakartaSource;
 
         public Builder jakartaSource(JakartaSource jakartaSource) {
@@ -100,13 +102,13 @@ public class DocumentEmbeddableData {
             return this;
         }
 
-        public Builder documentEmbeddableName(String documentEmbeddableName) {
-            this.documentEmbeddableName = documentEmbeddableName;
+        public Builder entityName(String entityName) {
+            this.entityName = entityName;
             return this;
         }
 
-        public Builder packageOfDocumentEmbeddable(String packageOfDocumentEmbeddable) {
-            this.packageOfDocumentEmbeddable = packageOfDocumentEmbeddable;
+        public Builder packageOfViewEntity(String packageOfViewEntity) {
+            this.packageOfViewEntity = packageOfViewEntity;
             return this;
         }
 
@@ -115,8 +117,8 @@ public class DocumentEmbeddableData {
             return this;
         }
 
-        public DocumentEmbeddableData build() {
-            return new DocumentEmbeddableData(collection, database, jakartaSource, packageOfDocumentEmbeddable, documentEmbeddableName);
+        public ViewEntityData build() {
+            return new ViewEntityData(collection, database, jakartaSource, packageOfViewEntity, entityName);
 
         }
     }

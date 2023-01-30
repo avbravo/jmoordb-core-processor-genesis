@@ -4,7 +4,7 @@
  */
 package com.jmoordb.core.processor.model;
 
-import com.jmoordb.core.annotation.Projection;
+import com.jmoordb.core.annotation.ViewEntity;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -15,38 +15,38 @@ import javax.lang.model.element.Element;
  *
  * @author avbravo
  */
-public class ProjectionDataSupplier {
-// <editor-fold defaultstate="collapsed" desc="ProjectionData get(Supplier<? extends ProjectionData> s, Element element)">
+public class ViewEntityDataSupplier {
+// <editor-fold defaultstate="collapsed" desc="ViewEntityData get(Supplier<? extends ViewEntityData> s, Element element)">
 
-    public ProjectionData get(Supplier<? extends ProjectionData> s, Element element) {
-        ProjectionData projectionData = s.get();
+    public ViewEntityData get(Supplier<? extends ViewEntityData> s, Element element) {
+        ViewEntityData entityData = s.get();
         try {
 
-            Projection projection = element.getAnnotation(Projection.class);
+            ViewEntity entity = element.getAnnotation(ViewEntity.class);
     
             String database=   "{mongodb.database}";    
-            if (projection.database() == null  || projection.database().equals("")) {
+            if (entity.database() == null  || entity.database().equals("")) {
                 database = "{mongodb.database}";
           
             } else {
      
-                database = projection.database().replace("{", "").replace("}", "");
+                database = entity.database().replace("{", "").replace("}", "");
             }
             String collection ="";
     
-           if (projection.collection() == null ||  projection.collection().trim().equals("")){
+           if (entity.collection() == null ||  entity.collection().trim().equals("")){
                     collection =JmoordbCoreUtil.letterToLower(ProcessorUtil.getTypeName(element));
                 
             }else{
-               collection = projection.collection();
+               collection = entity.collection();
            }
           
-            projectionData = new ProjectionData.Builder()
+            entityData = new ViewEntityData.Builder()
                     .collection(collection)
-                    .jakartaSource(projection.jakartaSource())
+                    .jakartaSource(entity.jakartaSource())
                     .database(database)                    
-                    .packageOfProjection(ProcessorUtil.getPackageName(element))
-                     .projectionName(ProcessorUtil.getTypeName(element))
+                    .packageOfViewEntity(ProcessorUtil.getPackageName(element))
+                     .entityName(ProcessorUtil.getTypeName(element))
                     .build();
             
             
@@ -54,7 +54,7 @@ public class ProjectionDataSupplier {
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
         }
-        return projectionData;
+        return entityData;
     }
     // </editor-fold>
 

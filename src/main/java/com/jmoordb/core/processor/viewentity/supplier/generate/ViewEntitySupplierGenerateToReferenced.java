@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.jmoordb.core.processor.projection.supplier.generate;
+package com.jmoordb.core.processor.viewentity.supplier.generate;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
-import com.jmoordb.core.processor.projection.supplier.ProjectionSupplierSourceUtil;
-import com.jmoordb.core.processor.methods.ProjectionField;
-import com.jmoordb.core.processor.model.ProjectionData;
+import com.jmoordb.core.processor.methods.ViewEntityField;
+import com.jmoordb.core.processor.model.ViewEntityData;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -18,19 +18,19 @@ import javax.lang.model.element.Element;
  *
  * @author avbravo
  */
-public interface ProjectionSupplierGenerateToReferenced {
+public interface ViewEntitySupplierGenerateToReferenced {
    
     
     
     
     
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toReferenced(ProjectionData projectionData, List<ProjectionField> projectionFieldList, Element element)">
+     // <editor-fold defaultstate="collapsed" desc="StringBuilder toReferenced(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element)">
 
-    public static StringBuilder toReferenced(ProjectionData projectionData, List<ProjectionField> projectionFieldList, Element element) {
+    public static StringBuilder toReferenced(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ProjectionSupplierSourceUtil.haveEmbedded(projectionFieldList);
-            Boolean haveReferenced = ProjectionSupplierSourceUtil.haveReferenced(projectionFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
 
 
             String sentence = "\t \n";
@@ -40,15 +40,15 @@ public interface ProjectionSupplierGenerateToReferenced {
             Integer count = 0;
 
             String coma = "\n ";
-            for (ProjectionField projectionField : projectionFieldList) {
-                switch (projectionField.getAnnotationType()) {
+            for (ViewEntityField viewEntityField : viewEntityFieldList) {
+                switch (viewEntityField.getAnnotationType()) {
 
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ".get" + JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(projectionField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
 
@@ -58,8 +58,8 @@ public interface ProjectionSupplierGenerateToReferenced {
 
             sentence += "\t\n";
             String code
-                    = ProcessorUtil.editorFoldToReferenced(projectionData) + "\n\n"
-                    + "    public Document toReferenced(" + projectionData.getProjectionName() + " " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ") {\n"
+                    = ProcessorUtil.editorFoldToReferenced(viewEntityData) + "\n\n"
+                    + "    public Document toReferenced(" + viewEntityData.getEntityName() + " " + JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ") {\n"
                     + "        Document document_ = new Document();\n"
                     + "        try {\n"
                     + sentence + "\n"
@@ -80,20 +80,20 @@ public interface ProjectionSupplierGenerateToReferenced {
 
     // </editor-fold>
     
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toRefernecedList(ProjectionData projectionData, List<ProjectionField> projectionFieldList, Element element)">
-    public static StringBuilder toReferencedList(ProjectionData projectionData, List<ProjectionField> projectionFieldList, Element element) {
+     // <editor-fold defaultstate="collapsed" desc="StringBuilder toRefernecedList(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element)">
+    public static StringBuilder toReferencedList(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ProjectionSupplierSourceUtil.haveEmbedded(projectionFieldList);
-            Boolean haveReferenced = ProjectionSupplierSourceUtil.haveReferenced(projectionFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
 
             String sentence = "\t \n";
 
             /**
              * for
              */
-            String upper = JmoordbCoreUtil.letterToUpper(projectionData.getProjectionName());
-            String lower = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName());
+            String upper = JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName());
+            String lower = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName());
 
             sentence += "\t for(" + upper + " " + lower + " : " + lower + "List){\n";
             sentence += "\t\t Document document_ = new Document();\n";
@@ -102,15 +102,15 @@ public interface ProjectionSupplierGenerateToReferenced {
             Integer count = 0;
 //            String coma = "\\n \\\"";
             String coma = "\n ";
-            for (ProjectionField projectionField : projectionFieldList) {
-                switch (projectionField.getAnnotationType()) {
+            for (ViewEntityField viewEntityField : viewEntityFieldList) {
+                switch (viewEntityField.getAnnotationType()) {
                   
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + ".get" + JmoordbCoreUtil.letterToUpper(projectionField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(projectionField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
                    
@@ -121,8 +121,8 @@ public interface ProjectionSupplierGenerateToReferenced {
 //            sentence += "\treturn document;\n";
             sentence += "\t\n";
             String code
-                    = ProcessorUtil.editorFoldToReferencedList(projectionData) + "\n\n"
-                    + "    public List<Document> toReferenced(List<" + projectionData.getProjectionName() + "> " + JmoordbCoreUtil.letterToLower(projectionData.getProjectionName()) + "List) {\n"
+                    = ProcessorUtil.editorFoldToReferencedList(viewEntityData) + "\n\n"
+                    + "    public List<Document> toReferenced(List<" + viewEntityData.getEntityName() + "> " + JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + "List) {\n"
                     + "        List<Document> documentList_ = new ArrayList<>();\n"
                     + "        try {\n"
                     + sentence + "\n"

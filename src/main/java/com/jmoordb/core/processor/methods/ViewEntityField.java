@@ -17,7 +17,7 @@ import com.jmoordb.core.annotation.enumerations.TypeReferenced;
  *
  * @author avbravo
  */
-public class ProjectionField {
+public class ViewEntityField {
 
     private String returnTypeValue;
     private String nameOfMethod;
@@ -30,7 +30,7 @@ public class ProjectionField {
     private ViewReferenced viewReferenced;
     private TypeReferenced typeReferenced;
 
-    public ProjectionField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, ViewReferenced viewReferenced, TypeReferenced typeReferenced) {
+    public ViewEntityField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, ViewReferenced viewReferenced, TypeReferenced typeReferenced) {
         this.returnTypeValue = returnTypeValue;
         this.nameOfMethod = nameOfMethod;
         this.annotationType = annotationType;
@@ -43,6 +43,7 @@ public class ProjectionField {
         this.typeReferenced = typeReferenced;
     }
 
+   
 
     public ViewReferenced getViewReferenced() {
         return viewReferenced;
@@ -52,7 +53,8 @@ public class ProjectionField {
         this.viewReferenced = viewReferenced;
     }
 
- 
+  
+
     public TypeReferenced getTypeReferenced() {
         return typeReferenced;
     }
@@ -128,24 +130,22 @@ public class ProjectionField {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ProjectionField{");
-        sb.append("returnTypeValue=").append(returnTypeValue);
-        sb.append(", nameOfMethod=").append(nameOfMethod);
-        sb.append(", annotationType=").append(annotationType);
-        sb.append(", returnType=").append(returnType);
-        sb.append(", id=").append(id);
-        sb.append(", column=").append(column);
-        sb.append(", embedded=").append(embedded);
-        sb.append(", referenced=").append(referenced);
-        sb.append(", viewReferenced=").append(viewReferenced);
-        sb.append(", typeReferenced=").append(typeReferenced);
+        sb.append("EntityField{");
+        sb.append("\nreturnTypeValue=").append(returnTypeValue);
+        sb.append("\n, nameOfMethod=").append(nameOfMethod);
+        sb.append("\n, annotationType=").append(annotationType);
+        sb.append("\n, returnType=").append(returnType);
+        sb.append("\n, id=").append(id);
+        sb.append("\n, column=").append(column);
+        sb.append("\n, embedded=").append(embedded);
+        sb.append("\n, referenced=").append(referenced);
+        sb.append("\n, viewReferenced=").append(viewReferenced);
+        sb.append("\n, typeReferenced=").append(typeReferenced);
         sb.append('}');
         return sb.toString();
     }
 
-    
-    
-    
+  
 
     public static class Builder {
 
@@ -209,8 +209,8 @@ public class ProjectionField {
             return this;
         }
 
-        public ProjectionField build() {
-            return new ProjectionField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
+        public ViewEntityField build() {
+            return new ViewEntityField(returnTypeValue, nameOfMethod, annotationType, returnType, id, column, embedded, referenced, viewReferenced, typeReferenced);
 
         }
 

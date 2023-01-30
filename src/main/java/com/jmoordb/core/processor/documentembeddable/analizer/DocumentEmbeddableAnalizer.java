@@ -18,7 +18,7 @@ import java.util.List;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.VariableElement;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.stream.Stream;
 import javax.lang.model.element.TypeElement;

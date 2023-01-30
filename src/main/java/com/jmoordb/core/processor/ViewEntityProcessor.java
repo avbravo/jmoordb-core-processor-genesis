@@ -1,6 +1,6 @@
 package com.jmoordb.core.processor;
 
-import com.jmoordb.core.annotation.Projection;
+import com.jmoordb.core.annotation.ViewEntity;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -12,11 +12,11 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 
-import com.jmoordb.core.processor.model.ProjectionData;
-import com.jmoordb.core.processor.model.ProjectionDataSupplier;
-import com.jmoordb.core.processor.projection.supplier.ProjectionSupplierSource;
-import com.jmoordb.core.processor.projection.analizer.ProjectionAnalizer;
-import com.jmoordb.core.processor.methods.ProjectionField;
+import com.jmoordb.core.processor.model.ViewEntityData;
+import com.jmoordb.core.processor.model.ViewEntityDataSupplier;
+import com.jmoordb.core.processor.methods.ViewEntityField;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSource;
+import com.jmoordb.core.processor.viewviewEntity.analizer.ViewEntityAnalizer;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.io.IOException;
@@ -27,59 +27,61 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(
-        {"com.jmoordb.core.annotation.Projection"})
+        {"com.jmoordb.core.annotation.ViewEntity"})
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
-public class ProjectionProcessor extends AbstractProcessor {
+public class ViewEntityProcessor extends AbstractProcessor {
 
     private Messager messager;
-    private ProjectionDataSupplier projectionDataSupplier = new ProjectionDataSupplier();
+    private ViewEntityDataSupplier viewEntityDataSupplier = new ViewEntityDataSupplier();
 
     // <editor-fold defaultstate="collapsed" desc=" boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv)">
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         try {
-            MessagesUtil.box("Iniciando proceso de analisis de @Projection");
+            MessagesUtil.box("Iniciando proceso de analisis de @ViewEntity");
 
             if (annotations.size() == 0) {
                 return false;
             }
             /**
-             * Lee los elementos que tengan la anotacion @Projection
+             * Lee los elementos que tengan la anotacion @ViewEntity
              */
-            Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Projection.class);
+            Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(ViewEntity.class);
 
             List<String> uniqueIdCheckList = new ArrayList<>();
 
             for (Element element : elements) {
-                Projection projection = element.getAnnotation(Projection.class);
+                ViewEntity viewEntity = element.getAnnotation(ViewEntity.class);
 
                 if (element.getKind() != ElementKind.CLASS) {
 
-                    error("The annotation @Projection can only be applied on class: ",
+                    error("The annotation @ViewEntity can only be applied on class: ",
                             element);
 
                 } else {
                     boolean error = false;
                     /**
-                     * Obtener datos del projection para ProjectionData
+                     * Obtener datos del viewEntity para ViewEntityData
                      */
 
-                    ProjectionData projectionData = projectionDataSupplier.get(ProjectionData::new, element);
-                    String nameOfProjection = "";
+                    ViewEntityData viewEntityData = viewEntityDataSupplier.get(ViewEntityData::new, element);
+                    String nameOfViewEntity = "";
 
 
+/**
+ * Permitimos que multiples @ViewEntity hagan referencia a la misma coleccion
+ */
+//                    if (uniqueIdCheckList.contains(viewEntityData.getCollection())) {
+//                        error("ViewEntity has should be uniquely defined", element);
+//                        error = true;
+//                    }
 
-                    if (uniqueIdCheckList.contains(projectionData.getCollection())) {
-                        error("Projection has should be uniquely defined", element);
-                        error = true;
-                    }
-
-                    error = !checkIdValidity(projectionData.getCollection(), element);
+                    error = !checkIdValidity(viewEntityData.getCollection(), element);
                     if (!error) {
-                        uniqueIdCheckList.add(projectionData.getCollection());
+                        uniqueIdCheckList.add(viewEntityData.getCollection());
                         try {
 
-                            builderClass(projection, projectionData, element);
+                            builderClass(viewEntity, viewEntityData, element);
 
                         } catch (Exception e) {
                             error(e.getMessage(), null);
@@ -96,8 +98,8 @@ public class ProjectionProcessor extends AbstractProcessor {
     }
 
     // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="builderClass(Projection projection, ProjectionData projectionData,Element element, TypeMirror typeProjection)">
-    private void builderClass(Projection projection, ProjectionData projectionData, Element element)
+// <editor-fold defaultstate="collapsed" desc="builderClass(ViewEntity viewEntity, ViewEntityData viewEntityData,Element element, TypeMirror typeViewEntity)">
+    private void builderClass(ViewEntity viewEntity, ViewEntityData viewEntityData, Element element)
             throws Exception {
         try {
 
@@ -106,23 +108,23 @@ public class ProjectionProcessor extends AbstractProcessor {
              */
 
             /**
-             * List<ProjectionField almacena la información de los atributos de los
-             * projection
+             * List<ViewEntityField almacena la información de los atributos de los
+             * viewEntity
              */
-            List<ProjectionField> projectionFieldList = new ArrayList<>();
+            List<ViewEntityField> viewEntityFieldList = new ArrayList<>();
             /**
              *
              * Procesa el contenido de la interface
              */
-            ProjectionAnalizer projectionAnalizer = ProjectionAnalizer.get(element, messager, projectionData.getDatabase(), projectionFieldList, projectionData);
+            ViewEntityAnalizer viewEntityAnalizer = ViewEntityAnalizer.get(element, messager, viewEntityData.getDatabase(), viewEntityFieldList, viewEntityData);
 
 
             /**
              * Construye la clase Supplier
              */
-            ProjectionSupplierSource projectionSupplierSourceBuilder = new ProjectionSupplierSource();
+            ViewEntitySupplierSource viewEntitySupplierSourceBuilder = new ViewEntitySupplierSource();
 
-            projectionSupplierSourceBuilder.init(projection, projectionData, projectionFieldList, projectionData.getDatabase(), projectionData.getCollection(),element);
+            viewEntitySupplierSourceBuilder.init(viewEntity, viewEntityData, viewEntityFieldList, viewEntityData.getDatabase(), viewEntityData.getCollection(),element);
 
             /**
              * SupplierServices
@@ -130,7 +132,7 @@ public class ProjectionProcessor extends AbstractProcessor {
             /**
              * Crea el archivo
              */
-            generateJavaFile(projectionData.getPackageOfProjection() + "." + projectionData.getProjectionName() + "Supplier", projectionSupplierSourceBuilder.end());
+            generateJavaFile(viewEntityData.getPackageOfViewEntity() + "." + viewEntityData.getEntityName() + "Supplier", viewEntitySupplierSourceBuilder.end());
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
@@ -165,7 +167,7 @@ public class ProjectionProcessor extends AbstractProcessor {
             for (int i = 0; i < name.length(); i++) {
                 if (i == 0 ? !Character.isJavaIdentifierStart(name.charAt(i))
                         : !Character.isJavaIdentifierPart(name.charAt(i))) {
-                    error("Projection as should be valid java "
+                    error("ViewEntity as should be valid java "
                             + "identifier for code generation: " + name, e);
 
                     valid = false;

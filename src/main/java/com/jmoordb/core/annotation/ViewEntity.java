@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Projection {
+public @interface ViewEntity {
     String collection() default "";
     String database() default "{mongodb,database}";
     JakartaSource jakartaSource() default JakartaSource.JAKARTA;

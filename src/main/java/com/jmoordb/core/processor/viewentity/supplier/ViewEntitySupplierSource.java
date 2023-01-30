@@ -1,19 +1,21 @@
-package com.jmoordb.core.processor.projection.supplier;
+package com.jmoordb.core.processor.viewentity.supplier;
 
-import com.jmoordb.core.annotation.Projection;
-import com.jmoordb.core.processor.model.ProjectionData;
+import com.jmoordb.core.annotation.ViewEntity;
+import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
-import com.jmoordb.core.processor.methods.ProjectionField;
+import com.jmoordb.core.processor.methods.ViewEntityField;
 import java.util.*;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.projection.supplier.generate.ProjectionSupplierGenerateToDocument;
-import com.jmoordb.core.processor.projection.supplier.generate.ProjectionSupplierGenerateToReferenced;
-import com.jmoordb.core.processor.projection.supplier.generate.ProjectionSupplierGenerateToUpdate;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplier;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToReferenced;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToUpdate;
 
 /**
  * This class only works if we add elements in proper sequence.
  */
-public class ProjectionSupplierSource {
+public class ViewEntitySupplierSource {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -22,48 +24,48 @@ public class ProjectionSupplierSource {
     private String className;
     private Map<String, String> fields = new LinkedHashMap<>();
 
-    ProjectionSupplierSourceUtil projectionSupplierSourceUtil = new ProjectionSupplierSourceUtil();
+   ViewEntitySupplierSourceUtil viewEntitySupplierSourceUtil = new ViewEntitySupplierSourceUtil();
 
-    public ProjectionSupplierSource() {
+    public ViewEntitySupplierSource() {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(Projection projection, ProjectionData projectionData, List<ProjectionField> projectionFieldList, String database, String collection,Element element)">
-    public ProjectionSupplierSource init(Projection projection, ProjectionData projectionData, List<ProjectionField> projectionFieldList, String database, String collection, Element element) {
-        builder.append(projectionSupplierSourceUtil.definePackage(projectionData.getPackageOfProjection()));
-        builder.append(projectionSupplierSourceUtil.generateImport(projection, projectionData, element));
-        builder.append(projectionSupplierSourceUtil.addRequestScoped());
-        builder.append(projectionSupplierSourceUtil.defineClass(projectionData.getProjectionName() + "Supplier", " implements Serializable"));
+    // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(ViewEntity viewEntity, ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, String database, String collection,Element element)">
+    public ViewEntitySupplierSource init(ViewEntity viewEntity, ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, String database, String collection, Element element) {
+        builder.append(viewEntitySupplierSourceUtil.definePackage(viewEntityData.getPackageOfViewEntity()));
+        builder.append(viewEntitySupplierSourceUtil.generateImport(viewEntity, viewEntityData, element));
+        builder.append(viewEntitySupplierSourceUtil.addRequestScoped());
+        builder.append(viewEntitySupplierSourceUtil.defineClass(viewEntityData.getEntityName() + "Supplier", " implements Serializable"));
 
-        Boolean haveEmbedded = ProjectionSupplierSourceUtil.haveEmbedded(projectionFieldList);
-        Boolean haveReferenced = ProjectionSupplierSourceUtil.haveReferenced(projectionFieldList);
-        Boolean haveViewReferenced = ProjectionSupplierSourceUtil.haveViewReferenced(projectionFieldList);
-        if (haveReferenced || haveEmbedded) {
-            builder.append(projectionSupplierSourceUtil.inject(projection, projectionData, database, collection, projectionFieldList, element, haveReferenced, haveEmbedded));
+        Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
+        Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
+        Boolean haveViewReferenced = ViewEntitySupplierSourceUtil.haveViewReferenced(viewEntityFieldList);
+        if (haveReferenced || haveEmbedded || haveViewReferenced) {
+            builder.append(viewEntitySupplierSourceUtil.inject(viewEntity, viewEntityData, database, collection, viewEntityFieldList, element, haveReferenced, haveEmbedded));
         }
 
         /**
          * Generar los metodos encontrados
          */
-        if (projectionFieldList.isEmpty()) {
+        if (viewEntityFieldList.isEmpty()) {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
 
-            builder.append(ProjectionSupplier.get(projectionData, projectionFieldList, element));
+            builder.append(ViewEntitySupplier.get(viewEntityData, viewEntityFieldList, element));
 //toDocument
-            builder.append(ProjectionSupplierGenerateToDocument.toDocument(projectionData, projectionFieldList, element));
-            builder.append(ProjectionSupplierGenerateToDocument.toDocumentList(projectionData, projectionFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToDocument.toDocument(viewEntityData, viewEntityFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToDocument.toDocumentList(viewEntityData, viewEntityFieldList, element));
             
             //toUpdate
-            builder.append(ProjectionSupplierGenerateToUpdate.toUpdate(projectionData, projectionFieldList, element));
-            builder.append(ProjectionSupplierGenerateToUpdate.toUpdateList(projectionData, projectionFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToUpdate.toUpdate(viewEntityData, viewEntityFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToUpdate.toUpdateList(viewEntityData, viewEntityFieldList, element));
             
             /**
              * Metodos para devolver solo la llave primaria
              */
             //toReferenced
-            builder.append(ProjectionSupplierGenerateToReferenced.toReferenced(projectionData, projectionFieldList, element));
-            builder.append(ProjectionSupplierGenerateToReferenced.toReferencedList(projectionData, projectionFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToReferenced.toReferenced(viewEntityData, viewEntityFieldList, element));
+            builder.append(ViewEntitySupplierGenerateToReferenced.toReferencedList(viewEntityData, viewEntityFieldList, element));
             
           
             
@@ -80,7 +82,7 @@ public class ProjectionSupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public ProjectionSupplierSource addEditorFoldStartx(String desc) {
+    public ViewEntitySupplierSource addEditorFoldStartx(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -95,7 +97,7 @@ public class ProjectionSupplierSource {
      * @param identifierToTypeMap
      * @return
      */
-    public ProjectionSupplierSource addFields(LinkedHashMap<String, String> identifierToTypeMap) {
+    public ViewEntitySupplierSource addFields(LinkedHashMap<String, String> identifierToTypeMap) {
         for (Map.Entry<String, String> entry : identifierToTypeMap.entrySet()) {
             addField(entry.getValue(), entry.getKey());
         }
@@ -104,7 +106,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addField(String type, String identifier)">
-    public ProjectionSupplierSource addField(String type, String identifier) {
+    public ViewEntitySupplierSource addField(String type, String identifier) {
         fields.put(identifier, type);
         builder.append("private ")
                 .append(type)
@@ -124,7 +126,7 @@ public class ProjectionSupplierSource {
      * @param fieldsToBind
      * @return
      */
-    public ProjectionSupplierSource addConstructor(String accessModifier, List<String> fieldsToBind) {
+    public ViewEntitySupplierSource addConstructor(String accessModifier, List<String> fieldsToBind) {
         builder.append(LINE_BREAK)
                 .append(accessModifier)
                 .append(" ")
@@ -161,7 +163,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields)">
-    public ProjectionSupplierSource addConstructor(String accessModifier, boolean bindFields) {
+    public ViewEntitySupplierSource addConstructor(String accessModifier, boolean bindFields) {
         addConstructor(accessModifier,
                 bindFields ? new ArrayList(fields.keySet())
                         : new ArrayList<>());
@@ -170,7 +172,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addMethod(MethodProcessorAux method)">
 
-    public ProjectionSupplierSource addMethod(MethodProcessorAux method) {
+    public ViewEntitySupplierSource addMethod(MethodProcessorAux method) {
         builder.append(LINE_BREAK)
                 .append(method.end())
                 .append(LINE_BREAK);
@@ -179,7 +181,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createSetterForField(String name)">
-    public ProjectionSupplierSource createSetterForField(String name) {
+    public ViewEntitySupplierSource createSetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for setter: " + name);
         }
@@ -192,7 +194,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createGetterForField(String name)">
 
-    public ProjectionSupplierSource createGetterForField(String name) {
+    public ViewEntitySupplierSource createGetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for Getter: " + name);
         }
@@ -222,7 +224,7 @@ public class ProjectionSupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public ProjectionSupplierSource addEditorFoldStart(String desc) {
+    public ViewEntitySupplierSource addEditorFoldStart(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -232,7 +234,7 @@ public class ProjectionSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addNestedClass(SupplierSourceBuilder jClass)">
-    public ProjectionSupplierSource addNestedClass(ProjectionSupplierSource jClass) {
+    public ViewEntitySupplierSource addNestedClass(ViewEntitySupplierSource jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);
