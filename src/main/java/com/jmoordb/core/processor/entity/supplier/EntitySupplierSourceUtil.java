@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.entity.supplier;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
-import com.jmoordb.core.processor.model.EntityData;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.methods.EntityField;
 import com.jmoordb.core.processor.methods.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;

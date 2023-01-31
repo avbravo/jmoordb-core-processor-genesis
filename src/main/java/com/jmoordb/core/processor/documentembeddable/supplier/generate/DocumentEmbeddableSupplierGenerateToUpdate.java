@@ -11,9 +11,9 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.VIEWREFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedBuilder;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -56,7 +56,7 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
 
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
+                        sentence += coma + DocumentEmbeddableSupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -176,7 +176,7 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
+                        sentence += coma + DocumentEmbeddableSupplierEmbeddedBuilder.toUpdate(documentEmbeddableData, entityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:

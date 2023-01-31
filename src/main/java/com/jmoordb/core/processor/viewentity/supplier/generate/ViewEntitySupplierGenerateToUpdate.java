@@ -9,7 +9,6 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -18,6 +17,7 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.viewentity.supplier.generate.util.ViewEntitySupplierReferencedUtil;
 import com.jmoordb.core.processor.viewentity.supplier.generate.util.ViewEntitySupplierViewReferencedUtil;
 
@@ -53,7 +53,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
+                        sentence += coma + ViewEntitySupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -170,7 +170,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
+                        sentence += coma + ViewEntitySupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
                         count++;
                         break;
                     case REFERENCED:

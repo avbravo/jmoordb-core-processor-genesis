@@ -10,9 +10,9 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedBuilder;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -49,7 +49,7 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
 //                            coma = "\n,";
                             coma = "\n";
                         }
-                        sentence += coma + embeddedProcess(documentEmbeddableData, entityField);
+                        sentence += coma + DocumentEmbeddableSupplierEmbeddedBuilder.embeddedProcess(documentEmbeddableData, entityField);
                         count++;
                         break;
                     case REFERENCED:
@@ -164,7 +164,7 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
 //                            coma = "\n,";
                             coma = "\n";
                         }
-                        sentence += coma + embeddedProcess(documentEmbeddableData, entityField);
+                        sentence += coma + DocumentEmbeddableSupplierEmbeddedBuilder.embeddedProcess(documentEmbeddableData, entityField);
                         count++;
                         break;
                     case REFERENCED:

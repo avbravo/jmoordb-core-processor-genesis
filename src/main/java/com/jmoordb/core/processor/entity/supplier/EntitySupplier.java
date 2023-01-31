@@ -2,18 +2,18 @@ package com.jmoordb.core.processor.entity.supplier;
 
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierCastConverterBuilder.castConverter;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.builder.interfaces.SupplierReferencedGetBuilder;
+import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
+import com.jmoordb.core.processor.entity.model.EntityData;
+import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedGetBuilder;
 
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
+import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedGetBuilder;
 
 public class EntitySupplier  implements EntitySupplierGenerateToDocument{
 
@@ -33,16 +33,16 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
             for (EntityField entityField : entityFieldList) {
                 switch (entityField.getAnnotationType()) {
                     case EMBEDDED:
-                        sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
+                        sentence += EntitySupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
                         break;
                     case REFERENCED:
 
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
 //                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
-                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
+                            sentence += EntitySupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
                         } else {
-                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
+                            sentence += EntitySupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
                         }
 
                         break;
@@ -53,9 +53,9 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
 
-                            sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
+                            sentence += EntitySupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
                         } else {
-                            sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
+                            sentence += EntitySupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
                         }
                         break;
                     case ID:

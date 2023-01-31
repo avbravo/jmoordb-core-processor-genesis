@@ -1,7 +1,7 @@
 package com.jmoordb.core.processor.entity.supplier;
 
 import com.jmoordb.core.annotation.Entity;
-import com.jmoordb.core.processor.model.EntityData;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.methods.EntityField;
 import java.util.*;

@@ -12,12 +12,11 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 
-import com.jmoordb.core.processor.model.EntityData;
-import com.jmoordb.core.processor.model.EntityDataSupplier;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSource;
 import com.jmoordb.core.processor.entity.analizer.EntityAnalizer;
+import com.jmoordb.core.processor.entity.model.EntityData;
+import com.jmoordb.core.processor.entity.model.EntityDataSupplier;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.io.IOException;

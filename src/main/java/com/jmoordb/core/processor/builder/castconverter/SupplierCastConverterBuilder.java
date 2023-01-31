@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.jmoordb.core.processor.builder.interfaces;
+package com.jmoordb.core.processor.builder.castconverter;
 
 import com.jmoordb.core.util.MessagesUtil;
 

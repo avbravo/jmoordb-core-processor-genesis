@@ -9,10 +9,9 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -20,6 +19,7 @@ import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.util.EntitySupplierReferencedUtil;
 import com.jmoordb.core.processor.entity.supplier.generate.util.EntitySupplierViewReferencedUtil;
+import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedBuilder;
 
 /**
  *
@@ -48,7 +48,7 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
+                        sentence += coma + EntitySupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
                         count++;
                         break;
                     case REFERENCED:
@@ -161,7 +161,7 @@ public interface EntitySupplierGenerateToDocument {
 //                            coma = "\n,";
                             coma = "\n";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
+                        sentence += coma + EntitySupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
                         count++;
                         break;
                     case REFERENCED:

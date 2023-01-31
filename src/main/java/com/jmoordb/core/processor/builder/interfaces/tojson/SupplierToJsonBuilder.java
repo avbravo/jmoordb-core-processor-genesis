@@ -10,12 +10,13 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedBuilder.embeddedProcess;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierReferencedBuilder.referencedProcess;
+
+import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedBuilder;
+import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedBuilder;
+
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -48,7 +49,7 @@ public interface SupplierToJsonBuilder {
                         if (count > 0) {
                             coma = "\n,";
                         }
-                        sentence += coma + SupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
+                        sentence += coma + EntitySupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
                         count++;
                         break;
                     case REFERENCED:
@@ -58,9 +59,9 @@ public interface SupplierToJsonBuilder {
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
                             //sentence += embeddedProcess(entityData, entityField);
-                              sentence += "+" + coma + referencedProcess(entityData, entityField, element);
+                              sentence += "+" + coma + EntitySupplierReferencedBuilder.referencedProcess(entityData, entityField, element);
                         } else {
-                            sentence += "+" + coma + referencedProcess(entityData, entityField, element);
+                            sentence += "+" + coma + EntitySupplierReferencedBuilder.referencedProcess(entityData, entityField, element);
                         }
                         count++;
                         break;

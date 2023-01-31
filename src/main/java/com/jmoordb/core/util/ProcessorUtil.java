@@ -32,7 +32,6 @@ import com.jmoordb.core.processor.methods.RepositoryMethod;
 import com.jmoordb.core.processor.methods.WhereDescomposed;
 import com.jmoordb.core.processor.model.DateSupportData;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
-import com.jmoordb.core.processor.model.EntityData;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +49,7 @@ import javax.lang.model.util.ElementFilter;
 import com.jmoordb.core.annotation.view.VForm;
 import com.jmoordb.core.annotation.view.VTemplate;
 import com.jmoordb.core.annotation.view.VMenu;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.methods.view.ViewMethod;
 import com.jmoordb.core.processor.model.ViewEntityData;
 

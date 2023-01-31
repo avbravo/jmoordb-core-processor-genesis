@@ -5,12 +5,12 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import static com.jmoordb.core.processor.builder.interfaces.SupplierCastConverterBuilder.castConverter;
-import com.jmoordb.core.processor.builder.interfaces.SupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.builder.interfaces.SupplierReferencedGetBuilder;
+import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedGetBuilder;
+import com.jmoordb.core.processor.documentembeddable.supplier.referenced.DocumentEmbeddableSupplierReferencedGetBuilder;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -36,7 +36,7 @@ public class DocumentEmbeddableSupplier {
             for (DocumentEmbeddableField documentEmbeddableField : documentEmbeddableFieldList) {
                 switch (documentEmbeddableField.getAnnotationType()) {
                     case EMBEDDED:
-                        sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+                        sentence += DocumentEmbeddableSupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
                         break;
                     case REFERENCED:
 
@@ -45,9 +45,9 @@ public class DocumentEmbeddableSupplier {
   * Anteriromente lo leia como embebido
   **/
  //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
-                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                            sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
-                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                            sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         }
 
                         break;
@@ -58,9 +58,9 @@ public class DocumentEmbeddableSupplier {
   * Anteriromente lo leia como embebido
   **/
  //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
-                            sentence += SupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                            sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
-                            sentence += SupplierReferencedGetBuilder.viewReferencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
+                            sentence += DocumentEmbeddableSupplierReferencedGetBuilder.viewReferencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         }
 
                         break;

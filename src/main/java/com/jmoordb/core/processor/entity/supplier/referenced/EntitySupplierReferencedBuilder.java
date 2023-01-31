@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.jmoordb.core.processor.entity.supplier.generate.util;
+package com.jmoordb.core.processor.entity.supplier.referenced;
 
-import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.model.IdData;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -16,8 +16,8 @@ import javax.lang.model.element.Element;
  *
  * @author avbravo
  */
-public interface EntitySupplierReferencedUtil {
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcess(EntityData entityData, EntityField entityField,Boolean typeReferencedEmbedded)">
+public interface EntitySupplierReferencedBuilder {
+     // <editor-fold defaultstate="collapsed" desc="String referencedProcess(EntityData entityData, EntityField entityField)">
 
     /**
      * Procesa los documentos Referenciados
@@ -26,8 +26,7 @@ public interface EntitySupplierReferencedUtil {
      * @param entityField
      * @return
      */
-    public static String referencedProcess(EntityData entityData,
-            EntityField entityField, Element element, Boolean typeReferencedEmbedded) {
+    public static String referencedProcess(EntityData entityData, EntityField entityField, Element element) {
         String result = "";
         String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
@@ -42,18 +41,13 @@ public interface EntitySupplierReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getReferenced().from();
         String localField = entityField.getReferenced().localField();
-        String sourceSupplier = "";
-        if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
-        } else {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
-        }
-
+        String sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Referenced List<" + fieldLower + ">\n";
+
 
                 result += sourceSupplier;
                 return result;
@@ -61,17 +55,20 @@ public interface EntitySupplierReferencedUtil {
             if (entityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Referenced Set<" + fieldLower + ">\n";
 
+
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Referenced Stream<" + fieldLower + ">\n";
 
+
                 result += sourceSupplier;
                 return result;
             }
 
             result += "\t// Referenced of " + fieldLower + "\n";
+
 
             result += sourceSupplier;
 
@@ -81,10 +78,9 @@ public interface EntitySupplierReferencedUtil {
         return result;
     }
     // </editor-fold>
+    
+        // <editor-fold defaultstate="collapsed" desc="String toUpdate(EntityData entityData, EntityField entityField, Element element, String caracterComa)">
 
-
-
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcessUpdate(EntityData entityData, EntityField entityField String caracterComa,String caracterComa,Boolean typeReferencedEmbedded)">
     /**
      * Procesa los documentos Referenciados
      *
@@ -92,7 +88,7 @@ public interface EntitySupplierReferencedUtil {
      * @param entityField
      * @return
      */
-    public static String toUpdate(EntityData entityData, EntityField entityField, Element element, String caracterComa, Boolean typeReferencedEmbedded) {
+    public static String toUpdate(EntityData entityData, EntityField entityField, Element element, String caracterComa) {
         String result = "";
         String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
@@ -107,25 +103,17 @@ public interface EntitySupplierReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getReferenced().from();
         String localField = entityField.getReferenced().localField();
-        /**
-         * Para listas
-         */
+       /**
+        * Para listas 
+        */  
 //        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
- String sourceSupplier = "";
-        if (typeReferencedEmbedded) {
-            
-             sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-        }else{
-            
-
-             sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-        }
-        
+        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         try {
 
             if (entityField.getReturnTypeValue().contains("List")) {
 
                 result += "\t// Referenced List<" + fieldLower + ">\n";
+
 
                 result += sourceSupplier;
                 return result;
@@ -133,26 +121,24 @@ public interface EntitySupplierReferencedUtil {
             if (entityField.getReturnTypeValue().contains("Set")) {
                 result += "\t// Referenced Set<" + fieldLower + ">\n";
 
+
                 result += sourceSupplier;
                 return result;
             }
             if (entityField.getReturnTypeValue().contains("Stream")) {
                 result += "\t// Referenced Stream<" + fieldLower + ">\n";
 
+
                 result += sourceSupplier;
                 return result;
             }
-
+            
             /**
              * Referencias simples
              */
-              if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-              }else{
-
-                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
-            }
+            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
             result += "\t// Referenced of " + fieldLower + "\n";
+
 
             result += sourceSupplier;
 
@@ -162,6 +148,8 @@ public interface EntitySupplierReferencedUtil {
         return result;
     }
     // </editor-fold>
-
-
+    
+    
+    
+    
 }

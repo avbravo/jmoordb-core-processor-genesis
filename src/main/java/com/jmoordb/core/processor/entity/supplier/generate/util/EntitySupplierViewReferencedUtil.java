@@ -4,8 +4,8 @@
  */
 package com.jmoordb.core.processor.entity.supplier.generate.util;
 
+import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.model.EntityData;
 import com.jmoordb.core.processor.model.IdData;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
