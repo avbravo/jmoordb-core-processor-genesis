@@ -1,31 +1,25 @@
 package com.jmoordb.core.processor.documentembeddable.supplier.generate;
 
-import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
-import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
-import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
-import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.documentembeddable.supplier.referenced.DocumentEmbeddableSupplierReferencedGetBuilder;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class DocumentEmbeddableSupplierGenerateGetPK {
+public class DocumentEmbeddableSupplierGenerateGetId {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
 
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder get(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element)">
-    public static StringBuilder getPK(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder getId(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element)">
+    public static StringBuilder getId(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
@@ -49,7 +43,7 @@ public class DocumentEmbeddableSupplierGenerateGetPK {
 
             String code
                     = ProcessorUtil.editorFold(documentEmbeddableData) + "\n\n"
-                    + "    public " + documentEmbeddableData.getDocumentEmbeddableName() + " getPK(Supplier<? extends " + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document_, Boolean... showError) {\n"
+                    + "    public " + documentEmbeddableData.getDocumentEmbeddableName() + " getId(Supplier<? extends " + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + " " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "= s.get(); \n"
                     + "            Boolean show = true;\n"
                     + "        try {\n"

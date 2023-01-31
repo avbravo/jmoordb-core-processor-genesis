@@ -16,14 +16,14 @@ import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedGetBuilder;
 
-public class EntitySupplierGenerateGetPK implements EntitySupplierGenerateToDocument {
+public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocument {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
 
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder getPK(EntityData entityData, List<EntityField> entityFieldList, Element element)">
-    public static StringBuilder getPK(EntityData entityData, List<EntityField> entityFieldList, Element element) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder getId(EntityData entityData, List<EntityField> entityFieldList, Element element)">
+    public static StringBuilder getId(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
@@ -45,8 +45,8 @@ public class EntitySupplierGenerateGetPK implements EntitySupplierGenerateToDocu
             }
 
             String code
-                    = ProcessorUtil.editorFoldPK(entityData) + "\n\n"
-                    + "    public " + entityData.getEntityName() + " getPk(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
+                    = ProcessorUtil.editorFoldId(entityData) + "\n\n"
+                    + "    public " + entityData.getEntityName() + " getId(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "= s.get(); \n"
                               + "            Boolean show = true;\n"
                     + "        try {\n"

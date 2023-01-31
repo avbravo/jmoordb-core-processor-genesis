@@ -39,8 +39,6 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                     case REFERENCED:
 
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-//                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(entityData, entityField);
                             sentence += EntitySupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);
                         } else {
                             sentence += EntitySupplierReferencedGetBuilder.referencedProcessGet(entityData, entityField, element);

@@ -15,7 +15,7 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.viewentity.supplier.referenced.EntityViewSupplierReferencedGetBuilder;
+import com.jmoordb.core.processor.viewentity.supplier.referenced.ViewEntitySupplierReferencedGetBuilder;
 
 public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerateToDocument {
 
@@ -42,9 +42,9 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                         if (viewViewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
 //                            sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(viewViewEntityData, viewViewEntityField);
-                            sentence += EntityViewSupplierReferencedGetBuilder.referencedProcessGet(viewViewEntityData, viewViewEntityField, element);
+                            sentence += ViewEntitySupplierReferencedGetBuilder.referencedProcessGet(viewViewEntityData, viewViewEntityField, element);
                         } else {
-                            sentence += EntityViewSupplierReferencedGetBuilder.referencedProcessGet(viewViewEntityData, viewViewEntityField, element);
+                            sentence += ViewEntitySupplierReferencedGetBuilder.referencedProcessGet(viewViewEntityData, viewViewEntityField, element);
                         }
 
                         break;
@@ -53,9 +53,9 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
 
                         if (viewViewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += EntityViewSupplierReferencedGetBuilder.viewReferencedProcessGet(viewViewEntityData, viewViewEntityField, element);
+                            sentence += ViewEntitySupplierReferencedGetBuilder.viewReferencedProcessGet(viewViewEntityData, viewViewEntityField, element);
                         } else {
-                            sentence += EntityViewSupplierReferencedGetBuilder.viewReferencedProcessGet(viewViewEntityData, viewViewEntityField, element);
+                            sentence += ViewEntitySupplierReferencedGetBuilder.viewReferencedProcessGet(viewViewEntityData, viewViewEntityField, element);
                         }
                         break;
                     case ID:

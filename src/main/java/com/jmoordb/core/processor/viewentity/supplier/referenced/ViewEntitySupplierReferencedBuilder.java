@@ -16,7 +16,7 @@ import javax.lang.model.element.Element;
  *
  * @author avbravo
  */
-public interface EntityViewSupplierReferencedBuilder {
+public interface ViewEntitySupplierReferencedBuilder {
      
     
     

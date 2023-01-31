@@ -66,7 +66,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
                     result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
@@ -89,7 +89,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
 
@@ -113,7 +113,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
 
@@ -132,7 +132,7 @@ public interface EntitySupplierReferencedGetBuilder {
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
 //                result += "\t" + fieldUpper + " " + fieldLower + " = (" + fieldUpper + ") document_.get(\"" + fieldLower + "\");\n";
-                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId("
                         + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
 
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";
@@ -148,7 +148,7 @@ public interface EntitySupplierReferencedGetBuilder {
         return result;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcessGet(EntityData entityData, EntityField entityField)">
+    // <editor-fold defaultstate="collapsed" desc="String viewReferencedProcessGet(EntityData entityData, EntityField entityField)">
 
     /**
      * Procesa los documentos Referenciados
@@ -196,7 +196,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
                     result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
@@ -219,7 +219,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
@@ -243,7 +243,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
                     result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
                     result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
@@ -262,9 +262,8 @@ public interface EntitySupplierReferencedGetBuilder {
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
 
-//                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
-//                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
-                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+
+                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId("
                         + fieldUpper + "::new,(Document) document_.get(\"" + entityField.getViewReferenced().from() + "\"));\n";
 
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";

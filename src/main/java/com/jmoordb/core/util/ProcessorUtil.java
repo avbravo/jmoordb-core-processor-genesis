@@ -1001,14 +1001,14 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String editorFoldPK(EntityData entityData)">
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldId(EntityData entityData)">
 
-    public static String editorFoldPK(EntityData entityData) {
+    public static String editorFoldId(EntityData entityData) {
         String editorFoldStart = "";
         String result = "";
         try {
 
-            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " getPK(Supplier<? extends" + entityData.getEntityName() + "> s, Document document, Boolean... showError) ";
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " getId(Supplier<? extends" + entityData.getEntityName() + "> s, Document document, Boolean... showError) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1033,14 +1033,14 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String editorFoldPK(ViewEntityData viewEntityData)">
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldId(ViewEntityData viewEntityData)">
 
-    public static String editorFoldPK(ViewEntityData viewEntityData) {
+    public static String editorFoldId(ViewEntityData viewEntityData) {
         String editorFoldStart = "";
         String result = "";
         try {
 
-            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName()) + " getPK(Supplier<? extends" + viewEntityData.getEntityName() + "> s, Document document, Boolean... showError) ";
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName()) + " getId(Supplier<? extends" + viewEntityData.getEntityName() + "> s, Document document, Boolean... showError) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {

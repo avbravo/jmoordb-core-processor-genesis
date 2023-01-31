@@ -15,16 +15,16 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.viewentity.supplier.referenced.EntityViewSupplierReferencedGetBuilder;
+import com.jmoordb.core.processor.viewentity.supplier.referenced.ViewEntitySupplierReferencedGetBuilder;
 
-public class ViewEntitySupplierGenerateGetPK implements ViewEntitySupplierGenerateToDocument {
+public class ViewEntitySupplierGenerateGetId implements ViewEntitySupplierGenerateToDocument {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
 
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder get(ViewEntityData viewViewEntityData, List<ViewEntityField> viewViewEntityFieldList, Element element)">
-    public static StringBuilder getPK(ViewEntityData viewViewEntityData, List<ViewEntityField> viewViewEntityFieldList, Element element) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder getID(ViewEntityData viewViewEntityData, List<ViewEntityField> viewViewEntityFieldList, Element element)">
+    public static StringBuilder getId(ViewEntityData viewViewEntityData, List<ViewEntityField> viewViewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewViewEntityFieldList);
@@ -46,8 +46,8 @@ public class ViewEntitySupplierGenerateGetPK implements ViewEntitySupplierGenera
             }
 
             String code
-                    = ProcessorUtil.editorFold(viewViewEntityData) + "\n\n"
-                    + "    public " + viewViewEntityData.getEntityName() + " getPK(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
+                    = ProcessorUtil.editorFoldId(viewViewEntityData) + "\n\n"
+                    + "    public " + viewViewEntityData.getEntityName() + " getId(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(viewViewEntityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + "= s.get(); \n"
                               + "            Boolean show = true;\n"
                     + "        try {\n"

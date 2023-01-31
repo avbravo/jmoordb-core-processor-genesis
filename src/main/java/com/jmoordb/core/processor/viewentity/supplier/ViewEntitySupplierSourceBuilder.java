@@ -7,7 +7,7 @@ import com.jmoordb.core.processor.methods.ViewEntityField;
 import java.util.*;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGet;
-import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGetPK;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGetId;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToReferenced;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToUpdate;
@@ -52,8 +52,8 @@ public class ViewEntitySupplierSourceBuilder {
         } else {
 //get
             builder.append(ViewEntitySupplierGenerateGet.get(viewEntityData, viewEntityFieldList, element));
-//getPK
-            builder.append(ViewEntitySupplierGenerateGetPK.getPK(viewEntityData, viewEntityFieldList, element));
+//getId
+            builder.append(ViewEntitySupplierGenerateGetId.getId(viewEntityData, viewEntityFieldList, element));
 //toDocument
             builder.append(ViewEntitySupplierGenerateToDocument.toDocument(viewEntityData, viewEntityFieldList, element));
             builder.append(ViewEntitySupplierGenerateToDocument.toDocumentList(viewEntityData, viewEntityFieldList, element));
