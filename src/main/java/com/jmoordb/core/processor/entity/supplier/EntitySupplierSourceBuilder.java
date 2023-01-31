@@ -3,6 +3,7 @@ package com.jmoordb.core.processor.entity.supplier;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateGet;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.processor.entity.model.EntityData;
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateGetPK;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.fields.EntityField;
 import java.util.*;
@@ -50,7 +51,10 @@ public class EntitySupplierSourceBuilder {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
 
+            //get
             builder.append(EntitySupplierGenerateGet.get(entityData, entityFieldList, element));
+            //getPK
+            builder.append(EntitySupplierGenerateGetPK.getPK(entityData, entityFieldList, element));
 //toDocument
             builder.append(EntitySupplierGenerateToDocument.toDocument(entityData, entityFieldList, element));
             builder.append(EntitySupplierGenerateToDocument.toDocumentList(entityData, entityFieldList, element));

@@ -7,7 +7,7 @@ import com.jmoordb.core.processor.methods.ViewEntityField;
 import java.util.*;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGet;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGetPK;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToReferenced;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToUpdate;
@@ -50,8 +50,10 @@ public class ViewEntitySupplierSourceBuilder {
         if (viewEntityFieldList.isEmpty()) {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
-
+//get
             builder.append(ViewEntitySupplierGenerateGet.get(viewEntityData, viewEntityFieldList, element));
+//getPK
+            builder.append(ViewEntitySupplierGenerateGetPK.getPK(viewEntityData, viewEntityFieldList, element));
 //toDocument
             builder.append(ViewEntitySupplierGenerateToDocument.toDocument(viewEntityData, viewEntityFieldList, element));
             builder.append(ViewEntitySupplierGenerateToDocument.toDocumentList(viewEntityData, viewEntityFieldList, element));

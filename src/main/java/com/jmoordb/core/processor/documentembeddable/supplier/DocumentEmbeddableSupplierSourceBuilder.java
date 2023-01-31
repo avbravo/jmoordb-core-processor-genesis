@@ -3,6 +3,7 @@ package com.jmoordb.core.processor.documentembeddable.supplier;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateGet;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateGetPK;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import java.util.*;
@@ -49,8 +50,10 @@ public class DocumentEmbeddableSupplierSourceBuilder {
         if (documentEmbeddableFieldList.isEmpty()) {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
-
+//get
             builder.append(DocumentEmbeddableSupplierGenerateGet.get(documentEmbeddableData, documentEmbeddableFieldList, element));
+//getPK
+            builder.append(DocumentEmbeddableSupplierGenerateGetPK.getPK(documentEmbeddableData, documentEmbeddableFieldList, element));
 
             
             //ToDocument

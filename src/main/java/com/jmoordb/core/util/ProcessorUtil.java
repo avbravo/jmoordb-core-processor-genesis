@@ -1001,6 +1001,22 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldPK(EntityData entityData)">
+
+    public static String editorFoldPK(EntityData entityData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " getPK(Supplier<? extends" + entityData.getEntityName() + "> s, Document document, Boolean... showError) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFold(ViewEntityData viewEntityData)">
 
     public static String editorFold(ViewEntityData viewEntityData) {
@@ -1009,6 +1025,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName()) + " get(Supplier<? extends" + viewEntityData.getEntityName() + "> s, Document document, Boolean... showError) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldPK(ViewEntityData viewEntityData)">
+
+    public static String editorFoldPK(ViewEntityData viewEntityData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(viewEntityData.getEntityName()) + " getPK(Supplier<? extends" + viewEntityData.getEntityName() + "> s, Document document, Boolean... showError) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
@@ -1445,6 +1477,22 @@ public class ProcessorUtil {
         try {
 
             editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + " get(Supplier<? extends" + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document, Boolean... showError) ";
+            result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldPK(EntityData entityData)">
+
+    public static String editorFoldPK(DocumentEmbeddableData documentEmbeddableData) {
+        String editorFoldStart = "";
+        String result = "";
+        try {
+
+            editorFoldStart = " public " + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + " getPK(Supplier<? extends" + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document, Boolean... showError) ";
             result = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + editorFoldStart + "\">";
 
         } catch (Exception e) {
