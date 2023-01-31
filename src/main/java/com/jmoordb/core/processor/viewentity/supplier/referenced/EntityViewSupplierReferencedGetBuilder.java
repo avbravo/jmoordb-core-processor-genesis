@@ -150,7 +150,7 @@ public interface EntityViewSupplierReferencedGetBuilder {
         return result;
     }
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="String referencedProcessGet(ViewEntityData viewEntityData, ViewEntityField viewEntityField)">
+    // <editor-fold defaultstate="collapsed" desc="String viewReferencedProcessGet(ViewEntityData viewEntityData, ViewEntityField viewEntityField)">
 
     /**
      * Procesa los documentos Referenciados
@@ -263,9 +263,11 @@ public interface EntityViewSupplierReferencedGetBuilder {
             }
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
-//                result += "\t" + fieldUpper + " " + fieldLower + " = (" + fieldUpper + ") document_.get(\"" + fieldLower + "\");\n";
+
+//                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+//                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
                 result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
-                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
+                        + fieldUpper + "::new,(Document) document_.get(\"" + viewEntityField.getViewReferenced().from() + "\"));\n";
 
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";
 

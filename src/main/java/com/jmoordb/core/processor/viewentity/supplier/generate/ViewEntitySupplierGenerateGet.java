@@ -1,4 +1,4 @@
-package com.jmoordb.core.processor.viewentity.supplier;
+package com.jmoordb.core.processor.viewentity.supplier.generate;
 
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
@@ -6,6 +6,7 @@ import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConve
 
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
 import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -16,8 +17,7 @@ import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedGetBuilder;
 import com.jmoordb.core.processor.viewentity.supplier.referenced.EntityViewSupplierReferencedGetBuilder;
 
-
-public class ViewEntitySupplier  implements ViewEntitySupplierGenerateToDocument{
+public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerateToDocument {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -48,12 +48,10 @@ public class ViewEntitySupplier  implements ViewEntitySupplierGenerateToDocument
                         }
 
                         break;
-                        
-		
+
                     case VIEWREFERENCED:
 
                         if (viewViewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
 
                             sentence += EntityViewSupplierReferencedGetBuilder.viewReferencedProcessGet(viewViewEntityData, viewViewEntityField, element);
                         } else {
@@ -81,12 +79,19 @@ public class ViewEntitySupplier  implements ViewEntitySupplierGenerateToDocument
 
             String code
                     = ProcessorUtil.editorFold(viewViewEntityData) + "\n\n"
-                    + "    public " + viewViewEntityData.getEntityName() + " get(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_) {\n"
+                    + "    public " + viewViewEntityData.getEntityName() + " get(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(viewViewEntityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + "= s.get(); \n"
+                              + "            Boolean show = true;\n"
                     + "        try {\n"
+                    
+                    + "            if (showError.length != 0) {\n"
+                    + "                show = showError[0];\n"
+                    + "            }\n"
                     + sentence + "\n"
                     + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             if (show) {\n"
+                    + "                MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             }\n"
                     + "         }\n"
                     + "         return " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ";\n"
                     + "     }\n"
@@ -100,6 +105,4 @@ public class ViewEntitySupplier  implements ViewEntitySupplierGenerateToDocument
     }
 
     // </editor-fold>
-    
-
 }

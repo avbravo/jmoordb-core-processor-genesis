@@ -1,5 +1,6 @@
 package com.jmoordb.core.processor.documentembeddable.supplier;
 
+import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentEmbeddableSupplierGenerateGet;
 import com.jmoordb.core.annotation.DocumentEmbeddable;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
@@ -13,7 +14,7 @@ import com.jmoordb.core.processor.documentembeddable.supplier.generate.DocumentE
 /**
  * This class only works if we add elements in proper sequence.
  */
-public class DocumentEmbeddableSupplierSource {
+public class DocumentEmbeddableSupplierSourceBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -24,12 +25,12 @@ public class DocumentEmbeddableSupplierSource {
 
     DocumentEmbeddableSupplierSourceUtil sourceDocumentEmbeddableUtilBuilder = new DocumentEmbeddableSupplierSourceUtil();
 
-    public DocumentEmbeddableSupplierSource() {
+    public DocumentEmbeddableSupplierSourceBuilder() {
 
     }
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection,Element element)">
-    public DocumentEmbeddableSupplierSource init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection, Element element) {
+    public DocumentEmbeddableSupplierSourceBuilder init(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, String database, String collection, Element element) {
         builder.append(sourceDocumentEmbeddableUtilBuilder.definePackage(documentEmbeddableData.getPackageOfDocumentEmbeddable()));
         builder.append(sourceDocumentEmbeddableUtilBuilder.generateImport(documentEmbeddable, documentEmbeddableData, element));
         builder.append(sourceDocumentEmbeddableUtilBuilder.addRequestScoped());
@@ -49,7 +50,7 @@ public class DocumentEmbeddableSupplierSource {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
 
-            builder.append(DocumentEmbeddableSupplier.get(documentEmbeddableData, documentEmbeddableFieldList, element));
+            builder.append(DocumentEmbeddableSupplierGenerateGet.get(documentEmbeddableData, documentEmbeddableFieldList, element));
 
             
             //ToDocument
@@ -80,7 +81,7 @@ public class DocumentEmbeddableSupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public DocumentEmbeddableSupplierSource addEditorFoldStartx(String desc) {
+    public DocumentEmbeddableSupplierSourceBuilder addEditorFoldStartx(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -95,7 +96,7 @@ public class DocumentEmbeddableSupplierSource {
      * @param identifierToTypeMap
      * @return
      */
-    public DocumentEmbeddableSupplierSource addFields(LinkedHashMap<String, String> identifierToTypeMap) {
+    public DocumentEmbeddableSupplierSourceBuilder addFields(LinkedHashMap<String, String> identifierToTypeMap) {
         for (Map.Entry<String, String> entry : identifierToTypeMap.entrySet()) {
             addField(entry.getValue(), entry.getKey());
         }
@@ -104,7 +105,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource addField(String type, String identifier)">
-    public DocumentEmbeddableSupplierSource addField(String type, String identifier) {
+    public DocumentEmbeddableSupplierSourceBuilder addField(String type, String identifier) {
         fields.put(identifier, type);
         builder.append("private ")
                 .append(type)
@@ -124,7 +125,7 @@ public class DocumentEmbeddableSupplierSource {
      * @param fieldsToBind
      * @return
      */
-    public DocumentEmbeddableSupplierSource addConstructor(String accessModifier, List<String> fieldsToBind) {
+    public DocumentEmbeddableSupplierSourceBuilder addConstructor(String accessModifier, List<String> fieldsToBind) {
         builder.append(LINE_BREAK)
                 .append(accessModifier)
                 .append(" ")
@@ -161,7 +162,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource addConstructor(String accessModifier, boolean bindFields)">
-    public DocumentEmbeddableSupplierSource addConstructor(String accessModifier, boolean bindFields) {
+    public DocumentEmbeddableSupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields) {
         addConstructor(accessModifier,
                 bindFields ? new ArrayList(fields.keySet())
                         : new ArrayList<>());
@@ -170,7 +171,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource addMethod(MethodProcessorAux method)">
 
-    public DocumentEmbeddableSupplierSource addMethod(MethodProcessorAux method) {
+    public DocumentEmbeddableSupplierSourceBuilder addMethod(MethodProcessorAux method) {
         builder.append(LINE_BREAK)
                 .append(method.end())
                 .append(LINE_BREAK);
@@ -179,7 +180,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource createSetterForField(String name)">
-    public DocumentEmbeddableSupplierSource createSetterForField(String name) {
+    public DocumentEmbeddableSupplierSourceBuilder createSetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for setter: " + name);
         }
@@ -192,7 +193,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource createGetterForField(String name)">
 
-    public DocumentEmbeddableSupplierSource createGetterForField(String name) {
+    public DocumentEmbeddableSupplierSourceBuilder createGetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for Getter: " + name);
         }
@@ -222,7 +223,7 @@ public class DocumentEmbeddableSupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public DocumentEmbeddableSupplierSource addEditorFoldStart(String desc) {
+    public DocumentEmbeddableSupplierSourceBuilder addEditorFoldStart(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -232,7 +233,7 @@ public class DocumentEmbeddableSupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="DocumentEmbeddableSupplierSource addNestedClass(SupplierSourceBuilder jClass)">
-    public DocumentEmbeddableSupplierSource addNestedClass(DocumentEmbeddableSupplierSource jClass) {
+    public DocumentEmbeddableSupplierSourceBuilder addNestedClass(DocumentEmbeddableSupplierSourceBuilder jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);

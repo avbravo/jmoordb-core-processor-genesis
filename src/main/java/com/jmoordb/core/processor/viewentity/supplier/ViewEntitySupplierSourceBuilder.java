@@ -6,7 +6,7 @@ import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import java.util.*;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplier;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGet;
 import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToReferenced;
@@ -15,7 +15,7 @@ import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplie
 /**
  * This class only works if we add elements in proper sequence.
  */
-public class ViewEntitySupplierSource {
+public class ViewEntitySupplierSourceBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -26,12 +26,12 @@ public class ViewEntitySupplierSource {
 
    ViewEntitySupplierSourceUtil viewEntitySupplierSourceUtil = new ViewEntitySupplierSourceUtil();
 
-    public ViewEntitySupplierSource() {
+    public ViewEntitySupplierSourceBuilder() {
 
     }
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(ViewEntity viewEntity, ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, String database, String collection,Element element)">
-    public ViewEntitySupplierSource init(ViewEntity viewEntity, ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, String database, String collection, Element element) {
+    public ViewEntitySupplierSourceBuilder init(ViewEntity viewEntity, ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, String database, String collection, Element element) {
         builder.append(viewEntitySupplierSourceUtil.definePackage(viewEntityData.getPackageOfViewEntity()));
         builder.append(viewEntitySupplierSourceUtil.generateImport(viewEntity, viewEntityData, element));
         builder.append(viewEntitySupplierSourceUtil.addRequestScoped());
@@ -51,7 +51,7 @@ public class ViewEntitySupplierSource {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
 
-            builder.append(ViewEntitySupplier.get(viewEntityData, viewEntityFieldList, element));
+            builder.append(ViewEntitySupplierGenerateGet.get(viewEntityData, viewEntityFieldList, element));
 //toDocument
             builder.append(ViewEntitySupplierGenerateToDocument.toDocument(viewEntityData, viewEntityFieldList, element));
             builder.append(ViewEntitySupplierGenerateToDocument.toDocumentList(viewEntityData, viewEntityFieldList, element));
@@ -82,7 +82,7 @@ public class ViewEntitySupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public ViewEntitySupplierSource addEditorFoldStartx(String desc) {
+    public ViewEntitySupplierSourceBuilder addEditorFoldStartx(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -97,7 +97,7 @@ public class ViewEntitySupplierSource {
      * @param identifierToTypeMap
      * @return
      */
-    public ViewEntitySupplierSource addFields(LinkedHashMap<String, String> identifierToTypeMap) {
+    public ViewEntitySupplierSourceBuilder addFields(LinkedHashMap<String, String> identifierToTypeMap) {
         for (Map.Entry<String, String> entry : identifierToTypeMap.entrySet()) {
             addField(entry.getValue(), entry.getKey());
         }
@@ -106,7 +106,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addField(String type, String identifier)">
-    public ViewEntitySupplierSource addField(String type, String identifier) {
+    public ViewEntitySupplierSourceBuilder addField(String type, String identifier) {
         fields.put(identifier, type);
         builder.append("private ")
                 .append(type)
@@ -126,7 +126,7 @@ public class ViewEntitySupplierSource {
      * @param fieldsToBind
      * @return
      */
-    public ViewEntitySupplierSource addConstructor(String accessModifier, List<String> fieldsToBind) {
+    public ViewEntitySupplierSourceBuilder addConstructor(String accessModifier, List<String> fieldsToBind) {
         builder.append(LINE_BREAK)
                 .append(accessModifier)
                 .append(" ")
@@ -163,7 +163,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields)">
-    public ViewEntitySupplierSource addConstructor(String accessModifier, boolean bindFields) {
+    public ViewEntitySupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields) {
         addConstructor(accessModifier,
                 bindFields ? new ArrayList(fields.keySet())
                         : new ArrayList<>());
@@ -172,7 +172,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addMethod(MethodProcessorAux method)">
 
-    public ViewEntitySupplierSource addMethod(MethodProcessorAux method) {
+    public ViewEntitySupplierSourceBuilder addMethod(MethodProcessorAux method) {
         builder.append(LINE_BREAK)
                 .append(method.end())
                 .append(LINE_BREAK);
@@ -181,7 +181,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createSetterForField(String name)">
-    public ViewEntitySupplierSource createSetterForField(String name) {
+    public ViewEntitySupplierSourceBuilder createSetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for setter: " + name);
         }
@@ -194,7 +194,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createGetterForField(String name)">
 
-    public ViewEntitySupplierSource createGetterForField(String name) {
+    public ViewEntitySupplierSourceBuilder createGetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for Getter: " + name);
         }
@@ -224,7 +224,7 @@ public class ViewEntitySupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public ViewEntitySupplierSource addEditorFoldStart(String desc) {
+    public ViewEntitySupplierSourceBuilder addEditorFoldStart(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -234,7 +234,7 @@ public class ViewEntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addNestedClass(SupplierSourceBuilder jClass)">
-    public ViewEntitySupplierSource addNestedClass(ViewEntitySupplierSource jClass) {
+    public ViewEntitySupplierSourceBuilder addNestedClass(ViewEntitySupplierSourceBuilder jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);

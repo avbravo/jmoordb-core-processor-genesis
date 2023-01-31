@@ -14,7 +14,7 @@ import java.util.*;
 
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.documentembeddable.analizer.DocumentEmbeddableAnalizer;
-import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSource;
+import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceBuilder;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableDataSupplier;
 import com.jmoordb.core.util.MessagesUtil;
@@ -120,7 +120,7 @@ public class DocummentEmbedableProcessor extends AbstractProcessor {
             /**
              * Construye la clase Supplier
              */
-            DocumentEmbeddableSupplierSource documentEmbeddablesupplierSourceBuilder = new DocumentEmbeddableSupplierSource();
+            DocumentEmbeddableSupplierSourceBuilder documentEmbeddablesupplierSourceBuilder = new DocumentEmbeddableSupplierSourceBuilder();
 
             documentEmbeddablesupplierSourceBuilder.init(documentEmbeddable, documentEmbeddableData, documentEmbeddableFieldList, documentEmbeddableData.getDatabase(), documentEmbeddableData.getCollection(),element);
 

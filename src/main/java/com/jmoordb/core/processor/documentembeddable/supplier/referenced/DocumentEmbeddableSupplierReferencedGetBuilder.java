@@ -272,8 +272,10 @@ public interface DocumentEmbeddableSupplierReferencedGetBuilder {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
 
 
+//                result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
+//                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
                 result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get("
-                        + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\"));\n";
+                        + fieldUpper + "::new,(Document) document_.get(\"" + entityField.getViewReferenced().from() + "\"));\n";
 
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + foreignFieldUpper + "()).get());\n";
 

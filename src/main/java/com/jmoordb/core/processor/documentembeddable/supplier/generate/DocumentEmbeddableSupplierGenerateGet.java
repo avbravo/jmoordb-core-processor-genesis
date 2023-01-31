@@ -1,4 +1,4 @@
-package com.jmoordb.core.processor.documentembeddable.supplier;
+package com.jmoordb.core.processor.documentembeddable.supplier.generate;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
@@ -9,6 +9,7 @@ import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConve
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
+import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
 import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedGetBuilder;
 import com.jmoordb.core.processor.documentembeddable.supplier.referenced.DocumentEmbeddableSupplierReferencedGetBuilder;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -17,7 +18,7 @@ import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class DocumentEmbeddableSupplier {
+public class DocumentEmbeddableSupplierGenerateGet {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -41,10 +42,11 @@ public class DocumentEmbeddableSupplier {
                     case REFERENCED:
 
                         if (documentEmbeddableField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
- /**
-  * Anteriromente lo leia como embebido
-  **/
- //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+                            /**
+                             * Anteriromente lo leia como embebido
+                             *
+                             */
+
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
@@ -54,10 +56,11 @@ public class DocumentEmbeddableSupplier {
                     case VIEWREFERENCED:
 
                         if (documentEmbeddableField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
- /**
-  * Anteriromente lo leia como embebido
-  **/
- //sentence += SupplierEmbeddedGetBuilder.embeddedProcessGet(documentEmbeddableData, documentEmbeddableField);
+                            /**
+                             * Anteriromente lo leia como embebido
+                             *
+                             */
+
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.viewReferencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
@@ -79,13 +82,18 @@ public class DocumentEmbeddableSupplier {
 
             String code
                     = ProcessorUtil.editorFold(documentEmbeddableData) + "\n\n"
-                    + "    public " + documentEmbeddableData.getDocumentEmbeddableName() + " get(Supplier<? extends " + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document_) {\n"
+                    + "    public " + documentEmbeddableData.getDocumentEmbeddableName() + " get(Supplier<? extends " + documentEmbeddableData.getDocumentEmbeddableName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(documentEmbeddableData.getDocumentEmbeddableName()) + " " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "= s.get(); \n"
+                    + "            Boolean show = true;\n"
                     + "        try {\n"
-                    
+                    + "            if (showError.length != 0) {\n"
+                    + "                show = showError[0];\n"
+                    + "            }\n"
                     + sentence + "\n"
                     + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             if (show) {\n"
+                    + "                MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             }\n"
                     + "         }\n"
                     + "         return " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ";\n"
                     + "     }\n"
@@ -99,12 +107,4 @@ public class DocumentEmbeddableSupplier {
     }
 
     // </editor-fold>
-    
-
-    
-    
-   
-    
-    
-    
 }

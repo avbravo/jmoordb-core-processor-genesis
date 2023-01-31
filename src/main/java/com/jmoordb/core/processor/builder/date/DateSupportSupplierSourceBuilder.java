@@ -1,7 +1,7 @@
 package com.jmoordb.core.processor.builder.date;
 
 import com.jmoordb.core.annotation.DateSupport;
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSource;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceBuilder;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.fields.DateSupportField;
 import com.jmoordb.core.processor.model.DateSupportData;
@@ -221,7 +221,7 @@ public class DateSupportSupplierSourceBuilder {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addNestedClass(SupplierSourceBuilder jClass)">
-    public DateSupportSupplierSourceBuilder addNestedClass(EntitySupplierSource jClass) {
+    public DateSupportSupplierSourceBuilder addNestedClass(EntitySupplierSourceBuilder jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);

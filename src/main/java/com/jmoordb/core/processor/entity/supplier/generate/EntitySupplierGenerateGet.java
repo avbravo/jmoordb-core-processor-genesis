@@ -1,9 +1,10 @@
-package com.jmoordb.core.processor.entity.supplier;
+package com.jmoordb.core.processor.entity.supplier.generate;
 
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
 import com.jmoordb.core.processor.entity.model.EntityData;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedGetBuilder;
 
 import com.jmoordb.core.processor.fields.EntityField;
@@ -15,7 +16,7 @@ import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedGetBuilder;
 
-public class EntitySupplier  implements EntitySupplierGenerateToDocument{
+public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocument {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -46,12 +47,10 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
                         }
 
                         break;
-                        
-		
+
                     case VIEWREFERENCED:
 
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
 
                             sentence += EntitySupplierReferencedGetBuilder.viewReferencedProcessGet(entityData, entityField, element);
                         } else {
@@ -79,12 +78,19 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
 
             String code
                     = ProcessorUtil.editorFold(entityData) + "\n\n"
-                    + "    public " + entityData.getEntityName() + " get(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_) {\n"
+                    + "    public " + entityData.getEntityName() + " get(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "= s.get(); \n"
+                              + "            Boolean show = true;\n"
                     + "        try {\n"
+
+                    + "            if (showError.length != 0) {\n"
+                    + "                show = showError[0];\n"
+                    + "            }\n"
                     + sentence + "\n"
                     + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                   + "             if (show) {\n"
+                    + "                MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             }\n"
                     + "         }\n"
                     + "         return " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ";\n"
                     + "     }\n"
@@ -98,6 +104,4 @@ public class EntitySupplier  implements EntitySupplierGenerateToDocument{
     }
 
     // </editor-fold>
-    
-
 }

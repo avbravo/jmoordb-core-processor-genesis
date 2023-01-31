@@ -1,5 +1,6 @@
 package com.jmoordb.core.processor.entity.supplier;
 
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateGet;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
@@ -13,7 +14,7 @@ import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerat
 /**
  * This class only works if we add elements in proper sequence.
  */
-public class EntitySupplierSource {
+public class EntitySupplierSourceBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -24,12 +25,12 @@ public class EntitySupplierSource {
 
     EntitySupplierSourceUtil entitySupplierSourceUtil = new EntitySupplierSourceUtil();
 
-    public EntitySupplierSource() {
+    public EntitySupplierSourceBuilder() {
 
     }
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection,Element element)">
-    public EntitySupplierSource init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection, Element element) {
+    public EntitySupplierSourceBuilder init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection, Element element) {
         builder.append(entitySupplierSourceUtil.definePackage(entityData.getPackageOfEntity()));
         builder.append(entitySupplierSourceUtil.generateImport(entity, entityData, element));
         builder.append(entitySupplierSourceUtil.addRequestScoped());
@@ -49,7 +50,7 @@ public class EntitySupplierSource {
             //   MessagesUtil.warning("No hay información de los métodos");
         } else {
 
-            builder.append(EntitySupplier.get(entityData, entityFieldList, element));
+            builder.append(EntitySupplierGenerateGet.get(entityData, entityFieldList, element));
 //toDocument
             builder.append(EntitySupplierGenerateToDocument.toDocument(entityData, entityFieldList, element));
             builder.append(EntitySupplierGenerateToDocument.toDocumentList(entityData, entityFieldList, element));
@@ -80,7 +81,7 @@ public class EntitySupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public EntitySupplierSource addEditorFoldStartx(String desc) {
+    public EntitySupplierSourceBuilder addEditorFoldStartx(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -95,7 +96,7 @@ public class EntitySupplierSource {
      * @param identifierToTypeMap
      * @return
      */
-    public EntitySupplierSource addFields(LinkedHashMap<String, String> identifierToTypeMap) {
+    public EntitySupplierSourceBuilder addFields(LinkedHashMap<String, String> identifierToTypeMap) {
         for (Map.Entry<String, String> entry : identifierToTypeMap.entrySet()) {
             addField(entry.getValue(), entry.getKey());
         }
@@ -104,7 +105,7 @@ public class EntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addField(String type, String identifier)">
-    public EntitySupplierSource addField(String type, String identifier) {
+    public EntitySupplierSourceBuilder addField(String type, String identifier) {
         fields.put(identifier, type);
         builder.append("private ")
                 .append(type)
@@ -124,7 +125,7 @@ public class EntitySupplierSource {
      * @param fieldsToBind
      * @return
      */
-    public EntitySupplierSource addConstructor(String accessModifier, List<String> fieldsToBind) {
+    public EntitySupplierSourceBuilder addConstructor(String accessModifier, List<String> fieldsToBind) {
         builder.append(LINE_BREAK)
                 .append(accessModifier)
                 .append(" ")
@@ -161,7 +162,7 @@ public class EntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields)">
-    public EntitySupplierSource addConstructor(String accessModifier, boolean bindFields) {
+    public EntitySupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields) {
         addConstructor(accessModifier,
                 bindFields ? new ArrayList(fields.keySet())
                         : new ArrayList<>());
@@ -170,7 +171,7 @@ public class EntitySupplierSource {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addMethod(MethodProcessorAux method)">
 
-    public EntitySupplierSource addMethod(MethodProcessorAux method) {
+    public EntitySupplierSourceBuilder addMethod(MethodProcessorAux method) {
         builder.append(LINE_BREAK)
                 .append(method.end())
                 .append(LINE_BREAK);
@@ -179,7 +180,7 @@ public class EntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createSetterForField(String name)">
-    public EntitySupplierSource createSetterForField(String name) {
+    public EntitySupplierSourceBuilder createSetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for setter: " + name);
         }
@@ -192,7 +193,7 @@ public class EntitySupplierSource {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createGetterForField(String name)">
 
-    public EntitySupplierSource createGetterForField(String name) {
+    public EntitySupplierSourceBuilder createGetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for Getter: " + name);
         }
@@ -222,7 +223,7 @@ public class EntitySupplierSource {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public EntitySupplierSource addEditorFoldStart(String desc) {
+    public EntitySupplierSourceBuilder addEditorFoldStart(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -232,7 +233,7 @@ public class EntitySupplierSource {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addNestedClass(SupplierSourceBuilder jClass)">
-    public EntitySupplierSource addNestedClass(EntitySupplierSource jClass) {
+    public EntitySupplierSourceBuilder addNestedClass(EntitySupplierSourceBuilder jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);
