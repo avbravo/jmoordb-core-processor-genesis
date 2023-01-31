@@ -6,7 +6,7 @@ import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConve
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedGetBuilder;
 
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

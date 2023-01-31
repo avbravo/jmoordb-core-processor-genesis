@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.builder;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.MessagesUtil;
 import java.util.*;
 

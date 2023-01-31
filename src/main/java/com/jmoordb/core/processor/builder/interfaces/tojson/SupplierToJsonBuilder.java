@@ -16,7 +16,7 @@ import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
 import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedBuilder;
 
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

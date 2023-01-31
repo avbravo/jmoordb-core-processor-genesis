@@ -1,6 +1,6 @@
 package com.jmoordb.core.processor.builder.date;
 
-import com.jmoordb.core.processor.methods.DateSupportField;
+import com.jmoordb.core.processor.fields.DateSupportField;
 import com.jmoordb.core.processor.model.DateSupportData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;

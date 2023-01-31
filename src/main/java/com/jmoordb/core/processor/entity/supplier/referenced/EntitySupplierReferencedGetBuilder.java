@@ -5,7 +5,7 @@
 package com.jmoordb.core.processor.entity.supplier.referenced;
 
 import static com.jmoordb.core.annotation.enumerations.TypeReferenced.EMBEDDED;
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedGetBuilder;
 import com.jmoordb.core.processor.model.IdData;

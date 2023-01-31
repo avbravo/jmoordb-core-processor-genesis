@@ -4,8 +4,8 @@ import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
 import com.jmoordb.core.processor.entity.model.EntityData;
-import com.jmoordb.core.processor.methods.EntityField;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.EntityField;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -166,15 +166,15 @@ public class EntitySupplierSourceUtil {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(Entity entity, EntityData entityData, String database, String collectio">
-    public StringBuilder inject(Entity entity, EntityData entityData, String database, String collection, List<EntityField> entityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(Entity entity, EntityData entityData, String database, String collection, List<EntityField> entityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced)">
+    public StringBuilder inject(Entity entity, EntityData entityData, String database, String collection, List<EntityField> entityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"inject\">\n\n";
 
-            if (haveReferenced) {
+            if (haveReferenced || haveViewReferenced) {
                 for (EntityField ef : entityFieldList) {
                     if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {

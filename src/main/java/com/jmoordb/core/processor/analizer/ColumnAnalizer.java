@@ -1,7 +1,7 @@
 package com.jmoordb.core.processor.analizer;
 
 import com.jmoordb.core.annotation.Column;
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import javax.annotation.processing.Messager;

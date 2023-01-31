@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.builder.date;
 import com.jmoordb.core.annotation.DateSupport;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierSource;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
-import com.jmoordb.core.processor.methods.DateSupportField;
+import com.jmoordb.core.processor.fields.DateSupportField;
 import com.jmoordb.core.processor.model.DateSupportData;
 import java.util.*;
 import javax.lang.model.element.Element;

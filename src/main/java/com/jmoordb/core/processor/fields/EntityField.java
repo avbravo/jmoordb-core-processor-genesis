@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.jmoordb.core.processor.methods;
+package com.jmoordb.core.processor.fields;
 
 import com.jmoordb.core.annotation.Column;
 import com.jmoordb.core.annotation.Embedded;
@@ -27,7 +27,7 @@ public class EntityField {
     private Column column;
     private Embedded embedded;
     private Referenced referenced;
-    private ViewReferenced viewReferenced;
+   private ViewReferenced viewReferenced;
     private TypeReferenced typeReferenced;
 
     public EntityField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, ViewReferenced viewReferenced, TypeReferenced typeReferenced) {

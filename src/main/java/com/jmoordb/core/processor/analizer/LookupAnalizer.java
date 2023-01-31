@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.analizer;
 import com.jmoordb.core.annotation.date.ExcludeTime;
 import com.jmoordb.core.annotation.date.IncludeTime;
 import com.jmoordb.core.annotation.repository.Lookup;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

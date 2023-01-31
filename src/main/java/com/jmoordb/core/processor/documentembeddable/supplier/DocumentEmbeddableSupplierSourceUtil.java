@@ -5,7 +5,7 @@ import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -164,15 +164,15 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collectio">
-    public StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collection, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collection, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced)">
+    public StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collection, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"inject\">\n\n";
 
-            if (haveReferenced) {
+            if (haveReferenced || haveViewReferenced) {
                 for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
                     if (ef.getAnnotationType().equals(AnnotationType.REFERENCED) 
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {

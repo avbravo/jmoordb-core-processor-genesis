@@ -21,8 +21,8 @@ import javax.annotation.processing.Messager;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
-import com.jmoordb.core.processor.methods.ParamTypeElement;
-import com.jmoordb.core.processor.methods.WhereDescomposed;
+import com.jmoordb.core.processor.fields.ParamTypeElement;
+import com.jmoordb.core.processor.fields.WhereDescomposed;
 import com.jmoordb.core.processor.methods.view.ViewMethod;
 
 /**

@@ -4,7 +4,7 @@
  */
 package com.jmoordb.core.processor.entity.supplier.embedded;
 
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;

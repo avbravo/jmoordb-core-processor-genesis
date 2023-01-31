@@ -5,7 +5,7 @@ import com.jmoordb.core.annotation.date.IncludeTime;
 import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.processor.analizer.util.NameOfMethodAnalizerUtil;
 
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

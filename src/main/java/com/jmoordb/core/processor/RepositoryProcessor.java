@@ -22,7 +22,7 @@ import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.model.RepositoryDataSupplier;
 import com.jmoordb.core.processor.builder.RepositorySourceBuilder;
 import com.jmoordb.core.processor.analizer.RepositoryAnalizer;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import javax.annotation.processing.Messager;

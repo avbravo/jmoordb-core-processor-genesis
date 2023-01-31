@@ -4,7 +4,8 @@
  */
 package com.jmoordb.core.processor.methods.view;
 
-import com.jmoordb.core.processor.methods.*;
+import com.jmoordb.core.processor.fields.WhereDescomposed;
+import com.jmoordb.core.processor.fields.ParamTypeElement;
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;

@@ -14,7 +14,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 
-import com.jmoordb.core.processor.methods.DateSupportField;
+import com.jmoordb.core.processor.fields.DateSupportField;
 import com.jmoordb.core.processor.model.DateSupportData;
 import com.jmoordb.core.processor.model.DateSupportDataSupplier;
 import com.jmoordb.core.util.MessagesUtil;

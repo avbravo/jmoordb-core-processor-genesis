@@ -4,7 +4,7 @@ import com.jmoordb.core.annotation.date.ExcludeTime;
 import com.jmoordb.core.annotation.date.IncludeTime;
 import com.jmoordb.core.processor.analizer.util.DeleteAnalizerUtil;
 import com.jmoordb.core.annotation.repository.Delete;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;

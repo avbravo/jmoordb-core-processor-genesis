@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.VariableElement;
-import com.jmoordb.core.processor.methods.DateSupportField;
+import com.jmoordb.core.processor.fields.DateSupportField;
 import com.jmoordb.core.processor.model.DateSupportData;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.stream.Stream;

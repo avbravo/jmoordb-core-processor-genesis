@@ -3,7 +3,7 @@ package com.jmoordb.core.processor.entity.supplier;
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
-import com.jmoordb.core.processor.methods.EntityField;
+import com.jmoordb.core.processor.fields.EntityField;
 import java.util.*;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
@@ -39,7 +39,7 @@ public class EntitySupplierSource {
         Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
         Boolean haveViewReferenced = EntitySupplierSourceUtil.haveViewReferenced(entityFieldList);
         if (haveReferenced || haveEmbedded || haveViewReferenced) {
-            builder.append(entitySupplierSourceUtil.inject(entity, entityData, database, collection, entityFieldList, element, haveReferenced, haveEmbedded));
+            builder.append(entitySupplierSourceUtil.inject(entity, entityData, database, collection, entityFieldList, element, haveReferenced, haveEmbedded,haveViewReferenced));
         }
 
         /**

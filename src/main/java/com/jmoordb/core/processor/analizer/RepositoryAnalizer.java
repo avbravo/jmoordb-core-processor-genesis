@@ -34,9 +34,9 @@ import javax.tools.Diagnostic;
 import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Regex;
 import com.jmoordb.core.annotation.repository.RegexCount;
-import com.jmoordb.core.processor.methods.ParamTypeElement;
-import com.jmoordb.core.processor.methods.RepositoryMethod;
-import com.jmoordb.core.processor.methods.WhereDescomposed;
+import com.jmoordb.core.processor.fields.ParamTypeElement;
+import com.jmoordb.core.processor.fields.RepositoryMethod;
+import com.jmoordb.core.processor.fields.WhereDescomposed;
 
 /**
  * Converts getters to field
