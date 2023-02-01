@@ -15,7 +15,6 @@ import com.jmoordb.core.annotation.repository.Find;
 import com.jmoordb.core.annotation.repository.LikeBy;
 import com.jmoordb.core.annotation.repository.Ping;
 import com.jmoordb.core.annotation.repository.Query;
-
 import com.jmoordb.core.annotation.repository.Save;
 import com.jmoordb.core.annotation.repository.Update;
 import com.jmoordb.core.util.ProcessorUtil;

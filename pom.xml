@@ -9,7 +9,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-     
+     <version.jmoordb-core-annotations>0.2</version.jmoordb-core-annotations>
     </properties>
     
     <developers>
@@ -37,16 +37,7 @@ Colores
             <type>jar</type>
         </dependency>
         
-        <!--
-        jersey
-        -->
-        
-<!--        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-            <version>3.1.0-M3</version>
-            <type>jar</type>
-        </dependency>-->
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -59,6 +50,12 @@ Colores
             <version>1.0.2</version>
             <type>jar</type>
         </dependency>
+    <dependency>
+	    <groupId>com.github.avbravo</groupId>
+	    <artifactId>jmoordb-core-annotations</artifactId>
+	    <version>${version.jmoordb-core-annotations}</version>
+	</dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -74,4 +71,10 @@ Colores
             </plugin>
         </plugins>
     </build>
+    	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 </project>

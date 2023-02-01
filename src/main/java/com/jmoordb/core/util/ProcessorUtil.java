@@ -12,7 +12,6 @@ import com.jmoordb.core.annotation.ViewReferenced;
 import com.jmoordb.core.annotation.enumerations.ParamType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.repository.Count;
-
 import com.jmoordb.core.annotation.repository.CountBy;
 import com.jmoordb.core.annotation.repository.CountLikeBy;
 import com.jmoordb.core.annotation.repository.Delete;
