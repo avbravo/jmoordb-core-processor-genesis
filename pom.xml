@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.avbravo.jmoordb.core.processor</groupId>
     <artifactId>jmoordb-core-processor-genesis</artifactId>
-    <version>0.17</version>
+    <version>0.18</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-     <version.jmoordb-core-annotations>0.4</version.jmoordb-core-annotations>
+     <version.jmoordb-core-annotations>0.5</version.jmoordb-core-annotations>
     </properties>
     
     <developers>
