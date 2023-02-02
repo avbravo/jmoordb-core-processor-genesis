@@ -9,7 +9,7 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
-import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
+import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierBuilderUtil;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedBuilder;
@@ -31,8 +31,8 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
     public static StringBuilder toDocument(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
-            Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
+            Boolean haveEmbedded = DocumentEmbeddableSupplierBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
+            Boolean haveReferenced = DocumentEmbeddableSupplierBuilderUtil.haveReferenced(documentEmbeddableFieldList);
 
 //            String sentence = "\t Document document = new Document();\n";
 //            String sentence = "\t \n";
@@ -136,8 +136,8 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
     public static StringBuilder toDocumentList(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
-            Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
+            Boolean haveEmbedded = DocumentEmbeddableSupplierBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
+            Boolean haveReferenced = DocumentEmbeddableSupplierBuilderUtil.haveReferenced(documentEmbeddableFieldList);
 
 //            String sentence = "\t Document document = new Document();\n";
             String sentence = "\t \n";

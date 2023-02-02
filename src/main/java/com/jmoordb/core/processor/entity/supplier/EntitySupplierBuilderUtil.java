@@ -1,10 +1,10 @@
-package com.jmoordb.core.processor.documentembeddable.supplier;
+package com.jmoordb.core.processor.entity.supplier;
 
-import com.jmoordb.core.annotation.DocumentEmbeddable;
+import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
-import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
-import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
+import com.jmoordb.core.processor.entity.model.EntityData;
+import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -12,23 +12,23 @@ import com.jmoordb.core.util.MessagesUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class DocumentEmbeddableSupplierSourceUtil {
+public class EntitySupplierBuilderUtil {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
 
-    // <editor-fold defaultstate="collapsed" desc="String numberOfParametersOfMethod(RepositoryMethod documentEmbeddableMethod)">
+    // <editor-fold defaultstate="collapsed" desc="String numberOfParametersOfMethod(RepositoryMethod entityMethod)">
     /**
      *
-     * @param documentEmbeddableMethod
+     * @param entityMethod
      * @return Los parametros del metodo como una cadena
      */
-    private Integer numberOfParametersOfMethod(RepositoryMethod documentEmbeddableMethod) {
+    private Integer numberOfParametersOfMethod(RepositoryMethod entityMethod) {
         Integer number = 0;
         try {
 
-            number = documentEmbeddableMethod.getParamTypeElement().size();
+            number = entityMethod.getParamTypeElement().size();
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
@@ -103,14 +103,14 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder generateImport(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData)">
-    public StringBuilder generateImport(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, Element element) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder generateImport(Entity entity, EntityData entityData)">
+    public StringBuilder generateImport(Entity entity, EntityData entityData, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"imports\">\n\n";
-            if (documentEmbeddable.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
+            if (entity.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
                 /*
             Java EE
                  */
@@ -123,7 +123,7 @@ public class DocumentEmbeddableSupplierSourceUtil {
                  */
                 code += "import jakarta.enterprise.context.RequestScoped;\n"
                         + "import jakarta.inject.Inject;\n";
-
+                        
             }
             /**
              * Microprofile
@@ -133,6 +133,7 @@ public class DocumentEmbeddableSupplierSourceUtil {
                     + "/**\n"
                     + "* Java\n"
                     + "*/\n"
+                    + "import java.time.LocalDateTime;\n"
                     + "import java.lang.annotation.Annotation;\n"
                     + "import java.util.ArrayList;\n"
                     + "import java.util.List;\n"
@@ -142,6 +143,7 @@ public class DocumentEmbeddableSupplierSourceUtil {
                     + "* Jmoordb\n"
                     + "*/\n"
                     + "import com.jmoordb.core.util.MessagesUtil;\n"
+                    + "import com.jmoordb.core.util.JmoordbCoreDateUtil;\n"
                     + "import com.jmoordb.core.annotation.Referenced;\n"
                     + "import com.jmoordb.core.annotation.enumerations.TypePK;\n"
                     + "import com.jmoordb.core.annotation.enumerations.TypeReferenced;\n"
@@ -152,8 +154,8 @@ public class DocumentEmbeddableSupplierSourceUtil {
                     + "import com.mongodb.client.model.Filters;\n"
                     + "import com.mongodb.client.model.Updates;\n"
                     + "import org.bson.conversions.Bson;\n"
-                    + "import " + documentEmbeddableData.getPackageOfDocumentEmbeddable() + "." + documentEmbeddableData.getDocumentEmbeddableName() + ";\n"
-                    + "import " + documentEmbeddableData.getPackageOfDocumentEmbeddable() + ".*;\n\n\n"
+                    + "import " + entityData.getPackageOfEntity() + "." + entityData.getEntityName() + ";\n"
+                    + "import " + entityData.getPackageOfEntity() + ".*;\n\n\n"
                     + "// </editor-fold>\n";
             builder.append(code);
 
@@ -164,8 +166,8 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collection, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced)">
-    public StringBuilder inject(DocumentEmbeddable documentEmbeddable, DocumentEmbeddableData documentEmbeddableData, String database, String collection, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(Entity entity, EntityData entityData, String database, String collection, List<EntityField> entityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced)">
+    public StringBuilder inject(Entity entity, EntityData entityData, String database, String collection, List<EntityField> entityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
@@ -173,8 +175,8 @@ public class DocumentEmbeddableSupplierSourceUtil {
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"inject\">\n\n";
 
             if (haveReferenced || haveViewReferenced) {
-                for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED) 
+                for (EntityField ef : entityFieldList) {
+                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
                         String packagePath = JmoordbCoreFileUtil.packageOfFileInProject(element, JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Repository.java");
@@ -186,8 +188,8 @@ public class DocumentEmbeddableSupplierSourceUtil {
                 }
             }
             if (haveEmbedded) {
-                for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {
+                for (EntityField ef : entityFieldList) {
+                    if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {      
                         code += "    @Inject\n"
                                 + "   " + JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Supplier " + ef.getNameOfMethod() + "Supplier ;\n";
                     }
@@ -203,17 +205,17 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<DocumentEmbeddableField> documentEmbeddableFieldList)">
+// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<EntityField> entityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param documentEmbeddableFieldList
+     * @param entityFieldList
      * @return
      */
-    public static Boolean haveEmbedded(List<DocumentEmbeddableField> documentEmbeddableFieldList) {
+    public static Boolean haveEmbedded(List<EntityField> entityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
+            for (EntityField ef : entityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.EMBEDDED)) {
                     result = Boolean.TRUE;
                     break;
@@ -227,17 +229,17 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<DocumentEmbeddableField> documentEmbeddableFieldList)">
+// <editor-fold defaultstate="collapsed" desc=" Boolean haveEmbedded(List<EntityField> entityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param documentEmbeddableFieldList
+     * @param entityFieldList
      * @return
      */
-    public static Boolean haveReferenced(List<DocumentEmbeddableField> documentEmbeddableFieldList) {
+    public static Boolean haveReferenced(List<EntityField> entityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
+            for (EntityField ef : entityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)) {
                     result = Boolean.TRUE;
                     break;
@@ -251,17 +253,17 @@ public class DocumentEmbeddableSupplierSourceUtil {
     }
 
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="Boolean haveViewReferenced(List<DocumentEmbeddableField> documentEmbeddableFieldList)">
+// <editor-fold defaultstate="collapsed" desc="Boolean haveViewReferenced(List<EntityField> entityFieldList)">
     /**
      * Verifica si tiene un Embedded definido
      *
-     * @param documentEmbeddableFieldList
+     * @param entityFieldList
      * @return
      */
-    public static Boolean haveViewReferenced(List<DocumentEmbeddableField> documentEmbeddableFieldList) {
+    public static Boolean haveViewReferenced(List<EntityField> entityFieldList) {
         Boolean result = Boolean.FALSE;
         try {
-            for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
+            for (EntityField ef : entityFieldList) {
                 if (ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
                     result = Boolean.TRUE;
                     break;

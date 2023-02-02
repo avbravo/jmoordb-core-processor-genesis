@@ -12,7 +12,7 @@ import com.jmoordb.core.util.MessagesUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
 
-public class ViewEntitySupplierSourceUtil {
+public class ViewEntitySupplierBuilderUtil {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -166,15 +166,15 @@ public class ViewEntitySupplierSourceUtil {
     }
 
 // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collectio">
-    public StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collection, List<ViewEntityField> viewEntityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded) {
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collection, List<ViewEntityField> viewEntityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced)">
+    public StringBuilder inject(ViewEntity viewEntity, ViewEntityData viewEntityData, String database, String collection, List<ViewEntityField> viewEntityFieldList, Element element, Boolean haveReferenced, Boolean haveEmbedded, Boolean haveViewReferenced) {
         StringBuilder builder = new StringBuilder();
         try {
             String code = "";
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"inject\">\n\n";
 
-            if (haveReferenced) {
+            if (haveReferenced || haveViewReferenced) {
                 for (ViewEntityField ef : viewEntityFieldList) {
                     if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {

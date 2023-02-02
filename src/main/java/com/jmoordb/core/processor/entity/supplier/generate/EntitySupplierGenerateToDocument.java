@@ -10,7 +10,7 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.entity.model.EntityData;
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilderUtil;
 import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -31,8 +31,8 @@ public interface EntitySupplierGenerateToDocument {
     public static StringBuilder toDocument(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
 
             String sentence = "\t \n";
@@ -135,8 +135,8 @@ public interface EntitySupplierGenerateToDocument {
     public static StringBuilder toDocumentList(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
 //            String sentence = "\t Document document = new Document();\n";
             String sentence = "\t \n";

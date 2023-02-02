@@ -15,7 +15,7 @@ import java.util.*;
 import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.processor.model.ViewEntityDataSupplier;
 import com.jmoordb.core.processor.methods.ViewEntityField;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceBuilder;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilder;
 import com.jmoordb.core.processor.viewviewEntity.analizer.ViewEntityAnalizer;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -122,7 +122,7 @@ public class ViewEntityProcessor extends AbstractProcessor {
             /**
              * Construye la clase Supplier
              */
-            ViewEntitySupplierSourceBuilder viewEntitySupplierSourceBuilder = new ViewEntitySupplierSourceBuilder();
+            ViewEntitySupplierBuilder viewEntitySupplierSourceBuilder = new ViewEntitySupplierBuilder();
 
             viewEntitySupplierSourceBuilder.init(viewEntity, viewEntityData, viewEntityFieldList, viewEntityData.getDatabase(), viewEntityData.getCollection(),element);
 

@@ -6,7 +6,7 @@ package com.jmoordb.core.processor.entity.supplier.generate;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import com.jmoordb.core.processor.entity.model.EntityData;
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceUtil;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilderUtil;
 import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -29,8 +29,8 @@ public interface EntitySupplierGenerateToReferenced {
     public static StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
 
             String sentence = "\t \n";
@@ -84,8 +84,8 @@ public interface EntitySupplierGenerateToReferenced {
     public static StringBuilder toReferencedList(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
-            Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
+            Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
+            Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
             String sentence = "\t \n";
 

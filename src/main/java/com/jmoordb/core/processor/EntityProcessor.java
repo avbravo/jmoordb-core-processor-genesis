@@ -12,7 +12,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import java.util.*;
 
-import com.jmoordb.core.processor.entity.supplier.EntitySupplierSourceBuilder;
+import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilder;
 import com.jmoordb.core.processor.entity.analizer.EntityAnalizer;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.model.EntityDataSupplier;
@@ -120,7 +120,7 @@ public class EntityProcessor extends AbstractProcessor {
             /**
              * Construye la clase Supplier
              */
-            EntitySupplierSourceBuilder entitySupplierSourceBuilder = new EntitySupplierSourceBuilder();
+            EntitySupplierBuilder entitySupplierSourceBuilder = new EntitySupplierBuilder();
 
             entitySupplierSourceBuilder.init(entity, entityData, entityFieldList, entityData.getDatabase(), entityData.getCollection(),element);
 

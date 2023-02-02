@@ -5,7 +5,7 @@ import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConve
 
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
-import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierSourceUtil;
+import com.jmoordb.core.processor.documentembeddable.supplier.DocumentEmbeddableSupplierBuilderUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -22,9 +22,9 @@ public class DocumentEmbeddableSupplierGenerateGetId {
     public static StringBuilder getId(DocumentEmbeddableData documentEmbeddableData, List<DocumentEmbeddableField> documentEmbeddableFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = DocumentEmbeddableSupplierSourceUtil.haveEmbedded(documentEmbeddableFieldList);
-            Boolean haveReferenced = DocumentEmbeddableSupplierSourceUtil.haveReferenced(documentEmbeddableFieldList);
-            Boolean haveViewReferenced = DocumentEmbeddableSupplierSourceUtil.haveViewReferenced(documentEmbeddableFieldList);
+            Boolean haveEmbedded = DocumentEmbeddableSupplierBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
+            Boolean haveReferenced = DocumentEmbeddableSupplierBuilderUtil.haveReferenced(documentEmbeddableFieldList);
+            Boolean haveViewReferenced = DocumentEmbeddableSupplierBuilderUtil.haveViewReferenced(documentEmbeddableFieldList);
 
             String sentence = "\t";
             String cast = "";

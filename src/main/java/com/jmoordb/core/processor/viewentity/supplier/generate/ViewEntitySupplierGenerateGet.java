@@ -6,8 +6,8 @@ import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConve
 
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -27,8 +27,8 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
     public static StringBuilder get(ViewEntityData viewViewEntityData, List<ViewEntityField> viewViewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewViewEntityFieldList);
-            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewViewEntityFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierBuilderUtil.haveEmbedded(viewViewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierBuilderUtil.haveReferenced(viewViewEntityFieldList);
 
             String sentence = "\t";
             String cast = "";

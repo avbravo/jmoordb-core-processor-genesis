@@ -7,7 +7,7 @@ package com.jmoordb.core.processor.viewentity.supplier.generate;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
@@ -29,8 +29,8 @@ public interface ViewEntitySupplierGenerateToReferenced {
     public static StringBuilder toReferenced(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
-            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierBuilderUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierBuilderUtil.haveReferenced(viewEntityFieldList);
 
 
             String sentence = "\t \n";
@@ -84,8 +84,8 @@ public interface ViewEntitySupplierGenerateToReferenced {
     public static StringBuilder toReferencedList(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
-            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierBuilderUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierBuilderUtil.haveReferenced(viewEntityFieldList);
 
             String sentence = "\t \n";
 

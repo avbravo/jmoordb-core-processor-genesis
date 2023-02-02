@@ -16,7 +16,7 @@ import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierSourceUtil;
+import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
 import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedBuilder;
 import com.jmoordb.core.processor.viewentity.supplier.generate.util.ViewEntitySupplierReferencedUtil;
 import com.jmoordb.core.processor.viewentity.supplier.generate.util.ViewEntitySupplierViewReferencedUtil;
@@ -30,8 +30,8 @@ public interface ViewEntitySupplierGenerateToUpdate {
     public static StringBuilder toUpdate(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
-            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierBuilderUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierBuilderUtil.haveReferenced(viewEntityFieldList);
 
 
             String sentence = "\t \n";
@@ -140,8 +140,8 @@ public interface ViewEntitySupplierGenerateToUpdate {
     public static StringBuilder toUpdateList(ViewEntityData viewEntityData, List<ViewEntityField> viewEntityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
-            Boolean haveEmbedded = ViewEntitySupplierSourceUtil.haveEmbedded(viewEntityFieldList);
-            Boolean haveReferenced = ViewEntitySupplierSourceUtil.haveReferenced(viewEntityFieldList);
+            Boolean haveEmbedded = ViewEntitySupplierBuilderUtil.haveEmbedded(viewEntityFieldList);
+            Boolean haveReferenced = ViewEntitySupplierBuilderUtil.haveReferenced(viewEntityFieldList);
 
 
             String sentence = "\t \n";

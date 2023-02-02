@@ -15,7 +15,7 @@ import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerat
 /**
  * This class only works if we add elements in proper sequence.
  */
-public class EntitySupplierSourceBuilder {
+public class EntitySupplierBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -24,22 +24,22 @@ public class EntitySupplierSourceBuilder {
     private String className;
     private Map<String, String> fields = new LinkedHashMap<>();
 
-    EntitySupplierSourceUtil entitySupplierSourceUtil = new EntitySupplierSourceUtil();
+    EntitySupplierBuilderUtil entitySupplierSourceUtil = new EntitySupplierBuilderUtil();
 
-    public EntitySupplierSourceBuilder() {
+    public EntitySupplierBuilder() {
 
     }
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection,Element element)">
-    public EntitySupplierSourceBuilder init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection, Element element) {
+    public EntitySupplierBuilder init(Entity entity, EntityData entityData, List<EntityField> entityFieldList, String database, String collection, Element element) {
         builder.append(entitySupplierSourceUtil.definePackage(entityData.getPackageOfEntity()));
         builder.append(entitySupplierSourceUtil.generateImport(entity, entityData, element));
         builder.append(entitySupplierSourceUtil.addRequestScoped());
         builder.append(entitySupplierSourceUtil.defineClass(entityData.getEntityName() + "Supplier", " implements Serializable"));
 
-        Boolean haveEmbedded = EntitySupplierSourceUtil.haveEmbedded(entityFieldList);
-        Boolean haveReferenced = EntitySupplierSourceUtil.haveReferenced(entityFieldList);
-        Boolean haveViewReferenced = EntitySupplierSourceUtil.haveViewReferenced(entityFieldList);
+        Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
+        Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
+        Boolean haveViewReferenced = EntitySupplierBuilderUtil.haveViewReferenced(entityFieldList);
         if (haveReferenced || haveEmbedded || haveViewReferenced) {
             builder.append(entitySupplierSourceUtil.inject(entity, entityData, database, collection, entityFieldList, element, haveReferenced, haveEmbedded,haveViewReferenced));
         }
@@ -85,7 +85,7 @@ public class EntitySupplierSourceBuilder {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public EntitySupplierSourceBuilder addEditorFoldStartx(String desc) {
+    public EntitySupplierBuilder addEditorFoldStartx(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -100,7 +100,7 @@ public class EntitySupplierSourceBuilder {
      * @param identifierToTypeMap
      * @return
      */
-    public EntitySupplierSourceBuilder addFields(LinkedHashMap<String, String> identifierToTypeMap) {
+    public EntitySupplierBuilder addFields(LinkedHashMap<String, String> identifierToTypeMap) {
         for (Map.Entry<String, String> entry : identifierToTypeMap.entrySet()) {
             addField(entry.getValue(), entry.getKey());
         }
@@ -109,7 +109,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addField(String type, String identifier)">
-    public EntitySupplierSourceBuilder addField(String type, String identifier) {
+    public EntitySupplierBuilder addField(String type, String identifier) {
         fields.put(identifier, type);
         builder.append("private ")
                 .append(type)
@@ -129,7 +129,7 @@ public class EntitySupplierSourceBuilder {
      * @param fieldsToBind
      * @return
      */
-    public EntitySupplierSourceBuilder addConstructor(String accessModifier, List<String> fieldsToBind) {
+    public EntitySupplierBuilder addConstructor(String accessModifier, List<String> fieldsToBind) {
         builder.append(LINE_BREAK)
                 .append(accessModifier)
                 .append(" ")
@@ -166,7 +166,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields)">
-    public EntitySupplierSourceBuilder addConstructor(String accessModifier, boolean bindFields) {
+    public EntitySupplierBuilder addConstructor(String accessModifier, boolean bindFields) {
         addConstructor(accessModifier,
                 bindFields ? new ArrayList(fields.keySet())
                         : new ArrayList<>());
@@ -175,7 +175,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addMethod(MethodProcessorAux method)">
 
-    public EntitySupplierSourceBuilder addMethod(MethodProcessorAux method) {
+    public EntitySupplierBuilder addMethod(MethodProcessorAux method) {
         builder.append(LINE_BREAK)
                 .append(method.end())
                 .append(LINE_BREAK);
@@ -184,7 +184,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createSetterForField(String name)">
-    public EntitySupplierSourceBuilder createSetterForField(String name) {
+    public EntitySupplierBuilder createSetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for setter: " + name);
         }
@@ -197,7 +197,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder createGetterForField(String name)">
 
-    public EntitySupplierSourceBuilder createGetterForField(String name) {
+    public EntitySupplierBuilder createGetterForField(String name) {
         if (!fields.containsKey(name)) {
             throw new IllegalArgumentException("Field not found for Getter: " + name);
         }
@@ -227,7 +227,7 @@ public class EntitySupplierSourceBuilder {
      * @param desc. -Utiloce \" si necesita incluir " en el texto
      * @return inserta un editor fold que sirve como ayuda a NetBeans IDE
      */
-    public EntitySupplierSourceBuilder addEditorFoldStart(String desc) {
+    public EntitySupplierBuilder addEditorFoldStart(String desc) {
         builder.append("// <editor-fold defaultstate=\"collapsed\" desc=\"")
                 .append(desc)
                 .append("\">")
@@ -237,7 +237,7 @@ public class EntitySupplierSourceBuilder {
 // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="SupplierSourceBuilder addNestedClass(SupplierSourceBuilder jClass)">
-    public EntitySupplierSourceBuilder addNestedClass(EntitySupplierSourceBuilder jClass) {
+    public EntitySupplierBuilder addNestedClass(EntitySupplierBuilder jClass) {
         builder.append(LINE_BREAK);
         builder.append(jClass.end());
         builder.append(LINE_BREAK);
