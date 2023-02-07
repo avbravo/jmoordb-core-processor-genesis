@@ -116,6 +116,7 @@ public class FindBuilder {
                     + process
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "              exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
                     + "         " + returnValue + "\n"
                     + "     }\n"
@@ -188,6 +189,7 @@ public class FindBuilder {
                     + process
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
                     + "         " + returnValue + "\n"
                     + "     }\n"
@@ -260,6 +262,7 @@ public class FindBuilder {
                     + process
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "              exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
                     + "         " + returnValue + "\n"
                     + "     }\n"
@@ -332,6 +335,7 @@ public class FindBuilder {
                     + process
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
                     + "         " + returnValue + "\n"
                     + "     }\n"
@@ -405,6 +409,7 @@ public class FindBuilder {
                     + process
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "         }\n"
                     + "         " + returnValue + "\n"
                     + "     }\n"

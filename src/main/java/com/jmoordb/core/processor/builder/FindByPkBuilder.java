@@ -31,6 +31,7 @@ public class FindByPkBuilder {
                     + "            return Optional.of(" + repositoryData.getNameOfEntityLower() + ");\n"
                     + "       } catch (Exception e) {\n"
                     + "            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "       }\n"
                     + "       return Optional.empty();\n"
                     + "    }\n"

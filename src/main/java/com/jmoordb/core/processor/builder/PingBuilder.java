@@ -31,6 +31,7 @@ public class PingBuilder {
                     + "            conected = Boolean.TRUE;\n"
                     + "        } catch (Exception e) {\n"
                     + "            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "        }\n"
                     + "        return conected;\n"
                     + "     }\n"

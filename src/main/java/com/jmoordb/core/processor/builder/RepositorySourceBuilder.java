@@ -33,6 +33,7 @@ public class RepositorySourceBuilder {
         builder.append(sourceUtilBuilder.defineClass(repositoryData.getInterfaceName() + "Impl", " implements " + repositoryData.getInterfaceName()));
 
         builder.append(sourceUtilBuilder.inject(repository, repositoryData, database, collection));
+        builder.append(sourceUtilBuilder.exception(repository, repositoryData, database, collection));
 
         /**
          * Generar los metodos encontrados

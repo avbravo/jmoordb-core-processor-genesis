@@ -131,6 +131,7 @@ public class RepositorySourceBuilderUtil {
                     + "/**\n"
                     + "* MongoDB\n"
                     + "*/\n"
+                    + "import com.jmoordb.core.processor.model.JmoordbException;\n"
                     + "import com.mongodb.client.MongoDatabase;\n"
                     + "import static com.mongodb.client.model.Filters.eq;\n"
                     + "import com.mongodb.client.MongoClient;\n"
@@ -201,6 +202,33 @@ public class RepositorySourceBuilderUtil {
                     + "*/\n"
                     + "    @Inject\n"
                     + "    " + repositoryData.getNameOfPackage() + repositoryData.getNameOfEntity() + "Supplier " + repositoryData.getNameOfEntityLower() + "Supplier;\n"
+                    + "// </editor-fold>\n";
+            builder.append(code);
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
+        }
+        return builder;
+    }
+
+// </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder exception(Repository repository, RepositoryData repositoryData, String database, String collection)">
+    public StringBuilder exception(Repository repository, RepositoryData repositoryData, String database, String collection) {
+        StringBuilder builder = new StringBuilder();
+        try {
+            String code = "";
+
+            code += "// <editor-fold defaultstate=\"collapsed\" desc=\"Exception\">\n\n";
+
+                code    += "   private JmoordbException exception;\n"
+                  
+                    + "public JmoordbException getJmoordbException() {\n"
+                    + "    return exception;\n"
+                    + " }\n"
+                    + "public void setJmoordbException(JmoordbException exception) {"
+                    + "    this.exception = exception;"
+                     + " }\n"
                     + "// </editor-fold>\n";
             builder.append(code);
 
