@@ -12,9 +12,6 @@ public class RepositorySourceBuilderUtil {
     public static String TAB = "   ";
     private String className;
 
-
-    
-    
     // <editor-fold defaultstate="collapsed" desc="String numberOfParametersOfMethod(RepositoryMethod repositoryMethod)">
     /**
      *
@@ -33,7 +30,7 @@ public class RepositorySourceBuilderUtil {
         return number;
     }
 // </editor-fold>
-   
+
     // <editor-fold defaultstate="collapsed" desc="StringBuilder definePackage(String packageName)">
     /**
      *
@@ -121,7 +118,6 @@ public class RepositorySourceBuilderUtil {
                 code += "import jakarta.enterprise.context.ApplicationScoped;\n"
                         + "import jakarta.inject.Inject;\n";
 
-
             }
             /**
              * Microprofile
@@ -163,8 +159,6 @@ public class RepositorySourceBuilderUtil {
                     + "import " + repositoryData.getNameOfPackage() + repositoryData.getNameOfEntity() + ";\n\n\n"
                     + "// </editor-fold>\n";
             builder.append(code);
-            
-       
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
@@ -212,7 +206,6 @@ public class RepositorySourceBuilderUtil {
     }
 
 // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="StringBuilder exception(Repository repository, RepositoryData repositoryData, String database, String collection)">
     public StringBuilder exception(Repository repository, RepositoryData repositoryData, String database, String collection) {
         StringBuilder builder = new StringBuilder();
@@ -221,14 +214,16 @@ public class RepositorySourceBuilderUtil {
 
             code += "// <editor-fold defaultstate=\"collapsed\" desc=\"Exception\">\n\n";
 
-                code    += "   private JmoordbException exception;\n"
-                  
+            code += "   private JmoordbException exception;\n"
                     + "public JmoordbException getJmoordbException() {\n"
+                    + "   if(exception == null || exception.getLocalizedMessage()== null ){\n"
+                    + "    exception = new JmoordbException(\"\");\n"
+                    + "   }\n"
                     + "    return exception;\n"
                     + " }\n"
                     + "public void setJmoordbException(JmoordbException exception) {"
                     + "    this.exception = exception;"
-                     + " }\n"
+                    + " }\n"
                     + "// </editor-fold>\n";
             builder.append(code);
 
@@ -239,6 +234,4 @@ public class RepositorySourceBuilderUtil {
     }
 
 // </editor-fold>
-    
-
 }
