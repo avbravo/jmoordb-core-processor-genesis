@@ -57,12 +57,10 @@ public interface EntitySupplierGenerateToDocument {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
                             sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.TRUE);
                         } else {
                             
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
+
                             sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.FALSE);
                         }
                         count++;
@@ -72,14 +70,10 @@ public interface EntitySupplierGenerateToDocument {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.TRUE);
                         } else {
                             
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.FALSE);
+                           sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -166,34 +160,26 @@ public interface EntitySupplierGenerateToDocument {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
+
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            //sentence += SupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
+                            
                             sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.TRUE);
                         } else {
-                            //   sentence += "+// Embedded of" + coma + referencedProcess(entityData, entityField, element);
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
                             sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.FALSE);
                         }
                         count++;
                         break;
                     case VIEWREFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                            //sentence += SupplierEmbeddedBuilder.embeddedProcess(entityData, entityField);
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.TRUE);
                         } else {
-                            //   sentence += "+// Embedded of" + coma + referencedProcess(entityData, entityField, element);
-//                            sentence += " " + coma + referencedProcess(entityData, entityField, element);
+                            
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.FALSE);
                         }
                         count++;

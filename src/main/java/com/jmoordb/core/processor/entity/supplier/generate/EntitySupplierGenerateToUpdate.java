@@ -75,12 +75,8 @@ public interface EntitySupplierGenerateToUpdate {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                            
-                           
                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
-                           
-//                         
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;

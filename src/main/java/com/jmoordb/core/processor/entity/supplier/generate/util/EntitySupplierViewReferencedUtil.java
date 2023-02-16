@@ -42,11 +42,15 @@ public interface EntitySupplierViewReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getViewReferenced().from();
         String localField = entityField.getViewReferenced().localField();
+        
+                String fromViewReferenced = entityField.getViewReferenced().from();
         String sourceSupplier = "";
         if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+//            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+            sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
         } else {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+//            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+            sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
         }
 
         try {
