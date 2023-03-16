@@ -54,34 +54,22 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
-//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                            sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
                         } else {
-                            
-//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField,element, Boolean.FALSE);
                         }
                         count++;
                         break;
                     case VIEWREFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
-//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                            sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
                         } else {
-                            
-//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
                             sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField,element, Boolean.FALSE);
                         }
                         count++;

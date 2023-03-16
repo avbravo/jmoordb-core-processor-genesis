@@ -42,11 +42,14 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getViewReferenced().from();
         String localField = entityField.getViewReferenced().localField();
+            String fromViewReferenced = entityField.getViewReferenced().from();
         String sourceSupplier = "";
         if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+//            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+            sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
         } else {
-            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+//            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+            sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
 
         }
         try {
@@ -105,6 +108,7 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getViewReferenced().from();
         String localField = entityField.getViewReferenced().localField();
+            String fromViewReferenced = entityField.getViewReferenced().from();
         /**
          * Listas de referencias
          */
@@ -112,10 +116,12 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
 
         String sourceSupplier = "";
         if (typeReferencedEmbedded) {
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+//            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         } else {
 
-            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+//            sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+            sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
         }
 
         try {
@@ -143,9 +149,11 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
              * Referencias simples
              */
             if (typeReferencedEmbedded) {
-                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+//                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+                sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
             } else {
-                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+//                sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
+                sourceSupplier = "\t\tUpdates.set(\"" + fromViewReferenced + "\"," + fieldLower + "Supplier.toReferenced(" + entityNameLower + ".get" + fieldUpper + "())" + ")" + caracterComa + "\n";
             }
 
             result += "\t// Referenced of " + fieldLower + "\n";
