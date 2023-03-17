@@ -9,6 +9,7 @@ import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.documentembeddable.supplier.embedded.DocumentEmbeddableSupplierEmbeddedGetBuilder;
 import com.jmoordb.core.processor.model.IdData;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -181,8 +182,10 @@ public interface DocumentEmbeddableSupplierReferencedGetBuilder {
         String foreignFieldUpper = JmoordbCoreUtil.letterToUpper(idData.getFieldName());
         String from = entityField.getViewReferenced().from();
         String localField = entityField.getViewReferenced().localField();
-
-        String sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+       String fromViewReferenced = entityField.getViewReferenced().from();
+       
+//        String sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
+        String sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced  + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
 
         var isEmbeddedReferenced = Boolean.FALSE;
         switch (entityField.getTypeReferenced()) {

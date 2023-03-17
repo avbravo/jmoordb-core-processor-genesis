@@ -20,6 +20,7 @@ import java.util.List;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierReferencedUtil;
 import com.jmoordb.core.processor.documentembeddable.supplier.generate.util.DocumentEmbeddableSupplierViewReferencedUtil;
+import com.jmoordb.core.util.ConsoleUtil;
 
 /**
  *
@@ -64,6 +65,8 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                         count++;
                         break;
                     case VIEWREFERENCED:
+                        
+                        
                         if (count > 0) {
                             coma = "\n";
                         }

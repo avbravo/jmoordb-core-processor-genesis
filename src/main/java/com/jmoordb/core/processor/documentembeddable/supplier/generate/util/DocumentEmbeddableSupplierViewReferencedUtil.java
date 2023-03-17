@@ -7,6 +7,7 @@ package com.jmoordb.core.processor.documentembeddable.supplier.generate.util;
 import com.jmoordb.core.processor.methods.DocumentEmbeddableField;
 import com.jmoordb.core.processor.documentembeddable.model.DocumentEmbeddableData;
 import com.jmoordb.core.processor.model.IdData;
+import com.jmoordb.core.util.ConsoleUtil;
 import com.jmoordb.core.util.JmoordbCoreFileUtil;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
@@ -42,8 +43,10 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
         String foreignField = idData.getFieldName();
         String from = entityField.getViewReferenced().from();
         String localField = entityField.getViewReferenced().localField();
-            String fromViewReferenced = entityField.getViewReferenced().from();
+          String fromViewReferenced = entityField.getViewReferenced().from();
         String sourceSupplier = "";
+        
+      
         if (typeReferencedEmbedded) {
 //            sourceSupplier = "\t\tdocument_.put(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
             sourceSupplier = "\t\tdocument_.put(\"" + fromViewReferenced+ "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ");\n";
@@ -77,6 +80,8 @@ public interface DocumentEmbeddableSupplierViewReferencedUtil {
             result += "\t// Referenced of " + fieldLower + "\n";
 
             result += sourceSupplier;
+            
+            
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());

@@ -61,6 +61,7 @@ public class DocumentEmbeddableSupplierGenerateGet {
                              *
                              */
 
+//                            sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.referencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
                         } else {
                             sentence += DocumentEmbeddableSupplierReferencedGetBuilder.viewReferencedProcessGet(documentEmbeddableData, documentEmbeddableField, element);
