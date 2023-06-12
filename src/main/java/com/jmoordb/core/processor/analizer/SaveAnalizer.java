@@ -37,29 +37,28 @@ public class SaveAnalizer {
         SaveAnalizer.message = message;
     }
 // </editor-fold>
- // <editor-fold defaultstate="collapsed" desc="analizer(Save saveAnnotation, Element element, ExecutableElement executableElement,TypeMirror typeEntit)">
+    // <editor-fold defaultstate="collapsed" desc="analizer(Save saveAnnotation, Element element, ExecutableElement executableElement,TypeMirror typeEntit)">
+
     public static Boolean analizer(Save saveAnnotation, Element element, ExecutableElement executableElement, TypeMirror typeEntity) {
         try {
             Boolean haveBooleanParameters = Boolean.FALSE;
             Boolean haveOptionalParameters = Boolean.FALSE;
-         //
-           List<String> includeTimeFields = new ArrayList<>();
-   List<String> excludeTimeFields = new ArrayList<>();
+            //
+            List<String> includeTimeFields = new ArrayList<>();
+            List<String> excludeTimeFields = new ArrayList<>();
             String nameOfMethod = ProcessorUtil.nameOfMethod(executableElement);
             String nameOfEntity = ProcessorUtil.nameOfEntity(typeEntity);
             String typeOptional = "java.util.Optional<" + typeEntity.toString().trim() + ">";
             String typeList = "java.util.List<" + typeEntity.toString().trim() + ">";
             String typeSet = "java.util.Set<" + typeEntity.toString().trim() + ">";
 
-          
-
             TypeMirror returnTypeOfMethod = executableElement.getReturnType();
-         
+
             if (!returnTypeOfMethod.toString().equals("java.lang.Boolean")) {
-               
+
                 if (!returnTypeOfMethod.toString().equals(typeOptional)) {
-                 
-                    message =  nameOfMethod + "() The return type must be a Boolean or Optional<" + nameOfEntity + ">";
+
+                    message = nameOfMethod + "() The return type must be a Boolean or Optional<" + nameOfEntity + ">";
                     return Boolean.FALSE;
                 }
 
@@ -67,39 +66,37 @@ public class SaveAnalizer {
 
             List<? extends VariableElement> parameters = executableElement.getParameters();
             if (parameters.size() <= 0) {
-           
-                message =  nameOfMethod + "() must have a parameter of type " + nameOfEntity;
+
+                message = nameOfMethod + "() must have a parameter of type " + nameOfEntity;
                 return Boolean.FALSE;
             } else {
                 if (parameters.size() > MAXIMUM_NUMBER_OF_PARAMETERS) {
-                    message =  nameOfMethod + "() the maximum size of parameters allowed is " + MAXIMUM_NUMBER_OF_PARAMETERS;
+                    message = nameOfMethod + "() the maximum size of parameters allowed is " + MAXIMUM_NUMBER_OF_PARAMETERS;
                     return Boolean.FALSE;
                 }
- Boolean isIncludeTime = Boolean.FALSE;
+                Boolean isIncludeTime = Boolean.FALSE;
                 Boolean isExcludeTime = Boolean.FALSE;
                 for (int i = 0; i < parameters.size(); i++) {
                     VariableElement param = parameters.get(i);
 
-                
-                    
                     // No se valida los demás de tipos de dato solo que sea un entity
-                       // Verifica que el tipo del parámetro sea un tipo aceptado
+                    // Verifica que el tipo del parámetro sea un tipo aceptado
 //                    if (!JmoordbCoreUtil.isJmoordbJavaTypeValidQueryRegexCountDelete(param.asType().toString())) {
 //                        message = "Method " + nameOfMethod + "() parameter: "  +  param.getSimpleName().toString()+ " Not a valid data type for a parameter.";
 //                        return Boolean.FALSE;
 //                    }
                     if (!param.asType().equals(typeEntity)) {
-                        message =  nameOfMethod + "() must have a parameter of type " + ProcessorUtil.nameOfEntity(typeEntity);
+                        message = nameOfMethod + "() must have a parameter of type " + ProcessorUtil.nameOfEntity(typeEntity);
                         return Boolean.FALSE;
                     }
                 }
 
             }
- if (!nameOfMethod.startsWith("save") ) {
-                message =  nameOfMethod + "() should start with save";
+            if (!nameOfMethod.startsWith("save")) {
+                message = nameOfMethod + "() should start with save";
                 return Boolean.FALSE;
             }
-          Save save = executableElement.getAnnotation(Save.class);
+            Save save = executableElement.getAnnotation(Save.class);
 
             return Boolean.TRUE;
         } catch (Exception e) {
