@@ -50,11 +50,7 @@ public class RepositoryProcessor extends AbstractProcessor {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Repository.class);
 
             List<String> uniqueIdCheckList = new ArrayList<>();
-            System.out.println("\t_______________________________________________________________________________");
-            System.out.println("<<<<<<<<<<<<<<< REPOSITORY PROCESSOR  >>>>>>>>>>>");
-
-            System.out.println("\t_______________________________________________________________________________");
-
+         
             for (Element element : elements) {
                 Repository repository = element.getAnnotation(Repository.class);
 
@@ -78,18 +74,9 @@ public class RepositoryProcessor extends AbstractProcessor {
                     /**
                      * Obtener datos del repository para RepositoryData
                      */
-
+                    
                     RepositoryData repositoryData = repositoryDataSupplier.get(RepositoryData::new, element);
-                    if (repositoryData.getInterfaceName().equals("DepartamentRepository")) {
-                        System.out.println("\t_______________________________________________________________________________");
-                        System.out.println("\ttest --> repositoryData.getInterfaceName()):" + repositoryData.getInterfaceName());
-                        System.out.println("\ttest --> repositoryData.getNameOfEntity():" + repositoryData.getNameOfEntity());
-                        System.out.println("\ttest --> repositoryData.getNameOfPackage():" + repositoryData.getNameOfPackage());
-                        System.out.println("\ttest --> repositoryData.getPackageOfRepository():" + repositoryData.getPackageOfRepository());
-                        System.out.println("\ttest --> repositoryData.getFieldPk():" + repositoryData.getFieldPk());
-                        System.out.println("\t_______________________________________________________________________________");
-                    }
-
+//                  
                     if (uniqueIdCheckList.contains(repositoryData.getNameOfEntity())) {
                         error("Repository has should be uniquely defined", element);
                         error = true;
@@ -109,6 +96,7 @@ public class RepositoryProcessor extends AbstractProcessor {
                 }
             }
             MessagesUtil.box("Proceso de analisis finalizado");
+              
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
 

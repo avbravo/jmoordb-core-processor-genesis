@@ -49,10 +49,6 @@ public class DocummentEmbedableProcessor extends AbstractProcessor {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(DocumentEmbeddable.class);
 
             List<String> uniqueIdCheckList = new ArrayList<>();
-   System.out.println("\t.........................................................................");
-            System.out.println("<<<<<<<<<<<<<<< DOCUMMENTEMBEDDABLE PROCESSOR  >>>>>>>>>>>");
-   
-      System.out.println("\t.........................................................................");
       
             for (Element element : elements) {
                DocumentEmbeddable documentEmbeddable = element.getAnnotation(DocumentEmbeddable.class);
@@ -71,12 +67,7 @@ public class DocummentEmbedableProcessor extends AbstractProcessor {
                     DocumentEmbeddableData documentEmbeddableData = documentEmbeddableDataSupplier.get(DocumentEmbeddableData::new, element);
                     
                     
-                     System.out.println("\t.........................................................................");
-                           System.out.println("\ttest --> documentEmbeddableData .getCollection():"+documentEmbeddableData .getCollection());
-                           System.out.println("\ttest --> documentEmbeddableData .getDatabase():"+documentEmbeddableData .getDatabase());
-                           System.out.println("\ttest --> documentEmbeddableData .getDocumentEmbeddableName():"+documentEmbeddableData .getDocumentEmbeddableName());
-                           System.out.println("\ttest --> documentEmbeddableData .getPackageOfDocumentEmbeddable():"+documentEmbeddableData .getPackageOfDocumentEmbeddable());
-                System.out.println("\t.........................................................................");
+                    
                     String nameOfDocumentEmbeddable = "";
 
 

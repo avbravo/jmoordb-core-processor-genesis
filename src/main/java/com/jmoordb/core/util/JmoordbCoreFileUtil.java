@@ -4,7 +4,6 @@ package com.jmoordb.core.util;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author avbravo
@@ -74,7 +73,7 @@ public class JmoordbCoreFileUtil {
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
 
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
                     //         System.out.println("\t\t\t [No se encontro el repositorio de la clase]");
@@ -121,7 +120,7 @@ public class JmoordbCoreFileUtil {
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
 
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fileToSearch))) {
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fileToSearch))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
                     // System.out.println("\t\t\t [No se encontro el repositorio de la clase]");
@@ -168,7 +167,7 @@ public class JmoordbCoreFileUtil {
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
 
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
 
@@ -199,7 +198,7 @@ public class JmoordbCoreFileUtil {
     public static Boolean existFileInProject(Element element, String fyleToSearch) {
         Boolean result = Boolean.FALSE;
         try {
-            System.out.println("[[ fyleToSearch]] " + fyleToSearch);
+          
             final TypeElement classElem = (TypeElement) element;
             final String prefix = System.getProperty("user.dir");
             final String className = classElem.getQualifiedName().toString();
@@ -210,7 +209,7 @@ public class JmoordbCoreFileUtil {
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
 
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fyleToSearch))) {
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fyleToSearch))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
 
@@ -248,7 +247,7 @@ public class JmoordbCoreFileUtil {
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
             String homeBase = folderBase.replace(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java", "");
 
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(entityData.getEntityName() + "Repository.java"))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
                     //         System.out.println("\t\t\t [No se encontro el repositorio de la clase]");
@@ -281,18 +280,19 @@ public class JmoordbCoreFileUtil {
     public static String pathOfFileInProject(Element element, String fileToSearch) {
         String result = "";
         try {
-
+          
             final TypeElement classElem = (TypeElement) element;
             final String prefix = System.getProperty("user.dir");
             final String className = classElem.getQualifiedName().toString();
+          
             String fileName = prefix + "/src/main/java/" + className.replace('.', '/') + ".java";
-
+          
             Path path = Paths.get(fileName);
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
             String homeBase = folderBase.replace(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java", "");
-
-            try ( Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fileToSearch))) {
+        
+            try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fileToSearch))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
                     // System.out.println("\t\t\t [No se encontro el repositorio de la clase]");
@@ -304,11 +304,23 @@ public class JmoordbCoreFileUtil {
                     result = result.replace(fileToSearch, "");
                     result = homeBase + result;
                 }
+              
+              
+                if (result.substring(result.length()-1, result.length()).equals(System.getProperty("file.separator"))) {
+              
+
+                } else {
+                  
+                    result = result.substring(0,result.lastIndexOf(System.getProperty("file.separator"))+1);
+                  
+                  
+                }
 
             }
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
         }
+      
         return result;
     }
     // </editor-fold>
@@ -326,7 +338,7 @@ public class JmoordbCoreFileUtil {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
 
-            try ( Stream<String> stream = Files.lines(path)) {
+            try (Stream<String> stream = Files.lines(path)) {
                 stream.forEach(System.out::println);
 
             }
@@ -349,7 +361,7 @@ public class JmoordbCoreFileUtil {
         try {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
-     System.out.println("test() " +MessagesUtil.nameOfClassAndMethod()+"\tvoy a procesar el id" );
+            
             Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
             if (lineEndId != 0) {
                 procesarPK(Files.lines(path), idData, lineEndId);
@@ -374,7 +386,7 @@ public class JmoordbCoreFileUtil {
         try {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
-         
+
             Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
             if (lineEndId != 0) {
                 procesarPK(Files.lines(path), idData, lineEndId);
@@ -399,7 +411,7 @@ public class JmoordbCoreFileUtil {
         try {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
-         
+
             Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
             if (lineEndId != 0) {
                 procesarPK(Files.lines(path), idData, lineEndId);
@@ -441,7 +453,7 @@ public class JmoordbCoreFileUtil {
     public static Integer procesarId(Stream<String> lines, Stream<String> linesWork, IdData idData) {
         Integer result = 0;
         try {
-     
+
             containsId = Boolean.FALSE;
             startId = Boolean.FALSE;
             endId = Boolean.FALSE;
@@ -454,11 +466,9 @@ public class JmoordbCoreFileUtil {
                 javaCode.add(s);
             });
             lines.forEach(s -> {
-               
-              
 
                 if (!endId) {
-          
+
                     comaPosition = s.indexOf(",");
                     valuePosition = s.indexOf("value");
                     autogeneratedActivePosition = s.indexOf("autogeneratedActive");
@@ -480,16 +490,15 @@ public class JmoordbCoreFileUtil {
                             endId = Boolean.TRUE;
                             lineaEndId = countLines;
                         }
- 
+
                         /**
                          * Obtiene el value
                          */
                         if (valuePosition != -1) {
                             Integer startValue = s.indexOf("\"");
                             Integer endValue = s.lastIndexOf("\"");
-                             System.out.println("test() " +MessagesUtil.nameOfClassAndMethod()+"\tstartValue "+startValue + " endValue "+ endValue );
-                            idData.setValue(s.substring(startValue + 1, endValue));
-     
+                                                      idData.setValue(s.substring(startValue + 1, endValue));
+
                         }
 
                         // Contiene @Id() en la misma linea se pueden obtener los valores
@@ -521,9 +530,9 @@ public class JmoordbCoreFileUtil {
                         }
                     }
                 }//endId
-                else{
-                     
-                      if (s.contains("AutogeneratedActive.OFF")) {
+                else {
+
+                    if (s.contains("AutogeneratedActive.OFF")) {
                         idData.setAutogeneratedActive(AutogeneratedActive.OFF);
                     } else {
                         if (s.contains("AutogeneratedActive.ON")) {
@@ -546,7 +555,7 @@ public class JmoordbCoreFileUtil {
 
                 countLines++;
             });//forEach
-  
+
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
         }
@@ -562,8 +571,8 @@ public class JmoordbCoreFileUtil {
             countLines = 0;
             lines.forEach(s -> {
                 if (countLines > lineEndId && !endpk) {
-System.out.println("test() " +"\t line ="+s);
-if (s.contains(";")) {
+                  
+                    if (s.contains(";")) {
                         endpk = Boolean.TRUE;
                         s = s.replace(";", "");
                     }
@@ -582,8 +591,9 @@ if (s.contains(";")) {
                     if (s.contains("public")) {
                         s = s.replace("public", "");
                     }
-                    System.out.println("test() " +"\t sacando el pk de ="+s);
+
                     if (!s.isEmpty()) {
+                      
                         idData.setFieldName(s.trim());
                     }
 

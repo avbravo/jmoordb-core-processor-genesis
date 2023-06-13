@@ -27,14 +27,9 @@ public class RepositoryDataSupplier {
         RepositoryData repositoryData = s.get();
         try {
 
-          
-            
             Repository repository = element.getAnnotation(Repository.class);
-            
-           
-            
             TypeMirror typeEntity = mirror(repository::entity);
-
+   
 /**
  * Lee la entidad para obterner el nombre del campo @Id el tipo y si es autoincrementable
  */
