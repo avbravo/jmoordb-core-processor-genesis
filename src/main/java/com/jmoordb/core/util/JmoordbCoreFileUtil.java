@@ -349,7 +349,7 @@ public class JmoordbCoreFileUtil {
         try {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
-         
+     System.out.println("test() " +MessagesUtil.nameOfClassAndMethod()+"\tvoy a procesar el id" );
             Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
             if (lineEndId != 0) {
                 procesarPK(Files.lines(path), idData, lineEndId);
@@ -441,7 +441,7 @@ public class JmoordbCoreFileUtil {
     public static Integer procesarId(Stream<String> lines, Stream<String> linesWork, IdData idData) {
         Integer result = 0;
         try {
-
+     
             containsId = Boolean.FALSE;
             startId = Boolean.FALSE;
             endId = Boolean.FALSE;
@@ -480,15 +480,16 @@ public class JmoordbCoreFileUtil {
                             endId = Boolean.TRUE;
                             lineaEndId = countLines;
                         }
-
+ 
                         /**
                          * Obtiene el value
                          */
                         if (valuePosition != -1) {
                             Integer startValue = s.indexOf("\"");
                             Integer endValue = s.lastIndexOf("\"");
+                             System.out.println("test() " +MessagesUtil.nameOfClassAndMethod()+"\tstartValue "+startValue + " endValue "+ endValue );
                             idData.setValue(s.substring(startValue + 1, endValue));
-
+     
                         }
 
                         // Contiene @Id() en la misma linea se pueden obtener los valores
@@ -561,8 +562,8 @@ public class JmoordbCoreFileUtil {
             countLines = 0;
             lines.forEach(s -> {
                 if (countLines > lineEndId && !endpk) {
-
-                    if (s.contains(";")) {
+System.out.println("test() " +"\t line ="+s);
+if (s.contains(";")) {
                         endpk = Boolean.TRUE;
                         s = s.replace(";", "");
                     }
@@ -581,6 +582,7 @@ public class JmoordbCoreFileUtil {
                     if (s.contains("public")) {
                         s = s.replace("public", "");
                     }
+                    System.out.println("test() " +"\t sacando el pk de ="+s);
                     if (!s.isEmpty()) {
                         idData.setFieldName(s.trim());
                     }

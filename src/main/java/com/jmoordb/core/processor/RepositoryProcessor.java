@@ -1,6 +1,5 @@
 package com.jmoordb.core.processor;
 
-
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -51,15 +50,14 @@ public class RepositoryProcessor extends AbstractProcessor {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Repository.class);
 
             List<String> uniqueIdCheckList = new ArrayList<>();
-   System.out.println("\t_______________________________________________________________________________");
+            System.out.println("\t_______________________________________________________________________________");
             System.out.println("<<<<<<<<<<<<<<< REPOSITORY PROCESSOR  >>>>>>>>>>>");
-   
-      System.out.println("\t_______________________________________________________________________________");
-      
+
+            System.out.println("\t_______________________________________________________________________________");
+
             for (Element element : elements) {
                 Repository repository = element.getAnnotation(Repository.class);
 
-         
                 /**
                  * Evalua la entidad definida en el
                  *
@@ -82,16 +80,16 @@ public class RepositoryProcessor extends AbstractProcessor {
                      */
 
                     RepositoryData repositoryData = repositoryDataSupplier.get(RepositoryData::new, element);
-if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
-      System.out.println("\t_______________________________________________________________________________");
-                           System.out.println("\ttest --> repositoryData.getInterfaceName()):"+repositoryData.getInterfaceName());
-                           System.out.println("\ttest --> repositoryData.getNameOfEntity():"+repositoryData.getNameOfEntity());
-                           System.out.println("\ttest --> repositoryData.getNameOfPackage():"+repositoryData.getNameOfPackage());
-                           System.out.println("\ttest --> repositoryData.getPackageOfRepository():"+repositoryData.getPackageOfRepository());
-                           System.out.println("\ttest --> repositoryData.getFieldPk():"+repositoryData.getFieldPk());
-                System.out.println("\t_______________________________________________________________________________");
-}
-                  
+                    if (repositoryData.getInterfaceName().equals("DepartamentRepository")) {
+                        System.out.println("\t_______________________________________________________________________________");
+                        System.out.println("\ttest --> repositoryData.getInterfaceName()):" + repositoryData.getInterfaceName());
+                        System.out.println("\ttest --> repositoryData.getNameOfEntity():" + repositoryData.getNameOfEntity());
+                        System.out.println("\ttest --> repositoryData.getNameOfPackage():" + repositoryData.getNameOfPackage());
+                        System.out.println("\ttest --> repositoryData.getPackageOfRepository():" + repositoryData.getPackageOfRepository());
+                        System.out.println("\ttest --> repositoryData.getFieldPk():" + repositoryData.getFieldPk());
+                        System.out.println("\t_______________________________________________________________________________");
+                    }
+
                     if (uniqueIdCheckList.contains(repositoryData.getNameOfEntity())) {
                         error("Repository has should be uniquely defined", element);
                         error = true;
@@ -130,12 +128,12 @@ if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
             } else {
                 database = repository.database().replace("{", "").replace("}", "");
             }
-                        String collection ="";
-                        if(repository.collection().equals("")){
-                           collection = repositoryData.getNameOfEntityLower();
-                        }else{
-                        collection = repository.collection().trim();
-                        }
+            String collection = "";
+            if (repository.collection().equals("")) {
+                collection = repositoryData.getNameOfEntityLower();
+            } else {
+                collection = repository.collection().trim();
+            }
 
             /**
              * List<RepositoryMethod> almacena la información de los métodos de
@@ -148,7 +146,6 @@ if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
              */
             RepositoryAnalizer repositoryAnalizer = RepositoryAnalizer.get(element, messager, database, typeEntity, repositoryMethodList);
 
-
             /**
              * Construye la clase
              */
@@ -156,14 +153,12 @@ if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
 
             repositorySourceBuilder.init(repository, repositoryData, repositoryMethodList, database, collection);
 
-
             generateJavaFile(repositoryData.getPackageOfRepository() + "." + repositoryData.getInterfaceName() + "Impl", repositorySourceBuilder.end());
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
         }
     }
 // </editor-fold>
-    
 
     // <editor-fold defaultstate="collapsed" desc="generateJavaFile(String qfn, String end)">
     private void generateJavaFile(String qfn, String end) throws IOException {
@@ -210,19 +205,13 @@ if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
     }
 // </editor-fold>
 
-    
-
     // <editor-fold defaultstate="collapsed" desc="error(String msg, Element e)">
     private void error(String msg, Element e) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg, e);
     }
     // </editor-fold>
 
- 
-   
-    
 // <editor-fold defaultstate="collapsed" desc="init(ProcessingEnvironment processingEnvironment)">
-
     @Override
     public void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
@@ -231,9 +220,8 @@ if(repositoryData.getInterfaceName().equals("DepartamentRepository")){
         messager = processingEnvironment.getMessager();
     }
 // </editor-fold>    
-    
-// <editor-fold defaultstate="collapsed" desc="printError(Element element, String message)">
 
+// <editor-fold defaultstate="collapsed" desc="printError(Element element, String message)">
     private void printError(Element element, String message) {
         messager.printMessage(Diagnostic.Kind.ERROR, message, element);
     }
