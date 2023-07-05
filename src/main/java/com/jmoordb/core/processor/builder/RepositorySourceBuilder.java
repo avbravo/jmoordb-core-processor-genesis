@@ -4,7 +4,6 @@ import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.fields.RepositoryMethod;
-import com.jmoordb.core.util.MessagesUtil;
 import java.util.*;
 
 /**
@@ -79,6 +78,9 @@ public class RepositorySourceBuilder {
                     case DELETEBY:
                         builder.append(DeleteByBuilder.deleteBy(repositoryData, repositoryMethod));
                         break;
+//                    case DELETEMANY:
+//                        builder.append(DeleteManyBuilder.deleteMany(repositoryData));
+//                        break;
                     case COUNTBY:
                         builder.append(CountByBuilder.countBy(repositoryData, repositoryMethod));
                         break;
@@ -108,6 +110,8 @@ public class RepositorySourceBuilder {
        
         builder.append(FindByPkBuilder.findByPK(repositoryData));
         builder.append(DeleteByBuilder.deleteByPk(repositoryData));
+        builder.append(DeleteManyBuilder.deleteMany(repositoryData));
+        builder.append(UpdateManyBuilder.updateMany(repositoryData));
  
             
         return this;
