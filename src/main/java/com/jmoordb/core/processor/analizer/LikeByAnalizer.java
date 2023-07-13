@@ -2,6 +2,7 @@ package com.jmoordb.core.processor.analizer;
 
 import com.jmoordb.core.annotation.date.ExcludeTime;
 import com.jmoordb.core.annotation.date.IncludeTime;
+import com.jmoordb.core.annotation.enumerations.LikeByType;
 import com.jmoordb.core.annotation.repository.LikeBy;
 import com.jmoordb.core.processor.analizer.util.NameOfMethodAnalizerUtil;
 
@@ -275,6 +276,8 @@ public class LikeByAnalizer {
             /**
              * Actualiza atributos de RepositoryMethod
              */
+           repositoryMethod.setCaseSensitive(likeBy.caseSensitive());
+            repositoryMethod.setLikeByType(likeBy.likeByType());
             repositoryMethod.setLexemas(lexemasLocal);
             repositoryMethod.setWorldAndToken(worldTokenLocal);
             repositoryMethod.setHavePagination(havePaginationParameters);

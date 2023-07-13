@@ -7,6 +7,7 @@ import com.jmoordb.core.annotation.repository.Delete;
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
+import com.jmoordb.core.annotation.enumerations.LikeByType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.repository.CountBy;
 import com.jmoordb.core.annotation.repository.CountLikeBy;
@@ -94,6 +95,7 @@ public class RepositoryAnalizer {
             RepositoryMethod repositoryMethod = new RepositoryMethod.Builder()
                     .nameOfMethod(methodName)
                     .caseSensitive(CaseSensitive.NONE)
+                    .likeByType(LikeByType.FROMTHESTART)
                     .annotationType(AnnotationType.NONE)
                     .paramTypeElement(paramTypeElementList)
                     .returnType(ReturnType.NONE)

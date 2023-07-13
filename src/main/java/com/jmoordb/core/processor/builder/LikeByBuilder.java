@@ -1,6 +1,10 @@
 package com.jmoordb.core.processor.builder;
 
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
+import com.jmoordb.core.annotation.enumerations.LikeByType;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.ANYWHERE;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHEEND;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHESTART;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.processor.model.RepositoryData;
@@ -8,7 +12,6 @@ import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
-
 
 public class LikeByBuilder {
 
@@ -67,15 +70,14 @@ public class LikeByBuilder {
 
             String sentence = "";
             String paginationSource = "";
-    
+
             String sortSource = "";
             String field = JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(0));
-            String parametro= repositoryMethod.getParamTypeElement().get(0).getName();
+            String parametro = repositoryMethod.getParamTypeElement().get(0).getName();
             Integer order = 1;
             if (repositoryMethod.getTypeOrder().equals(TypeOrder.DESC)) {
                 order = -1;
             }
-
 
             if (repositoryMethod.getHavePagination()) {
                 paginationSource = "\t\t\t.skip(" + repositoryMethod.getNameOfParametersPagination() + ".skip())\n"
@@ -88,10 +90,47 @@ public class LikeByBuilder {
              * Genera el filtro
              */
             String filter = "";
+           
+            switch (repositoryMethod.getLikeByType()) {
+                case FROMTHESTART:
+
+                    break;
+                case FROMTHEEND:
+
+                    break;
+                case ANYWHERE:
+
+                    break;
+
+            }
+
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
-                filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + "));\n";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + "));\n";
+                        break;
+                    case FROMTHEEND:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\"," + parametro + "+ \"$\"));\n";
+                        break;
+                    case ANYWHERE:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + "));\n";
+                        break;
+
+                }
+
             } else {
-                filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ").append(\"$options\", \"i\"));\n";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ").append(\"$options\", \"i\"));\n";
+                        break;
+                    case FROMTHEEND:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + "+\"$\").append(\"$options\", \"i\"));\n";
+                        break;
+                    case ANYWHERE:
+                        filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + ").append(\"$options\", \"i\"));\n";
+                        break;
+
+                }
             }
 
             sentence += filter + "\n";

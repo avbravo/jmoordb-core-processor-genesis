@@ -277,6 +277,7 @@ public class CountLikeByAnalizer {
              * Actualiza atributos de RepositoryMethod
              */
             repositoryMethod.setCaseSensitive(countLikeBy.caseSensitive());
+            repositoryMethod.setLikeByType(countLikeBy.likeByType());
             repositoryMethod.setLexemas(lexemasLocal);
             repositoryMethod.setWorldAndToken(worldTokenLocal);
             repositoryMethod.setHavePagination(havePaginationParameters);

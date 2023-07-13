@@ -7,6 +7,7 @@ package com.jmoordb.core.processor.fields;
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.AnnotationType;
+import com.jmoordb.core.annotation.enumerations.LikeByType;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class RepositoryMethod {
     private String returnTypeValue;
     private String nameOfMethod;
     private CaseSensitive caseSensitive;
+    private LikeByType likeByType;
     private String where = "";
     private List<String> tokenWhere = new ArrayList<>();
     private List<ParamTypeElement> paramTypeElement;
@@ -35,33 +37,31 @@ public class RepositoryMethod {
     private List<String> worldAndToken = new ArrayList<>();
     private List<String> includeTimeFields = new ArrayList<>();
     private List<String> excludeTimeFields = new ArrayList<>();
+
+  
+
+   
     
        
 
     public RepositoryMethod() {
     }
 
-    public RepositoryMethod(AnnotationType annotationType, ReturnType returnType, String returnTypeValue, String nameOfMethod, CaseSensitive caseSensitive, List<ParamTypeElement> paramTypeElement,
-            TypeOrder typeOrder,
-            Boolean havePagination, Boolean haveSorted, String nameOfParametersPagination, String nameOfParametersSorted, WhereDescomposed whereDescomposed, List<String> lexemas, List<String> worldAndToken,
-             List<String> includeTimeFields,List<String> excludeTimeFields ) {
+    public RepositoryMethod(AnnotationType annotationType, ReturnType returnType, String returnTypeValue, String nameOfMethod, CaseSensitive caseSensitive, LikeByType likeByType, List<ParamTypeElement> paramTypeElement, TypeOrder typeOrder, String nameOfParametersPagination, String nameOfParametersSorted, WhereDescomposed whereDescomposed) {
         this.annotationType = annotationType;
         this.returnType = returnType;
         this.returnTypeValue = returnTypeValue;
         this.nameOfMethod = nameOfMethod;
         this.caseSensitive = caseSensitive;
+        this.likeByType = likeByType;
         this.paramTypeElement = paramTypeElement;
         this.typeOrder = typeOrder;
-        this.havePagination = havePagination;
-        this.haveSorted = haveSorted;
+        this.nameOfParametersPagination = nameOfParametersPagination;
+        this.nameOfParametersSorted = nameOfParametersSorted;
         this.whereDescomposed = whereDescomposed;
-        this.lexemas = lexemas;
-        this.worldAndToken = worldAndToken;
-        this.includeTimeFields = includeTimeFields;
-        this.excludeTimeFields = excludeTimeFields;
-
     }
 
+    
     public List<String> getIncludeTimeFields() {
         return includeTimeFields;
     }
@@ -209,6 +209,17 @@ public class RepositoryMethod {
         this.worldAndToken = worldAndToken;
     }
 
+    public LikeByType getLikeByType() {
+        return likeByType;
+    }
+
+    public void setLikeByType(LikeByType likeByType) {
+        this.likeByType = likeByType;
+    }
+
+    
+    
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -244,7 +255,7 @@ public class RepositoryMethod {
         private AnnotationType annotationType;
         private ReturnType returnType;
         private String nameOfMethod;
-        private CaseSensitive caseSensitive;
+       private CaseSensitive caseSensitive;
         private String where = "";
         private List<String> tokenWhere = new ArrayList<>();
         private List<ParamTypeElement> paramTypeElement;
@@ -259,9 +270,9 @@ public class RepositoryMethod {
         private List<String> lexemas = new ArrayList<>();
         private List<String> worldAndToken = new ArrayList<>();
         
-            private List<String> includeTimeFields = new ArrayList<>();
-    private List<String> excludeTimeFields = new ArrayList<>();
-    
+        private List<String> includeTimeFields = new ArrayList<>();
+        private List<String> excludeTimeFields = new ArrayList<>();
+    private LikeByType likeByType;
     
 
         public Builder includeTimeFields(List<String> includeTimeFields) {
@@ -332,6 +343,10 @@ public class RepositoryMethod {
             this.caseSensitive = caseSensitive;
             return this;
         }
+        public Builder likeByType(LikeByType likeByType) {
+            this.likeByType= likeByType;
+            return this;
+        }
 
         public Builder where(String where) {
             this.where = where;
@@ -354,8 +369,7 @@ public class RepositoryMethod {
         }
 
         public RepositoryMethod build() {
-            return new RepositoryMethod(annotationType, returnType, returnTypeValue, nameOfMethod, caseSensitive, paramTypeElement, typeOrder, havePagination, haveSorted, nameOfParametersPagination, nameOfParametersSorted, whereDescomposed,lexemas,worldAndToken
-            ,includeTimeFields,excludeTimeFields);
+            return new RepositoryMethod(annotationType, returnType, returnTypeValue, nameOfMethod, caseSensitive, likeByType, paramTypeElement, typeOrder, nameOfParametersPagination, nameOfParametersSorted, whereDescomposed);
 
         }
 
