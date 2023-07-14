@@ -203,6 +203,7 @@ public class RegexAnalizer {
             /**
              * Actualiza RepositoryMethod
              */
+              repositoryMethod.setLikeByType(regex.likeByType());
             repositoryMethod.setWhere(regex.where().trim());
             repositoryMethod.setTokenWhere(tokenList);
             repositoryMethod.setHavePagination(havePaginationParameters);

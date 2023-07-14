@@ -1,6 +1,9 @@
 package com.jmoordb.core.processor.builder;
 
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.ANYWHERE;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHEEND;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHESTART;
 import com.jmoordb.core.annotation.enumerations.TypeOrder;
 import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.processor.model.RepositoryData;
@@ -9,15 +12,11 @@ import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 
-
 public class RegexBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
-
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="StringBuilder regex(RepositoryData repositoryData)">
     public static StringBuilder regex(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
@@ -67,21 +66,55 @@ public class RegexBuilder {
                 order = -1;
             }
 
-
             sortSource = ".sort(sort)\n";
 
             String sentence = "";
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
-                sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")))\n"
-                        + paginationSource
-                        + sortSource
-                        + "     .iterator();\n";
-            } else {
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
+                    case FROMTHEEND:
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\"," + valueParam + " +  \"$\")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
+                    case ANYWHERE:
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
 
-                sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\")))\n"
-                        + paginationSource
-                        + sortSource
-                        + "     .iterator();\n";
+                }
+
+            } else {
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
+                    case FROMTHEEND:
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\",  " + valueParam + " + \"$\").append(\"$options\", \"i\")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
+                    case ANYWHERE:
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\")))\n"
+                                + paginationSource
+                                + sortSource
+                                + "     .iterator();\n";
+                        break;
+
+                }
+
             }
 
             String code
@@ -118,5 +151,4 @@ public class RegexBuilder {
     }
 
     // </editor-fold>
-   
 }

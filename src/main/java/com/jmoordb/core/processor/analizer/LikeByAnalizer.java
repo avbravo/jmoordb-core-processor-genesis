@@ -91,7 +91,7 @@ public class LikeByAnalizer {
                     VariableElement param = parameters.get(i);
                     
                        /*
-                    Valida que para @Query los atributos Date o DateTime utilicen @IncludeTime
+                    Valida que los atributos Date o DateTime utilicen @IncludeTime
                     se usa como sugerencia para que el desarrollador tenga presente su uso.
                     */
                     if (param.asType().toString().equals("java.util.Date") || param.asType().toString().equals("java.time.LocalDateTime")) {

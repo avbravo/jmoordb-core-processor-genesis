@@ -1,11 +1,13 @@
 package com.jmoordb.core.processor.builder;
 
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.ANYWHERE;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHEEND;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHESTART;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
-
 
 public class RegexCountBuilder {
 
@@ -13,8 +15,6 @@ public class RegexCountBuilder {
     public static String TAB = "   ";
     private String className;
 
-
-    
     // <editor-fold defaultstate="collapsed" desc="StringBuilder regexCount(RepositoryData repositoryData)">
     public static StringBuilder regexCount(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
         StringBuilder builder = new StringBuilder();
@@ -33,9 +33,33 @@ public class RegexCountBuilder {
 
             String sentence = "";
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
-                sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")));";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")));";
+                        break;
+                    case FROMTHEEND:
+   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + " + \"$\" )));";
+                        break;
+                    case ANYWHERE:
+   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ")));";
+                        break;
+
+                }
+             
             } else {
-                sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ").append(\"$options\", \"i\")));";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+ sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ").append(\"$options\", \"i\")));";
+                        break;
+                    case FROMTHEEND:
+ sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + "+ \"$\" ).append(\"$options\", \"i\")));";
+                        break;
+                    case ANYWHERE:
+ sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ").append(\"$options\", \"i\")));";
+                        break;
+
+                }
+               
             }
             String code
                     = ProcessorUtil.editorFold(repositoryMethod, param) + "\n\n"
@@ -62,6 +86,4 @@ public class RegexCountBuilder {
     }
 
     // </editor-fold>
-   
-
 }

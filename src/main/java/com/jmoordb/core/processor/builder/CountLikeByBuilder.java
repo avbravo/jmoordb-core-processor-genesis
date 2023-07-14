@@ -1,6 +1,9 @@
 package com.jmoordb.core.processor.builder;
 
 import com.jmoordb.core.annotation.enumerations.CaseSensitive;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.ANYWHERE;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHEEND;
+import static com.jmoordb.core.annotation.enumerations.LikeByType.FROMTHESTART;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -28,28 +31,49 @@ public class CountLikeByBuilder {
             String returnValue = "return list;\n";
             String atribute = "";
 
-
 //            
             String sentence = "";
             String paginationSource = "";
 
-         
             String field = JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(0));
             String parametro = repositoryMethod.getParamTypeElement().get(0).getName();
             Integer order = 1;
-           
+
             /**
              * Genera el filtro
              */
             String filter = "";
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
-                filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ")));\n";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ")));\n";
+                        break;
+                    case FROMTHEEND:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\"," + parametro + "+ \"$\")));\n";
+                        break;
+                    case ANYWHERE:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + ")));\n";
+                        break;
+
+                }
+
             } else {
-                filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ").append(\"$options\", \"i\")));\n";
+                switch (repositoryMethod.getLikeByType()) {
+                    case FROMTHESTART:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ").append(\"$options\", \"i\")));\n";
+                        break;
+                    case FROMTHEEND:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + "+ \"$\" ).append(\"$options\", \"i\")));\n";
+                        break;
+                    case ANYWHERE:
+                        filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + ").append(\"$options\", \"i\")));\n";
+                        break;
+
+                }
+
             }
 
             sentence += filter + "\n";
-           
 
             String param = ProcessorUtil.parametersOfMethod(repositoryMethod);
             String code

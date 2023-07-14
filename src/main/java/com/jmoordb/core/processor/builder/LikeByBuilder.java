@@ -91,18 +91,7 @@ public class LikeByBuilder {
              */
             String filter = "";
            
-            switch (repositoryMethod.getLikeByType()) {
-                case FROMTHESTART:
-
-                    break;
-                case FROMTHEEND:
-
-                    break;
-                case ANYWHERE:
-
-                    break;
-
-            }
+            
 
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
                 switch (repositoryMethod.getLikeByType()) {

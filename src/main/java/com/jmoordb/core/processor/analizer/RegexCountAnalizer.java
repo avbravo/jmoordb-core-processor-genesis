@@ -83,19 +83,18 @@ public class RegexCountAnalizer {
                 for (int i = 0; i < parameters.size(); i++) {
 
                     VariableElement param = parameters.get(i);
-                    
-                       /*
+
+                    /*
                     Valida que para @Query los atributos Date o DateTime utilicen @IncludeTime
                     se usa como sugerencia para que el desarrollador tenga presente su uso.
-                    */
+                     */
                     if (param.asType().toString().equals("java.util.Date") || param.asType().toString().equals("java.time.LocalDateTime")) {
                         if (parameters.get(i).getAnnotation(IncludeTime.class) == null) {
-                                                   message = nameOfMethod + "() @IncludeTime is a requirement for attributes of type Date or LocalDate to be used with @RegexCount";
+                            message = nameOfMethod + "() @IncludeTime is a requirement for attributes of type Date or LocalDate to be used with @RegexCount";
                             return Boolean.FALSE;
                         }
                     }
-                    
-                    
+
                     if (parameters.get(i).getAnnotation(IncludeTime.class) != null) {
                         if (param.asType().toString().equals("java.util.Date") || param.asType().toString().equals("java.time.LocalDateTime")) {
                         } else {
@@ -212,6 +211,7 @@ public class RegexCountAnalizer {
             /**
              * Actualiza RepositoryMethod
              */
+            repositoryMethod.setLikeByType(regexCount.likeByType());
             repositoryMethod.setWhere(regexCount.where().trim());
             repositoryMethod.setTokenWhere(tokenList);
             repositoryMethod.setCaseSensitive(regexCount.caseSensitive());
