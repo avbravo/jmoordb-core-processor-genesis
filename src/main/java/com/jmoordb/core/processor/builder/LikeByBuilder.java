@@ -93,7 +93,7 @@ public class LikeByBuilder {
            
             
 
-            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
+            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
                         filter = "\t\tDocument filter = new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + "));\n";

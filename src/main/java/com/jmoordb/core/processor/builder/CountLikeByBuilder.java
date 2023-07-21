@@ -43,7 +43,7 @@ public class CountLikeByBuilder {
              * Genera el filtro
              */
             String filter = "";
-            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
+            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
                         filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + parametro + ")));\n";

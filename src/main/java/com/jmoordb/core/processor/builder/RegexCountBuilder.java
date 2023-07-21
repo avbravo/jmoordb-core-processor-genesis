@@ -32,7 +32,7 @@ public class RegexCountBuilder {
             String param = ProcessorUtil.parametersOfMethod(repositoryMethod);
 
             String sentence = "";
-            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.NO)) {
+            if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
    sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")));";
