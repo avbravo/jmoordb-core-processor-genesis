@@ -198,7 +198,7 @@ public class JmoordbCoreFileUtil {
     public static Boolean existFileInProject(Element element, String fyleToSearch) {
         Boolean result = Boolean.FALSE;
         try {
-          
+
             final TypeElement classElem = (TypeElement) element;
             final String prefix = System.getProperty("user.dir");
             final String className = classElem.getQualifiedName().toString();
@@ -280,18 +280,18 @@ public class JmoordbCoreFileUtil {
     public static String pathOfFileInProject(Element element, String fileToSearch) {
         String result = "";
         try {
-          
+
             final TypeElement classElem = (TypeElement) element;
             final String prefix = System.getProperty("user.dir");
             final String className = classElem.getQualifiedName().toString();
-          
+
             String fileName = prefix + "/src/main/java/" + className.replace('.', '/') + ".java";
-          
+
             Path path = Paths.get(fileName);
             Integer pos = path.toAbsolutePath().toString().indexOf(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java");
             String folderBase = path.toAbsolutePath().toString().substring(0, pos + 15);
             String homeBase = folderBase.replace(System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "main" + System.getProperty("file.separator") + "java", "");
-        
+
             try (Stream<Path> fileList = Files.find(Paths.get(folderBase), Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile() && filePath.toString().endsWith(fileToSearch))) {
                 List<String> someThingNew = fileList.sorted().map(String::valueOf).collect(Collectors.toList());
                 if (someThingNew.isEmpty()) {
@@ -304,23 +304,20 @@ public class JmoordbCoreFileUtil {
                     result = result.replace(fileToSearch, "");
                     result = homeBase + result;
                 }
-              
-              
-                if (result.substring(result.length()-1, result.length()).equals(System.getProperty("file.separator"))) {
-              
+
+                if (result.substring(result.length() - 1, result.length()).equals(System.getProperty("file.separator"))) {
 
                 } else {
-                  
-                    result = result.substring(0,result.lastIndexOf(System.getProperty("file.separator"))+1);
-                  
-                  
+
+                    result = result.substring(0, result.lastIndexOf(System.getProperty("file.separator")) + 1);
+
                 }
 
             }
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
         }
-      
+
         return result;
     }
     // </editor-fold>
@@ -361,7 +358,7 @@ public class JmoordbCoreFileUtil {
         try {
             fileToRead = pathOfFileInProject(element, fileToRead) + fileToRead;
             Path path = Paths.get(fileToRead);
-            
+
             Integer lineEndId = procesarId(Files.lines(path), Files.lines(path), idData);
             if (lineEndId != 0) {
                 procesarPK(Files.lines(path), idData, lineEndId);
@@ -497,7 +494,7 @@ public class JmoordbCoreFileUtil {
                         if (valuePosition != -1) {
                             Integer startValue = s.indexOf("\"");
                             Integer endValue = s.lastIndexOf("\"");
-                                                      idData.setValue(s.substring(startValue + 1, endValue));
+                            idData.setValue(s.substring(startValue + 1, endValue));
 
                         }
 
@@ -571,7 +568,7 @@ public class JmoordbCoreFileUtil {
             countLines = 0;
             lines.forEach(s -> {
                 if (countLines > lineEndId && !endpk) {
-                  
+
                     if (s.contains(";")) {
                         endpk = Boolean.TRUE;
                         s = s.replace(";", "");
@@ -593,7 +590,7 @@ public class JmoordbCoreFileUtil {
                     }
 
                     if (!s.isEmpty()) {
-                      
+
                         idData.setFieldName(s.trim());
                     }
 

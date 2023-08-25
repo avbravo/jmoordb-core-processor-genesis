@@ -24,6 +24,8 @@ import com.jmoordb.core.annotation.repository.Query;
 import com.jmoordb.core.annotation.repository.Regex;
 import com.jmoordb.core.annotation.repository.RegexCount;
 import com.jmoordb.core.annotation.repository.Save;
+import com.jmoordb.core.annotation.repository.SearchCountLikeBy;
+import com.jmoordb.core.annotation.repository.SearchLikeBy;
 import com.jmoordb.core.annotation.repository.Update;
 import com.jmoordb.core.processor.analizer.util.NameOfMethodAnalizerUtil;
 import com.jmoordb.core.processor.fields.ParamTypeElement;
@@ -51,7 +53,6 @@ import com.jmoordb.core.annotation.view.VMenu;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.methods.view.ViewMethod;
 import com.jmoordb.core.processor.model.ViewEntityData;
-
 
 /**
  *
@@ -174,8 +175,7 @@ public class ProcessorUtil {
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
         }
-        
-      
+
         return nameOfEntity;
     }
 // </editor-fold>
@@ -329,6 +329,7 @@ public class ProcessorUtil {
         }
         return whereDescomposed;
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="WhereDescomposed generateWhereDescomposed(RepositoryMethod repositoryMethod)">
     /**
@@ -534,11 +535,11 @@ public class ProcessorUtil {
 
 //       
             if (isTypeDate(repositoryMethod.getParamTypeElement().get(0).getType())) {
-               
+
                 if (isIncludeTime(repositoryMethod, repositoryMethod.getParamTypeElement().get(0).getName())) {
-               //     System.out.println(" [ Es IncludeTiem la hora debe viajar igual ]");
+                    //     System.out.println(" [ Es IncludeTiem la hora debe viajar igual ]");
                 } else {
-                   // System.out.println(" [ Es ExcludeTiem se debe genera los isodate con valores 0,0,0]");
+                    // System.out.println(" [ Es ExcludeTiem se debe genera los isodate con valores 0,0,0]");
                     String comparatorVar = lexemaToMongoComparator(repositoryMethod.getWorldAndToken().get(1));
                     if (comparatorVar.equals("gt") || comparatorVar.equals("gte")) {
                         //  Aqui SE USA EL METODO  que asigne a 0 las horas mimnutos y segundos
@@ -729,11 +730,11 @@ public class ProcessorUtil {
 //                                        
                                         if (comparator.equals("gte")) {
                                             codeBeforeForDate = "JmoordbCoreDateUtil.dateToLocalDateTimeFirstHourOfDay(" + repositoryMethod.getParamTypeElement().get(contadorParametro).getName() + ")";
-                                            filter +="\t\t\t" + comaSeparator + "Filters." + comparator + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
+                                            filter += "\t\t\t" + comaSeparator + "Filters." + comparator + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
                                         } else {
                                             // Si es mayor se debe indicar como base la primera hora del dia siguiente
                                             codeBeforeForDate = "JmoordbCoreDateUtil.dateToLocalDateTimeNextDayFirstHourOfDay(" + repositoryMethod.getParamTypeElement().get(contadorParametro).getName() + ")";
-                                            filter += "\t\t\t" + comaSeparator +"Filters." + comparator + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
+                                            filter += "\t\t\t" + comaSeparator + "Filters." + comparator + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
                                         }
 
                                     } else {
@@ -771,7 +772,7 @@ public class ProcessorUtil {
                                                 filter += "\t\t\t" + comaSeparator + "Filters.gte" + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + "),\n";
 
                                                 codeBeforeForDate = "JmoordbCoreDateUtil.dateToLocalDateTimeLastHourOfDay(" + repositoryMethod.getParamTypeElement().get(contadorParametro).getName() + ")";
-                                                filter += "\t\t\t" + comaSeparator +  "Filters.lte" + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
+                                                filter += "\t\t\t" + comaSeparator + "Filters.lte" + "(" + "\"" + JmoordbCoreUtil.letterToLower(repositoryMethod.getWorldAndToken().get(contadorParametro)) + "\"," + codeBeforeForDate + ")\n";
                                                 filter += ")\n";
                                             }
                                         }
@@ -922,6 +923,7 @@ public class ProcessorUtil {
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String parametersOfMethod(RepositoryMethod repositoryMethod)">
+
     /**
      *
      * @param repositoryMethod
@@ -958,6 +960,7 @@ public class ProcessorUtil {
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="String editorFold(RepositoryMethod repositoryMethod, String param)">
+
     public static String editorFold(ViewMethod viewMethod, String param) {
         String editorFoldStart = "";
         String result = "";
@@ -1162,9 +1165,8 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdate(EntityData entityData)">
 
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToUpdate(EntityData entityData)">
     public static String editorFoldToUpdate(EntityData entityData) {
         String editorFoldStart = "";
         String result = "";
@@ -1211,11 +1213,8 @@ public class ProcessorUtil {
         return result;
     }
 // </editor-fold>
-    
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="String editorFoldToDocumentList(EntityData entityData)">
 
+    // <editor-fold defaultstate="collapsed" desc="String editorFoldToDocumentList(EntityData entityData)">
     public static String editorFoldToDocumentList(EntityData entityData) {
         String editorFoldStart = "";
         String result = "";
@@ -1673,7 +1672,6 @@ public class ProcessorUtil {
     }
 
     // </editor-fold>
-   
     // <editor-fold defaultstate="collapsed" desc=" public static Boolean isValidAnnotationForEntity(ExecutableElement executableElement)">
     /**
      * Valida que sea una anotación valida para un Entity
@@ -1746,22 +1744,23 @@ public class ProcessorUtil {
         Boolean isValid = Boolean.FALSE;
         try {
             Query query = executableElement.getAnnotation(Query.class);
-           
 
             Find find = executableElement.getAnnotation(Find.class);
             Lookup searcher = executableElement.getAnnotation(Lookup.class);
             Regex queryRegex = executableElement.getAnnotation(Regex.class);
             Count count = executableElement.getAnnotation(Count.class);
+            CountBy countBy = executableElement.getAnnotation(CountBy.class);
+            CountLikeBy countlikeBy = executableElement.getAnnotation(CountLikeBy.class);
             RegexCount countRegex = executableElement.getAnnotation(RegexCount.class);
             Ping ping = executableElement.getAnnotation(Ping.class);
             Save save = executableElement.getAnnotation(Save.class);
             Delete delete = executableElement.getAnnotation(Delete.class);
             DeleteBy deleteBy = executableElement.getAnnotation(DeleteBy.class);
             Update update = executableElement.getAnnotation(Update.class);
-            CountBy countBy = executableElement.getAnnotation(CountBy.class);
             LikeBy likeBy = executableElement.getAnnotation(LikeBy.class);
-            CountLikeBy countlikeBy = executableElement.getAnnotation(CountLikeBy.class);
-            if (  countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
+            SearchLikeBy searchLikeBy = executableElement.getAnnotation(SearchLikeBy.class);
+            SearchCountLikeBy searchCountLikeBy = executableElement.getAnnotation(SearchCountLikeBy.class);
+            if (searchCountLikeBy == null && searchLikeBy == null && countlikeBy == null && likeBy == null && countBy == null && deleteBy == null && find == null && query == null && searcher == null && queryRegex == null && count == null && countRegex == null && ping == null && save == null && delete == null && update == null) {
 
             } else {
                 return Boolean.TRUE;
@@ -1774,6 +1773,7 @@ public class ProcessorUtil {
     }
 // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc=" Boolean isValidAnnotationOfView(ExecutableElement executableElement)">
+
     /**
      * Verifica que tenga un anotación valida para el repositorio
      *
@@ -1783,7 +1783,7 @@ public class ProcessorUtil {
     public static Boolean isValidAnnotationOfView(ExecutableElement executableElement) {
         Boolean isValid = Boolean.FALSE;
         try {
-            VForm  vForm = executableElement.getAnnotation(VForm.class);
+            VForm vForm = executableElement.getAnnotation(VForm.class);
             VTemplate vTemplate = executableElement.getAnnotation(VTemplate.class);
             VMenu vMenu = executableElement.getAnnotation(VMenu.class);
             if (vForm == null && vTemplate == null && vMenu == null) {
