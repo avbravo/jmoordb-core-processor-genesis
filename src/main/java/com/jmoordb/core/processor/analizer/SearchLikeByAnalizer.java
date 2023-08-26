@@ -2,7 +2,7 @@ package com.jmoordb.core.processor.analizer;
 
 import com.jmoordb.core.annotation.date.ExcludeTime;
 import com.jmoordb.core.annotation.date.IncludeTime;
-import com.jmoordb.core.annotation.repository.SearchCountLikeBy;
+import com.jmoordb.core.annotation.repository.SearchLikeBy;
 import com.jmoordb.core.processor.analizer.util.NameOfMethodAnalizerUtil;
 
 import com.jmoordb.core.processor.fields.RepositoryMethod;
@@ -17,7 +17,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 
-public class SearchCountLikeByAnalizer {
+public class SearchLikeByAnalizer {
 // <editor-fold defaultstate="collapsed" desc="fields()">
 
     private static Integer MAXIMUM_NUMBER_OF_PARAMETERS = 2;
@@ -41,12 +41,12 @@ public class SearchCountLikeByAnalizer {
     }
 
     public static void setMessage(String message) {
-        SearchCountLikeByAnalizer.message = message;
+        SearchLikeByAnalizer.message = message;
     }
 // </editor-fold>
-// <editor-fold defaultstate="collapsed" desc="Boolean analizer(LikeBy likeByAnnotation, Element element, ExecutableElement executableElement, TypeMirror typeEntity, RepositoryMethod repositoryMethod)">
+// <editor-fold defaultstate="collapsed" desc="Boolean analizer(SearchLikeBy searchLikeByAnnotation, Element element, ExecutableElement executableElement, TypeMirror typeEntity, RepositoryMethod repositoryMethod)">
 
-    public static Boolean analizer(SearchCountLikeBy searchCountLikeByAnnotation, Element element, ExecutableElement executableElement, TypeMirror typeEntity, RepositoryMethod repositoryMethod) {
+    public static Boolean analizer(SearchLikeBy searchLikeByAnnotation, Element element, ExecutableElement executableElement, TypeMirror typeEntity, RepositoryMethod repositoryMethod) {
         try {
             List<String> includeTimeFields = new ArrayList<>();
             List<String> excludeTimeFields = new ArrayList<>();
@@ -66,8 +66,8 @@ public class SearchCountLikeByAnalizer {
 
             TypeMirror returnTypeOfMethod = executableElement.getReturnType();
 
-            if (!returnTypeOfMethod.toString().equals("java.lang.Long")) {
-                message = nameOfMethod + "() The return type must be java.lang.Long";
+            if (!returnTypeOfMethod.toString().equals(typeList) && !returnTypeOfMethod.toString().equals(typeOptional) && !returnTypeOfMethod.toString().equals(typeSet) && !returnTypeOfMethod.toString().equals(typeStream)) {
+                message = nameOfMethod + "() The return type must be a List<" + nameOfEntity + "> or Optional<" + nameOfEntity + "> or Set<" + nameOfEntity + "> or Stream<" + nameOfEntity + ">";
                 return Boolean.FALSE;
             }
 
@@ -88,6 +88,18 @@ public class SearchCountLikeByAnalizer {
                 for (int i = 0; i < parameters.size(); i++) {
 
                     VariableElement param = parameters.get(i);
+                    
+                       /*
+                    Valida que los atributos Date o DateTime utilicen @IncludeTime
+                    se usa como sugerencia para que el desarrollador tenga presente su uso.
+                    */
+                    if (param.asType().toString().equals("java.util.Date") || param.asType().toString().equals("java.time.LocalDateTime")) {
+                        if (parameters.get(i).getAnnotation(IncludeTime.class) == null) {
+                                                   message = nameOfMethod + "() @IncludeTime is a requirement for attributes of type Date or LocalDate to be used with @LikeBy";
+                            return Boolean.FALSE;
+                        }
+                    }
+                    
                     if (parameters.get(i).getAnnotation(IncludeTime.class) != null) {
                         if (param.asType().toString().equals("java.util.Date") || param.asType().toString().equals("java.time.LocalDateTime")) {
                         } else {
@@ -125,8 +137,6 @@ public class SearchCountLikeByAnalizer {
                         havePaginationParameters = Boolean.TRUE;
                         controlPaginationSorted++;
                         repositoryMethod.setNameOfParametersPagination(param.getSimpleName().toString());
-                        message = nameOfMethod + "() parameter: " + param.getSimpleName().toString() + " Not a valid data type for a parameter.";
-                        return Boolean.FALSE;
                     }
                     if (param.asType().toString().equals("com.jmoordb.core.model.Sorted")) {
                         haveSortedParameters = Boolean.TRUE;
@@ -136,17 +146,17 @@ public class SearchCountLikeByAnalizer {
                         message = nameOfMethod + "() parameter: " + param.getSimpleName().toString() + " Not a valid data type for a parameter.";
                         return Boolean.FALSE;
                     }
-                       if (param.asType().toString().equals("com.jmoordb.core.model.Search")) {
+                    
+                     if (param.asType().toString().equals("com.jmoordb.core.model.Search")) {
                        haveSearchParameter = Boolean.TRUE;
                     }
                 }
-                 if(!haveSearchParameter){
+                if(!haveSearchParameter){
                        message = nameOfMethod + "() must have a parameter of type Search.java.";
                         return Boolean.FALSE;
                 }
 
             }
-
             repositoryMethod.setIncludeTimeFields(includeTimeFields);
             repositoryMethod.setExcludeTimeFields(excludeTimeFields);
             if (!haveStringParameters) {
@@ -162,10 +172,10 @@ public class SearchCountLikeByAnalizer {
                 return Boolean.FALSE;
             }
 
-            SearchCountLikeBy searchCountLikeBy = executableElement.getAnnotation(SearchCountLikeBy.class);
+            SearchLikeBy searchLikeBy = executableElement.getAnnotation(SearchLikeBy.class);
 //Almacena el where
-            if (!nameOfMethod.startsWith("searchCountLikeBy")) {
-                message = nameOfMethod + "() should start with searchCountLikeBy";
+            if (!nameOfMethod.startsWith("searchLikeBy")) {
+                message = nameOfMethod + "() should start with searchLikeBy";
                 return Boolean.FALSE;
             }
             String text = nameOfMethod;
@@ -179,17 +189,16 @@ public class SearchCountLikeByAnalizer {
                 return Boolean.FALSE;
             }
             /**
-             * searchCountLikeBy
+             * findBy
              */
-            if (nameOfMethod.startsWith("searchCountLikeBy")) {
-                text = text.replace("searchCountLikeBy", "").trim();
+            if (nameOfMethod.startsWith("searchLikeBy")) {
+                text = text.replace("searchLikeBy", "").trim();
                 text = NameOfMethodAnalizerUtil.simplifyText(text);
 
                 if (!processFindBy(text, havePaginationParameters, haveSortedParameters, parameters, nameOfMethod)) {
                     return Boolean.FALSE;
                 }
                 worldAndToken = NameOfMethodAnalizerUtil.generarTokens(text);
-         
 //                lexemas = NameOfMethodAnalizerUtil.generarLexemas(worldAndToken);
                 lexemas = NameOfMethodAnalizerUtil.generarLexemasSearchBy(worldAndToken);
 
@@ -199,40 +208,38 @@ public class SearchCountLikeByAnalizer {
 //                String result = NameOfMethodAnalizerUtil.validRules(lexemas, parameters.size());
                 String result = NameOfMethodAnalizerUtil.validRulesSearchBy(lexemas, parameters.size());
                 worldAndToken = NameOfMethodAnalizerUtil.joinFields(lexemas, parameters.size(), worldAndToken);
-                lexemas = NameOfMethodAnalizerUtil.generarLexemasSearchBy(worldAndToken);
 //                lexemas = NameOfMethodAnalizerUtil.generarLexemas(worldAndToken);
-               
+                lexemas = NameOfMethodAnalizerUtil.generarLexemasSearchBy(worldAndToken);
+
                 if (result.equals("")) {
                     if ((NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "F") + NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "P") + NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "S")) > parameters.size()) {
-                        message = nameOfMethod + "()x.0  The declared parameters do not match the method name definition.";
+                        message = nameOfMethod + "() The declared parameters do not match the method name definition.";
                         return Boolean.FALSE;
                     }
-                    // cumple las reglas
+                    // cumole las reglas
                 } else {
-                    if (result.equals("x.1 The declared parameters do not match the method definition.")) {
+                    if (result.equals("The declared parameters do not match the method definition.")) {
 
                         worldAndToken = NameOfMethodAnalizerUtil.joinFields(lexemas, parameters.size(), worldAndToken);
 
-//                        lexemas = NameOfMethodAnalizerUtil.generarLexemas(worldAndToken);
-                        lexemas = NameOfMethodAnalizerUtil.generarLexemasSearchBy(worldAndToken);
+                        lexemas = NameOfMethodAnalizerUtil.generarLexemas(worldAndToken);
 
-//                        result = NameOfMethodAnalizerUtil.validRules(lexemas, parameters.size());
-                        result = NameOfMethodAnalizerUtil.validRulesSearchBy(lexemas, parameters.size());
+                        result = NameOfMethodAnalizerUtil.validRules(lexemas, parameters.size());
                         if (result.equals("")) {
                             if ((NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "F") + NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "P") + NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemas, "S")) != parameters.size()) {
-                                message = nameOfMethod + "()x.2  The declared parameters do not match the method name definition.";
+                                message = nameOfMethod + "() The declared parameters do not match the method name definition.";
                                 return Boolean.FALSE;
                             }
                             //cumple las reglas
 
                         } else {
-                            message = nameOfMethod + "()x.3 rule infringed: " + result;
+                            message = nameOfMethod + "() rule infringed: " + result;
                             return Boolean.FALSE;
 
                         }
 
                     } else {
-                        message = nameOfMethod + "() x.4 rule infringed: " + result;
+                        message = nameOfMethod + "() rule infringed: " + result;
                         return Boolean.FALSE;
                     }
 
@@ -276,21 +283,11 @@ public class SearchCountLikeByAnalizer {
                 return Boolean.FALSE;
             }
 
-            if (NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemasLocal, "F") > 1
-                    || NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemasLocal, "C") > 1
-                    || NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemasLocal, "L") > 0
-                    || NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemasLocal, "P") > 0
-                    || NameOfMethodAnalizerUtil.countOfTypeOfLexema(lexemasLocal, "S") > 0) {
-
-                message = nameOfMethod + "() the method name is not correct. 2222";
-                return Boolean.FALSE;
-            }
-
             /**
              * Actualiza atributos de RepositoryMethod
              */
-            repositoryMethod.setCaseSensitive(searchCountLikeBy.caseSensitive());
-            repositoryMethod.setLikeByType(searchCountLikeBy.likeByType());
+           repositoryMethod.setCaseSensitive(searchLikeBy.caseSensitive());
+            repositoryMethod.setLikeByType(searchLikeBy.likeByType());
             repositoryMethod.setLexemas(lexemasLocal);
             repositoryMethod.setWorldAndToken(worldTokenLocal);
             repositoryMethod.setHavePagination(havePaginationParameters);

@@ -90,6 +90,22 @@ public class NameOfMethodAnalizerUtil {
 
     }
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Boolean isSearch(String text)">
+    public static Boolean isSearch(String text) {
+        Boolean result = Boolean.FALSE;
+        try {
+
+            if (text.equals("Search")) {
+                result = Boolean.TRUE;
+            }
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return result;
+
+    }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Boolean isSorted(String text()">
     public static Boolean isSorted(String text) {
@@ -188,6 +204,7 @@ public class NameOfMethodAnalizerUtil {
     }
 
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="List<String> generarLexemas(List<String> worldAndToken)">
     public static List<String> generarLexemas(List<String> worldAndToken) {
         List<String> result = new ArrayList<>();
@@ -226,7 +243,62 @@ public class NameOfMethodAnalizerUtil {
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc=" Boolean isComparator(String text, Integer numberOfParameters) ">
+    
+    // <editor-fold defaultstate="collapsed" desc="List<String> generarLexemasSearchBy(List<String> worldAndToken)">
+    /**
+     * Para los SearchBy
+     * @param worldAndToken
+     * @return 
+     */
+    public static List<String> generarLexemasSearchBy(List<String> worldAndToken) {
+        List<String> result = new ArrayList<>();
+        try {
+         
+            Integer count = 0;
+            for (String s : worldAndToken) {
+                
+                if (isLogical(s)) {
+                    result.add("L");
+                } else {
+                    if (isComparator(s)) {
+                        result.add("C");
+                    } else {
+                        if (isPagination(s)) {
+                         
+                            result.add("P");
+                        } else {
+                            if (isSorted(s)) {
+                                result.add("S");
+                            } else {
+                                if(isSearch(s)){
+                                    result.add("B");
+                                }else{
+                                    if (s.equals("")) {
+
+                                } else {
+                                    result.add("F");
+                                }
+                                }
+                                
+                                
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return result;
+    }
+
+    // </editor-fold>
+    
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="String validRules(List<String> lexema, Integer numberOfParameters)">
     public static String validRules(List<String> lexema, Integer numberOfParameters) {
         String result = "";
         try {
@@ -273,6 +345,76 @@ public class NameOfMethodAnalizerUtil {
             }
 
             if ((totalField + totalPagination + totalSorted) != numberOfParameters) {
+                return "The declared parameters do not match the method definition.";
+            }
+//            System.out.println("\t\t\t---(((lexema.size() - 1 "+ (lexema.size() - 1)+" totalLogical"+ totalLogical+" numberOfParameters ]] "+numberOfParameters+ "))))");
+//            if (((lexema.size() - 1) - totalLogical) != numberOfParameters) {
+//                return "The declared parameters do not match the method definition.";
+//            }
+
+        } catch (Exception e) {
+            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
+        }
+        return result;
+
+    }
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="String validRulesSearchBy(List<String> lexema, Integer numberOfParameters)">
+    public static String validRulesSearchBy(List<String> lexema, Integer numberOfParameters) {
+        String result = "";
+        try {
+            if (!lexema.get(0).equals("F")) {
+                // Debe iniciar en Field
+                return "You must start the Field";
+            }
+
+            if (lexema.get(lexema.size() - 1).equals("L")) {
+                // Nuca debe finalizar en LOGICAL
+                return "should not end with Logical";
+            }
+
+            if (!validSecuenceLogic(lexemas)) {
+                return "Logical Operators used inappropriately";
+            }
+            if (!validSecuenceComparator(lexemas)) {
+                return "Comparison operators used inappropriately";
+            }
+            if (!validSecuencePagination(lexemas)) {
+                return "After a Pagination must be final or use a Sorted";
+            }
+            if (!validSecuenceSorted(lexemas)) {
+                return "After Sorted, no other operator can be used";
+            }
+
+            Integer totalLogical = 0;
+            totalLogical = lexema.stream().filter(s -> (s.equals("L"))).map(_item -> 1).reduce(totalLogical, Integer::sum);
+
+            Integer totalComparator = 0;
+            totalComparator = lexema.stream().filter(s -> (s.equals("C"))).map(_item -> 1).reduce(totalComparator, Integer::sum);
+
+            Integer totalPagination = 0;
+            totalPagination = lexema.stream().filter(s -> (s.equals("P"))).map(_item -> 1).reduce(totalPagination, Integer::sum);
+
+            Integer totalSorted = 0;
+            totalSorted = lexema.stream().filter(s -> (s.equals("S"))).map(_item -> 1).reduce(totalSorted, Integer::sum);
+
+            Integer totalField = 0;
+            totalField = lexema.stream().filter(s -> (s.equals("F"))).map(_item -> 1).reduce(totalField, Integer::sum);
+            
+            Integer totalSearchBy = 0;
+            totalSearchBy = lexema.stream().filter(s -> (s.equals("B"))).map(_item -> 1).reduce(totalSearchBy, Integer::sum);
+
+            if (lexema.size() == numberOfParameters) {
+                return "";
+            }        
+            
+            
+       
+
+            /**
+             * Cuando es Search el total debe ser menor que el numberOfParameters ya que el ultimo es un Search siempre
+             */
+            if ((totalField + totalPagination + totalSorted +totalSearchBy) > numberOfParameters) {
                 return "The declared parameters do not match the method definition.";
             }
 //            System.out.println("\t\t\t---(((lexema.size() - 1 "+ (lexema.size() - 1)+" totalLogical"+ totalLogical+" numberOfParameters ]] "+numberOfParameters+ "))))");

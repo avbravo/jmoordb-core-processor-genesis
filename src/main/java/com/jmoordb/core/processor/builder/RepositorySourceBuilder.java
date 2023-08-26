@@ -90,6 +90,12 @@ public class RepositorySourceBuilder {
                     case COUNTLIKEBY:
                         builder.append(CountLikeByBuilder.countLikeBy(repositoryData, repositoryMethod));
                         break;
+                    case SEARCHLIKEBY:
+                        builder.append(SearchLikeByBuilder.searchLikeBy(repositoryData, repositoryMethod));
+                        break;
+                    case SEARCHCOUNTLIKEBY:
+                        builder.append(SearchCountLikeByBuilder.searchCountLikeBy(repositoryData, repositoryMethod));
+                        break;
 
                 }
 

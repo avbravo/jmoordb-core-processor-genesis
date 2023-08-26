@@ -35,6 +35,7 @@ import com.jmoordb.core.annotation.repository.Lookup;
 import com.jmoordb.core.annotation.repository.Regex;
 import com.jmoordb.core.annotation.repository.RegexCount;
 import com.jmoordb.core.annotation.repository.SearchCountLikeBy;
+import com.jmoordb.core.annotation.repository.SearchLikeBy;
 import com.jmoordb.core.processor.fields.ParamTypeElement;
 import com.jmoordb.core.processor.fields.RepositoryMethod;
 import com.jmoordb.core.processor.fields.WhereDescomposed;
@@ -224,6 +225,22 @@ public class RepositoryAnalizer {
                 repositoryMethod.setAnnotationType(AnnotationType.LIKEBY);
 
             }
+            /**
+             * @SearchLikeBy
+             */
+            SearchLikeBy searchLikeBy = executableElement.getAnnotation(SearchLikeBy.class);
+            if (searchLikeBy != null) {
+
+                if (!SearchLikeByAnalizer.analizer(searchLikeBy, element, executableElement, typeEntity, repositoryMethod)) {
+                    messager.printMessage(Diagnostic.Kind.ERROR, SearchLikeByAnalizer.getMessage(), element);
+                }
+                repositoryMethod.setAnnotationType(AnnotationType.SEARCHLIKEBY);
+
+            }
+            
+            
+            
+            
             /**
              * @CountLikeBy
              */

@@ -130,6 +130,7 @@ public class RepositorySourceBuilderUtil {
                     + "import com.jmoordb.core.processor.model.JmoordbException;\n"
                     + "import com.mongodb.client.MongoDatabase;\n"
                     + "import static com.mongodb.client.model.Filters.eq;\n"
+                    + "import static com.mongodb.client.model.Filters.and;\n"
                     + "import com.mongodb.client.MongoClient;\n"
                     + "import com.mongodb.client.MongoCollection;\n"
                     + "import com.mongodb.client.MongoCursor;\n"
