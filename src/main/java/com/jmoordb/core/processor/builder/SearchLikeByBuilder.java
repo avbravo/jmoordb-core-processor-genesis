@@ -163,7 +163,6 @@ public class SearchLikeByBuilder {
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
-                    
                     + "               " + sentence + "\n"
                     + process
                     + "         } catch (Exception e) {\n"
