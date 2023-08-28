@@ -74,7 +74,7 @@ public class SearchCountLikeByBuilder {
             }
 //    filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + ").append(\"$options\", \"i\")));\n";
 
-             filter+="\tBson filter0=and(docX,search.getFilter());\n";
+             filter+="\tBson filter0=and(search.getFilter(),docX);\n";
              filter+="\tcontador = collection.countDocuments(  filter0);\n";
             sentence += filter + "\n";
 

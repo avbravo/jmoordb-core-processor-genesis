@@ -127,7 +127,7 @@ public class SearchLikeByBuilder {
                     + "               }\n";
 
             sentence += filter + "\n";
-            sentence += "\t\tBson filter0=and(filter,search.getFilter());\n";
+            sentence += "\t\tBson filter0=and(search.getFilter(),filter);\n";
 
             if (!repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
 
