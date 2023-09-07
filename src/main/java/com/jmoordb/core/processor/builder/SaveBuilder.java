@@ -110,7 +110,8 @@ public class SaveBuilder {
                 autoincrementWhileSentence += "\twhile (!success) {\n";
                 elseAutoincrementWhileSentence = "\telse{\n";
                 elseAutoincrementWhileSentence += "\t\t  success= Boolean.TRUE;\n";
-                elseAutoincrementWhileSentence += "\t}\n";
+                elseAutoincrementWhileSentence += "\t     }\n";
+                elseAutoincrementWhileSentence += "\t   }\n";
                 returnAutoincrementWhileSentence = "";
             }
             String text = " public Optional<" + nameOfEntityUpper + "> save(" + nameOfEntityUpper + " " + nameOfEntityLower + ")";

@@ -96,7 +96,7 @@ public class RepositoryProcessor extends AbstractProcessor {
                 }
             }
             MessagesUtil.box("Proceso de analisis finalizado");
-              
+              return true;
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
 
