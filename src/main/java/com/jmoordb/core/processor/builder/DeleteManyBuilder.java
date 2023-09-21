@@ -29,7 +29,7 @@ public class DeleteManyBuilder {
                    sentence += "\t\twhereCondition = search.getFilter();\n";
            
 
-            sentence += "\t\tcom.mongodb.client.result.DeleteResult deleteResult = collection.deleteOne(whereCondition);\n";
+            sentence += "\t\tcom.mongodb.client.result.DeleteResult deleteResult = collection.deleteMany(whereCondition);\n";
 
             /**
              * Más de un parámetro
