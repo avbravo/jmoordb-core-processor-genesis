@@ -94,7 +94,7 @@ public class AutosecuenceRepositorySourceBuilder {
     public AutosecuenceRepositorySourceBuilder addImportMongoDBAndMicroprofileAndUtil() {
         addImport("org.eclipse.microprofile.config.Config");
         addImport("org.eclipse.microprofile.config.inject.ConfigProperty");
-        addImport("com.mongodb.client.MongoDatabase;");
+        addImport("com.mongodb.client.MongoDatabase");
         addImport("static com.mongodb.client.model.Filters.eq");
         addImport("com.mongodb.client.MongoClient");
         addImport("com.mongodb.client.MongoCollection");
