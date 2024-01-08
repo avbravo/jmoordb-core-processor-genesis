@@ -19,7 +19,6 @@ public class JmoordbCoreDecomposedDate {
     Integer hour;
     Integer minute;
     String nameOfMonth;
-
     public JmoordbCoreDecomposedDate() {
     }
 
