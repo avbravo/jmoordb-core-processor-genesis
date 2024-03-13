@@ -65,14 +65,18 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
-                    result += "\t}\n";
+                    result += "\t\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List);\n";
 
                     result += sourceSupplier;
@@ -87,16 +91,20 @@ public interface EntitySupplierReferencedGetBuilder {
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
 
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
-                    result += "\t}\n";
+                    result += "\t\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(new java.util.HashSet<>(" + fieldLower + "List));\n";
 
                     result += sourceSupplier;
@@ -112,13 +120,18 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getReferenced().localField()) + "());\n";
+
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
                     result += "\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List.stream());\n";
@@ -157,7 +170,7 @@ public interface EntitySupplierReferencedGetBuilder {
      * @param entityField
      * @return
      */
-    public static String viewReferencedProcessGet(EntityData entityData, EntityField entityField, Element element) {
+public static String viewReferencedProcessGet(EntityData entityData, EntityField entityField, Element element) {
         String result = "";
         String entityNameUpper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
         String entityNameLower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
@@ -174,7 +187,7 @@ public interface EntitySupplierReferencedGetBuilder {
         String from = entityField.getViewReferenced().from();
         String formUpperCase = JmoordbCoreUtil.letterToUpper(from);
         String localField = entityField.getViewReferenced().localField();
-        
+
         var isEmbeddedReferenced = Boolean.FALSE;
         switch (entityField.getTypeReferenced()) {
             case EMBEDDED:
@@ -194,13 +207,16 @@ public interface EntitySupplierReferencedGetBuilder {
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
-
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
                     result += "\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List);\n";
@@ -217,14 +233,17 @@ public interface EntitySupplierReferencedGetBuilder {
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
-
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
                     result += "\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(new java.util.HashSet<>(" + fieldLower + "List));\n";
@@ -241,14 +260,17 @@ public interface EntitySupplierReferencedGetBuilder {
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
+                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\n";
+                    result += "\n\t}else{\n";
+                    result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
+                    result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
 
-                    result += "\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
-                    result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId(" + fieldUpper + "::new," + fieldLower + "Doc);\n";
+                    result += "\t\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
 
-                    result += "\t\t Optional<" + fieldUpper + "> " + fieldLower + "Optional = " + fieldLower + "Repository.findByPk(" + fieldLower + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getViewReferenced().localField()) + "());\n";
-
-                    result += "\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
-                    result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\tif(" + fieldLower + "Optional.isPresent()){" + "\n";
+                    result += "\t\t\t\t" + fieldLower + "List.add(" + fieldLower + "Optional.get());\n";
+                    result += "\t\t\t}\n";
                     result += "\t\t}\n";
                     result += "\t}\n";
                     result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List.stream());\n";
@@ -261,7 +283,6 @@ public interface EntitySupplierReferencedGetBuilder {
             }
             if (!isEmbeddedReferenced) {
                 result += "\t// @Referenced of [" + fieldLower + " how Referenced]\n";
-
 
                 result += "\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.getId("
                         + fieldUpper + "::new,(Document) document_.get(\"" + entityField.getViewReferenced().from() + "\"));\n";
@@ -279,11 +300,5 @@ public interface EntitySupplierReferencedGetBuilder {
         return result;
     }
     // </editor-fold>
-  
-          
 
-    
-    
-
-            
 }

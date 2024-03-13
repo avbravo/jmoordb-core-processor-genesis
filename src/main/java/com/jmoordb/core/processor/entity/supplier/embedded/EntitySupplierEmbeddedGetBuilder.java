@@ -9,7 +9,6 @@ import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 
-
 /**
  *
  * @author avbravo
@@ -39,11 +38,17 @@ public interface EntitySupplierEmbeddedGetBuilder {
                 result += "\n\t// Embedded List<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
                 result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
 
-                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-                result += "\t};\n";
+                result += "\tif( " + fieldLower + "Doc == null || " + fieldLower + "Doc.isEmpty()){\n";
+                result += "\n";
+                result += "\n\t}else{\n";
+                result += "\t\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
+
+                result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
+                result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
+                result += "\t\t}\n";
+                result += "\t}\n";
+
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List);\n";
 
                 result += sourceSupplier;
@@ -53,10 +58,14 @@ public interface EntitySupplierEmbeddedGetBuilder {
                 result += "\n\t// Embedded Set<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
                 result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
-                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
+                result += "\tif( " + fieldLower + "Doc == null || " + fieldLower + "Doc.isEmpty()){\n";
+                result += "\n";
+                result += "\n\t}else{\n";
+                result += "\t\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
+                result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
 
-                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
+                result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
+                result += "\t\t}\n";
                 result += "\t}\n";
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(new java.util.HashSet<>(" + fieldLower + "List));\n";
 
@@ -67,22 +76,26 @@ public interface EntitySupplierEmbeddedGetBuilder {
                 result += "\n\t// Embedded Stream<" + fieldLower + ">\n";
                 result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
                 result += "\tList<Document> " + fieldLower + "Doc = (List) document_.get(\"" + fieldLower + "\");\n";
-                result += "\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
 
-                result += "\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
-                result += "\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
-                result += "\t}\n";
+                result += "\tif( " + fieldLower + "Doc == null || " + fieldLower + "Doc.isEmpty()){\n";
+                result += "\n";
+                result += "\n\t}else{\n";
+                result += "\t\tfor( Document doc" + fieldUpper + " : " + fieldLower + "Doc){\n";
+
+                result += "\t\t\t" + fieldUpper + " " + fieldLower + " = " + fieldLower + "Supplier.get(" + fieldUpper + "::new, doc" + fieldUpper + ");\n";
+                result += "\t\t\t" + fieldLower + "List.add(" + fieldLower + ");\n";
+                result += "\t\t}\n";
+                 result += "\t}\n";
                 result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "List.stream());\n";
 
                 result += sourceSupplier;
                 return result;
             }
             result += "\n\t// Embedded of [" + fieldLower + "]\n";
-         //   result += "\t" + entityNameLower + ".set" + fieldUpper + "((" + fieldUpper + ") document_.get(\"" + fieldLower + "\"));\n";
-            result += "\t" + entityNameLower + ".set" + fieldUpper + "("+fieldLower+"Supplier.get("+
-                     fieldUpper +"::new,(Document) document_.get(\"" + fieldLower + "\")));\n";
+            //   result += "\t" + entityNameLower + ".set" + fieldUpper + "((" + fieldUpper + ") document_.get(\"" + fieldLower + "\"));\n";
+            result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Supplier.get("
+                    + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\")));\n";
 
-            
 //            animal.setEspecie(especieSupplier.get(Especie::new, (Document) document_.get("especie")));
             result += sourceSupplier;
 
@@ -92,8 +105,5 @@ public interface EntitySupplierEmbeddedGetBuilder {
         return result;
     }
     // </editor-fold>
-   
-    
-   
-   
+
 }
