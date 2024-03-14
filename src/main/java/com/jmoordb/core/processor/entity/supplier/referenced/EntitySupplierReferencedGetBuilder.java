@@ -65,7 +65,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
                     result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
@@ -91,7 +91,7 @@ public interface EntitySupplierReferencedGetBuilder {
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
 
@@ -120,7 +120,7 @@ public interface EntitySupplierReferencedGetBuilder {
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
 
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
 
@@ -207,7 +207,7 @@ public static String viewReferencedProcessGet(EntityData entityData, EntityField
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
                     result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
@@ -233,7 +233,7 @@ public static String viewReferencedProcessGet(EntityData entityData, EntityField
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
                     result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
@@ -260,7 +260,7 @@ public static String viewReferencedProcessGet(EntityData entityData, EntityField
 
                     result += "\t List<Document> " + fieldLower + "DocumentList = (List)document_.get(\"" + entityField.getViewReferenced().from() + "\");\n";
                     result += "\tList<" + fieldUpper + "> " + fieldLower + "List = new ArrayList<>();\n";
-                    result += "\tif( " + fieldLower + "List == null || " + fieldLower + "List.isEmpty()){\n";
+                    result += "\tif( " + fieldLower + "DocumentList == null || " + fieldLower + "DocumentList.isEmpty()){\n";
                     result += "\n";
                     result += "\n\t}else{\n";
                     result += "\t\tfor( Document " + fieldLower + "Doc :" + fieldLower + "DocumentList){\n";
