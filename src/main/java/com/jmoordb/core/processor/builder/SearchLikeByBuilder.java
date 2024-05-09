@@ -160,7 +160,12 @@ public class SearchLikeByBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"

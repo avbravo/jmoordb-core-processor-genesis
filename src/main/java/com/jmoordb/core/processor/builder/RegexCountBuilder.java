@@ -35,31 +35,31 @@ public class RegexCountBuilder {
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
-   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")));";
                         break;
                     case FROMTHEEND:
-   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + " + \"$\" )));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + " + \"$\" )));";
                         break;
                     case ANYWHERE:
-   sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ")));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ")));";
                         break;
 
                 }
-             
+
             } else {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
- sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ").append(\"$options\", \"i\")));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ").append(\"$options\", \"i\")));";
                         break;
                     case FROMTHEEND:
- sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + "+ \"$\" ).append(\"$options\", \"i\")));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + "+ \"$\" ).append(\"$options\", \"i\")));";
                         break;
                     case ANYWHERE:
- sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ").append(\"$options\", \"i\")));";
+                        sentence = "contador = collection.countDocuments(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ").append(\"$options\", \"i\")));";
                         break;
 
                 }
-               
+
             }
             String code
                     = ProcessorUtil.editorFold(repositoryMethod, param) + "\n\n"
@@ -67,7 +67,12 @@ public class RegexCountBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        Long contador = 0L;\n"
                     + "        try {\n"
-                    + "             MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+   + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "             MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "             " + sentence + "\n"
                     + "         } catch (Exception e) {\n"

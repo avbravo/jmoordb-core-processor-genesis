@@ -11,8 +11,6 @@ public class DeleteBuilder {
     public static String TAB = "   ";
     private String className;
 
-
-
     // <editor-fold defaultstate="collapsed" desc="StringBuilder delete(RepositoryData repositoryData)">
     /**
      * @Delete(where = "idoceano .eq. @idoceano .and. oceano .ne. @oceano .not.
@@ -75,7 +73,12 @@ public class DeleteBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        List<" + repositoryData.getNameOfEntity() + "> list = new ArrayList<>();\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "               MongoCursor<Document> cursor;\n"
                     + "               " + sentence + "\n"
@@ -96,6 +99,4 @@ public class DeleteBuilder {
     }
 
     // </editor-fold>
-   
-
 }

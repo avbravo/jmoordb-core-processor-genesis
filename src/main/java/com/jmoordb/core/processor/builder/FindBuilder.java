@@ -85,8 +85,7 @@ public class FindBuilder {
                 String filter = ProcessorUtil.generateFilterForFindAndCountAndDelete(repositoryMethod);
 
                 sentence += filter + "\n";
-                
-                
+
                 if (!repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
                     sentence += "\t\tcursor = collection.find( filter )\n"
                             + "\t\t" + paginationSource
@@ -97,8 +96,7 @@ public class FindBuilder {
                             + "\t\t" + paginationSource
                             + "\t\t" + sortSource
                             + "\t.first();\n";
-                    
-                    
+
                 }
             }
 
@@ -109,7 +107,12 @@ public class FindBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"
@@ -159,30 +162,28 @@ public class FindBuilder {
 
             String sortSource = "";
 
-           
-                paginationSource = "\t\t\t.skip(pagination.skip())\n"
-                        + "\t\t\t.limit(pagination.limit())\n";
-            
+            paginationSource = "\t\t\t.skip(pagination.skip())\n"
+                    + "\t\t\t.limit(pagination.limit())\n";
 
-      
+            sortSource = "\t\t\t.sort(sorted.getSort())\n";
 
-                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-      
-           
-                sentence += "\t\tcursor = collection.find()\n"
-                        + "\t\t" + paginationSource
-                        + "" + sortSource
-                        + "\t\t.iterator();\n";
-           
+            sentence += "\t\tcursor = collection.find()\n"
+                    + "\t\t" + paginationSource
+                    + "" + sortSource
+                    + "\t\t.iterator();\n";
 
-     
             String code
-                    = ProcessorUtil.editorFold("public List<"+nameOfEntityUpper+"> findAllPaginationSorted(Pagination pagination, Sorted sorted)") + "\n\n"
+                    = ProcessorUtil.editorFold("public List<" + nameOfEntityUpper + "> findAllPaginationSorted(Pagination pagination, Sorted sorted)") + "\n\n"
                     + "    @Override\n"
                     + "    public List<" + nameOfEntityUpper + "> findAllPaginationSorted(Pagination pagination, Sorted sorted) {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"
@@ -232,30 +233,27 @@ public class FindBuilder {
 
             String sortSource = "";
 
-           
-                paginationSource = "\t\t\t.skip(pagination.skip())\n"
-                        + "\t\t\t.limit(pagination.limit())\n";
-            
-
-      
+            paginationSource = "\t\t\t.skip(pagination.skip())\n"
+                    + "\t\t\t.limit(pagination.limit())\n";
 
 //                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-      
-           
-                sentence += "\t\tcursor = collection.find()\n"
-                        + "\t\t" + paginationSource
-                        + "" + sortSource
-                        + "\t\t.iterator();\n";
-           
+            sentence += "\t\tcursor = collection.find()\n"
+                    + "\t\t" + paginationSource
+                    + "" + sortSource
+                    + "\t\t.iterator();\n";
 
-     
             String code
-                    = ProcessorUtil.editorFold("public List<"+nameOfEntityUpper+"> findAllPagination(Pagination pagination)") + "\n\n"
+                    = ProcessorUtil.editorFold("public List<" + nameOfEntityUpper + "> findAllPagination(Pagination pagination)") + "\n\n"
                     + "    @Override\n"
                     + "    public List<" + nameOfEntityUpper + "> findAllPagination(Pagination pagination) {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"
@@ -305,30 +303,28 @@ public class FindBuilder {
 
             String sortSource = "";
 
-           
 //                paginationSource = "\t\t\t.skip(pagination.skip())\n"
 //                        + "\t\t\t.limit(pagination.limit())\n";
 //            
+            sortSource = "\t\t\t.sort(sorted.getSort())\n";
 
-      
+            sentence += "\t\tcursor = collection.find()\n"
+                    + "\t\t" + paginationSource
+                    + "" + sortSource
+                    + "\t\t.iterator();\n";
 
-                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-      
-           
-                sentence += "\t\tcursor = collection.find()\n"
-                        + "\t\t" + paginationSource
-                        + "" + sortSource
-                        + "\t\t.iterator();\n";
-           
-
-     
             String code
-                    = ProcessorUtil.editorFold("public List<"+nameOfEntityUpper+"> findAllSorted(Sorted sorted)") + "\n\n"
+                    = ProcessorUtil.editorFold("public List<" + nameOfEntityUpper + "> findAllSorted(Sorted sorted)") + "\n\n"
                     + "    @Override\n"
                     + "    public List<" + nameOfEntityUpper + ">  findAllSorted(Sorted sorted) {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"
@@ -349,7 +345,6 @@ public class FindBuilder {
     }
 
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="StringBuilder findAllOfCrud(RepositoryData repositoryData)">
     /**
      *
@@ -379,30 +374,27 @@ public class FindBuilder {
 
             String sortSource = "";
 
-           
 //                paginationSource = "\t\t\t.skip(pagination.skip())\n"
 //                        + "\t\t\t.limit(pagination.limit())\n";
 //            
-
-      
-
 //                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-      
-           
-                sentence += "\t\tcursor = collection.find()\n"
-                        + "\t\t" + paginationSource
-                        + "" + sortSource
-                        + "\t\t.iterator();\n";
-           
+            sentence += "\t\tcursor = collection.find()\n"
+                    + "\t\t" + paginationSource
+                    + "" + sortSource
+                    + "\t\t.iterator();\n";
 
-     
             String code
-                    = ProcessorUtil.editorFold("public List<"+nameOfEntityUpper+"> findAll()") + "\n\n"
+                    = ProcessorUtil.editorFold("public List<" + nameOfEntityUpper + "> findAll()") + "\n\n"
                     + "    @Override\n"
                     + "    public List<" + nameOfEntityUpper + "> findAll() {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"
@@ -423,6 +415,4 @@ public class FindBuilder {
     }
 
     // </editor-fold>
-    
-    
 }

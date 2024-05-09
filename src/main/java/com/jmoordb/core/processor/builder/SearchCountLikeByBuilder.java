@@ -74,8 +74,8 @@ public class SearchCountLikeByBuilder {
             }
 //    filter = "\t\tcontador = collection.countDocuments(  new Document(\"" + field + "\", new Document(\"$regex\", " + parametro + ").append(\"$options\", \"i\")));\n";
 
-             filter+="\tBson filter0=and(search.getFilter(),docX);\n";
-             filter+="\tcontador = collection.countDocuments(  filter0);\n";
+            filter += "\tBson filter0=and(search.getFilter(),docX);\n";
+            filter += "\tcontador = collection.countDocuments(  filter0);\n";
             sentence += filter + "\n";
 
             String param = ProcessorUtil.parametersOfMethod(repositoryMethod);
@@ -85,7 +85,12 @@ public class SearchCountLikeByBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        Long contador = 0L;\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "               " + sentence + "\n"
                     + "         } catch (Exception e) {\n"

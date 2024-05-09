@@ -11,10 +11,6 @@ public class CountByBuilder {
     public static String TAB = "   ";
     private String className;
 
-
-
-
-
     // <editor-fold defaultstate="collapsed" desc="StringBuilder countBy(RepositoryData repositoryData)">
     /**
      * @DeleteBy @param repositoryData
@@ -54,7 +50,12 @@ public class CountByBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        List<" + repositoryData.getNameOfEntity() + "> list = new ArrayList<>();\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "               MongoCursor<Document> cursor;\n"
                     + "               " + sentence + "\n"
@@ -74,8 +75,4 @@ public class CountByBuilder {
     }
 
     // </editor-fold>
-    
-    
-   
-
 }

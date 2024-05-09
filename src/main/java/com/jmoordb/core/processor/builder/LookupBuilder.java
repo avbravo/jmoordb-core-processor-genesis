@@ -7,13 +7,11 @@ import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 
-
 public class LookupBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
     private String className;
-
 
     // <editor-fold defaultstate="collapsed" desc="StringBuilder lookup(RepositoryData repositoryData)">
     public static StringBuilder lookup(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
@@ -39,7 +37,12 @@ public class LookupBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        List<" + repositoryData.getNameOfEntity() + "> list = new ArrayList<>();\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "               MongoCursor<Document> cursor;\n"
                     + "               Document sortQuery = new Document();\n"
@@ -62,6 +65,7 @@ public class LookupBuilder {
                     + "               } finally {\n"
                     + "                     cursor.close();\n"
                     + "               } \n"
+
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "              exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
@@ -78,5 +82,4 @@ public class LookupBuilder {
     }
 
     // </editor-fold>
-   
 }

@@ -3,9 +3,7 @@ package com.jmoordb.core.processor.builder;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.util.MessagesUtil;
 
-public class FindByPkBuilder { 
-
-
+public class FindByPkBuilder {
 
     // <editor-fold defaultstate="collapsed" desc="StringBuilder findByPK(RepositoryData repositoryData)">
     /**
@@ -21,7 +19,12 @@ public class FindByPkBuilder {
                     = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + EditorFoldStart + "\">\n\n"
                     + "    public Optional<" + repositoryData.getNameOfEntity() + "> findByPk(" + repositoryData.getTypeParameter() + " id ) {\n"
                     + "        try {\n"
-                    + "            MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "            MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).first();\n"
                     + "            if(doc == null){\n"
@@ -43,7 +46,5 @@ public class FindByPkBuilder {
         return builder;
     }
 // </editor-fold>
-  
 
-   
 }

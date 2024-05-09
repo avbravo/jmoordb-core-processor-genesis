@@ -90,8 +90,6 @@ public class LikeByBuilder {
              * Genera el filtro
              */
             String filter = "";
-           
-            
 
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
@@ -142,7 +140,12 @@ public class LikeByBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "             Document sort = new Document(\"" + field + "\"," + order + ");\n"

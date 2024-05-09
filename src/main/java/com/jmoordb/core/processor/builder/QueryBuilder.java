@@ -7,7 +7,6 @@ import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 
-
 public class QueryBuilder {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
@@ -64,7 +63,7 @@ public class QueryBuilder {
 
             String sentence = "";
             String paginationSource = "";
-   
+
             String sortSource = "";
 
             if (repositoryMethod.getWhere().equals("")) {
@@ -112,7 +111,13 @@ public class QueryBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + atribute
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "               " + sentence + "\n"

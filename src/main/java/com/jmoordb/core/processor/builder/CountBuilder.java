@@ -11,12 +11,11 @@ public class CountBuilder {
     public static String TAB = "   ";
     private String className;
 
-
-
     // <editor-fold defaultstate="collapsed" desc="StringBuilder count(RepositoryData repositoryData)">
     public static StringBuilder count(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
         StringBuilder builder = new StringBuilder();
         try {
+            ;
 
             String param = ProcessorUtil.parametersOfMethod(repositoryMethod);
 
@@ -26,7 +25,12 @@ public class CountBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        Long contador = 0L;\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + "               Document whereCondition = new Document();\n"
                     + "               if (search.length != 0) {\n"
@@ -53,5 +57,4 @@ public class CountBuilder {
     }
 
     // </editor-fold>
-   
 }

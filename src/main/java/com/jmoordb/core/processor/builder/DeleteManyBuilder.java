@@ -11,7 +11,6 @@ public class DeleteManyBuilder {
     public static String TAB = "   ";
     private String className;
 
-
     // <editor-fold defaultstate="collapsed" desc="StringBuilder deleteMany(RepositoryData repositoryData)">
     /**
      * @Delete(where = "idoceano .eq. @idoceano .and. oceano .ne. @oceano .not.
@@ -24,10 +23,8 @@ public class DeleteManyBuilder {
         StringBuilder builder = new StringBuilder();
         try {
 
-
             String sentence = " Document whereCondition = new Document();\n";
-                   sentence += "\t\twhereCondition = search.getFilter();\n";
-           
+            sentence += "\t\twhereCondition = search.getFilter();\n";
 
             sentence += "\t\tcom.mongodb.client.result.DeleteResult deleteResult = collection.deleteMany(whereCondition);\n";
 
@@ -35,14 +32,18 @@ public class DeleteManyBuilder {
              * Más de un parámetro
              */
             String code
-
                     = ProcessorUtil.editorFold("Long deleteMany(com.jmoordb.core.model.Search search)") + "\n\n"
                     + "    @Override\n"
                     + "    public Long deleteMany(com.jmoordb.core.model.Search search)" + "{\n"
                     + "        try {\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
-//                    + "               MongoCursor<Document> cursor;\n"
+                    //                    + "               MongoCursor<Document> cursor;\n"
                     + "               " + sentence + "\n"
                     + "               return deleteResult.getDeletedCount();\n"
                     + "         } catch (Exception e) {\n"

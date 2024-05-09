@@ -11,8 +11,6 @@ public class PingBuilder {
     public static String TAB = "   ";
     private String className;
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="StringBuilder ping(RepositoryData repositoryData, RepositoryMethod repositoryMethod)">
     public static StringBuilder ping(RepositoryData repositoryData, RepositoryMethod repositoryMethod) {
         StringBuilder builder = new StringBuilder();
@@ -25,7 +23,12 @@ public class PingBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "() {\n"
                     + "        Boolean conected = Boolean.FALSE;\n"
                     + "        try{\n"
-                    + "            MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);\n"
+                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "                }\n"
+                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "               setDinamicDatabase(\"\");\n"
                     + "            Bson command = new BsonDocument(\"ping\", new BsonInt64(1));\n"
                     + "            Document commandResult = database.runCommand(command);\n"
                     + "            conected = Boolean.TRUE;\n"
@@ -44,6 +47,4 @@ public class PingBuilder {
     }
 
     // </editor-fold>
-    
- 
 }
