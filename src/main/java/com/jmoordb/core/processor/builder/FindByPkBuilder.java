@@ -26,7 +26,7 @@ public class FindByPkBuilder {
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDinamicDatabase(\"\");\n"
                     + "            MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
-                    + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).first();\n"
+                    + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).allowDiskUse(Boolean.TRUE).first();\n"
                     + "            if(doc == null){\n"
                     + "               return Optional.empty();\n"
                     + "            }\n"

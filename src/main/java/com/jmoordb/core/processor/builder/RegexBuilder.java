@@ -72,19 +72,19 @@ public class RegexBuilder {
             if (repositoryMethod.getCaseSensitive().equals(CaseSensitive.YES)) {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
-                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + ")))\n"
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", \"^\"+" + valueParam + "))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";
                         break;
                     case FROMTHEEND:
-                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\"," + valueParam + " +  \"$\")))\n"
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\"," + valueParam + " +  \"$\"))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";
                         break;
                     case ANYWHERE:
-                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + ")))\n"
+                        sentence = "cursor = collection.find(new Document(\"" + field + "\", new Document(\"$regex\", " + valueParam + "))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";
@@ -95,19 +95,19 @@ public class RegexBuilder {
             } else {
                 switch (repositoryMethod.getLikeByType()) {
                     case FROMTHESTART:
-                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\")))\n"
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\"))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";
                         break;
                     case FROMTHEEND:
-                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\",  " + valueParam + " + \"$\").append(\"$options\", \"i\")))\n"
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\",  " + valueParam + " + \"$\").append(\"$options\", \"i\"))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";
                         break;
                     case ANYWHERE:
-                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\")))\n"
+                        sentence = "cursor = collection.find(new Document(" + field + ", new Document(\"$regex\", \"^\" +" + valueParam + ").append(\"$options\", \"i\"))).allowDiskUse(Boolean.TRUE)\n"
                                 + paginationSource
                                 + sortSource
                                 + "     .iterator();\n";

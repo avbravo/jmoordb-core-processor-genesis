@@ -132,9 +132,9 @@ public class SearchLikeByBuilder {
             if (!repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
 
                 sentence += "\t\tif (search.getPagination() == null || search.getPagination().getPage() < 1) {\n"
-                        + "                  cursor = collection.find(filter0).sort(sortQuery).iterator();\n"
+                        + "                  cursor = collection.find(filter0).allowDiskUse(Boolean.TRUE).sort(sortQuery).iterator();\n"
                         + "               } else {\n"
-                        + "                    cursor = collection.find(filter0)\n"
+                        + "                    cursor = collection.find(filter0).allowDiskUse(Boolean.TRUE)\n"
                         + "                                        .skip(search.getPagination().skip())\n"
                         + "                                        .limit(search.getPagination().limit())\n"
                         + "                                        .sort(sortQuery).iterator();\n"
@@ -143,9 +143,9 @@ public class SearchLikeByBuilder {
             } else {
 
                 sentence += "\t\tif (search.getPagination() == null || search.getPagination().getPage() < 1) {\n"
-                        + "                  cursor = collection.find(filter0).sort(sortQuery).iterator();\n"
+                        + "                  cursor = collection.find(filter0).allowDiskUse(Boolean.TRUE).sort(sortQuery).iterator();\n"
                         + "               } else {\n"
-                        + "                    cursor = collection.find(filter0)\n"
+                        + "                    cursor = collection.find(filter0).allowDiskUse(Boolean.TRUE)\n"
                         + "                                        .skip(search.getPagination().skip())\n"
                         + "                                        .limit(search.getPagination().limit())\n"
                         + "                                        .sort(sortQuery).iterator().firtst();\n"

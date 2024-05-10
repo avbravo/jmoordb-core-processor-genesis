@@ -122,12 +122,12 @@ public class LikeByBuilder {
 
             sentence += filter + "\n";
             if (!repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
-                sentence += "\t\tcursor = collection.find( filter )\n"
+                sentence += "\t\tcursor = collection.find( filter ).allowDiskUse(Boolean.TRUE)\n"
                         + "\t\t" + paginationSource
                         + "\t\t" + sortSource
                         + "\t.iterator();\n";
             } else {
-                sentence += "\t\tDocument doc = collection.find( filter )\n"
+                sentence += "\t\tDocument doc = collection.find( filter ).allowDiskUse(Boolean.TRUE)\n"
                         + "\t\t" + paginationSource
                         + "\t\t" + sortSource
                         + "\t.first();\n";

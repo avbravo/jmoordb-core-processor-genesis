@@ -74,7 +74,7 @@ public class FindBuilder {
                 sortSource = "\t\t\t.sort(sorted.getSort())\n";
             }
             if (repositoryMethod.getNameOfMethod().startsWith("findAll")) {
-                sentence += "\t\tcursor = collection.find()\n"
+                sentence += "\t\tcursor = collection.find().allowDiskUse(Boolean.TRUE)\n"
                         + "\t\t" + paginationSource
                         + "" + sortSource
                         + "\t\t.iterator();\n";
@@ -87,12 +87,12 @@ public class FindBuilder {
                 sentence += filter + "\n";
 
                 if (!repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
-                    sentence += "\t\tcursor = collection.find( filter )\n"
+                    sentence += "\t\tcursor = collection.find( filter ).allowDiskUse(Boolean.TRUE)\n"
                             + "\t\t" + paginationSource
                             + "\t\t" + sortSource
                             + "\t.iterator();\n";
                 } else {
-                    sentence += "\t\tDocument doc = collection.find( filter )\n"
+                    sentence += "\t\tDocument doc = collection.find( filter ).allowDiskUse(Boolean.TRUE)\n"
                             + "\t\t" + paginationSource
                             + "\t\t" + sortSource
                             + "\t.first();\n";
@@ -167,7 +167,7 @@ public class FindBuilder {
 
             sortSource = "\t\t\t.sort(sorted.getSort())\n";
 
-            sentence += "\t\tcursor = collection.find()\n"
+            sentence += "\t\tcursor = collection.find().allowDiskUse(Boolean.TRUE)\n"
                     + "\t\t" + paginationSource
                     + "" + sortSource
                     + "\t\t.iterator();\n";
@@ -237,7 +237,7 @@ public class FindBuilder {
                     + "\t\t\t.limit(pagination.limit())\n";
 
 //                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-            sentence += "\t\tcursor = collection.find()\n"
+            sentence += "\t\tcursor = collection.find().allowDiskUse(Boolean.TRUE)\n"
                     + "\t\t" + paginationSource
                     + "" + sortSource
                     + "\t\t.iterator();\n";
@@ -308,7 +308,7 @@ public class FindBuilder {
 //            
             sortSource = "\t\t\t.sort(sorted.getSort())\n";
 
-            sentence += "\t\tcursor = collection.find()\n"
+            sentence += "\t\tcursor = collection.find().allowDiskUse(Boolean.TRUE)\n"
                     + "\t\t" + paginationSource
                     + "" + sortSource
                     + "\t\t.iterator();\n";
@@ -378,7 +378,7 @@ public class FindBuilder {
 //                        + "\t\t\t.limit(pagination.limit())\n";
 //            
 //                sortSource = "\t\t\t.sort(sorted.getSort())\n";
-            sentence += "\t\tcursor = collection.find()\n"
+            sentence += "\t\tcursor = collection.find().allowDiskUse(Boolean.TRUE)\n"
                     + "\t\t" + paginationSource
                     + "" + sortSource
                     + "\t\t.iterator();\n";

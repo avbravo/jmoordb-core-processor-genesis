@@ -589,7 +589,7 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
-                .append(TAB + TAB + TAB + TAB + " Document doc = collection.find(eq(\"databasecollection\", databasecollection)).first();")
+                .append(TAB + TAB + TAB + TAB + " Document doc = collection.find(eq(\"databasecollection\", databasecollection)).allowDiskUse(Boolean.TRUE).first();")
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Autosequence autosequence = get(Autosequence::new, doc);")
                 .append(LINE_BREAK)
