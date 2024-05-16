@@ -56,9 +56,14 @@ public class SaveBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
                     + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
@@ -131,9 +136,14 @@ public class SaveBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
                     + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"

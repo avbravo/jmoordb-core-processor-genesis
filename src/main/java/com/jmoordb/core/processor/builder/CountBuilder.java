@@ -30,14 +30,13 @@ public class CountBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
-                    
                     + "               if (!getDynamicCollection().equals(\"\")) {\n"
                     + "                   mongodbCollectionValue = getDynamicCollection();\n"
                     + "                }\n"
-                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                    + "               setDynamicDatabase(\"\");\n"
+                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + "               Document whereCondition = new Document();\n"
                     + "               if (search.length != 0) {\n"
                     + "                  whereCondition = search[0].getFilter();\n"

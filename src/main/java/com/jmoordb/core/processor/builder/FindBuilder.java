@@ -112,9 +112,14 @@ public class FindBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process
@@ -184,9 +189,14 @@ public class FindBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process
@@ -255,9 +265,14 @@ public class FindBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process
@@ -327,9 +342,14 @@ public class FindBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process
@@ -398,9 +418,14 @@ public class FindBuilder {
                     + "               if (!getDynamicDatabase().equals(\"\")) {\n"
                     + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
+                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+                    + "                }\n"
+                    
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "               setDynamicCollection(\"\");\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process
