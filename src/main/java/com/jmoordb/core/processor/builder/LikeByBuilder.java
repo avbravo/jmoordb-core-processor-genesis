@@ -141,11 +141,13 @@ public class LikeByBuilder {
                     + atribute
                     + "        try {\n"
                     + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "               String mongodbCollectionValue = mongodbCollection;\n"
+                    + "               String mongodbCollectionValue = mongodbCollection;\n"
+                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDinamicDatabase(\"\");\n"
+                    + "               setDynamicDatabase(\"\");\n"  
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor
                     + "             Document sort = new Document(\"" + field + "\"," + order + ");\n"

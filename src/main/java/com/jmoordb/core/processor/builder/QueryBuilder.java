@@ -112,11 +112,12 @@ public class QueryBuilder {
                     + atribute
                     + "        try {\n"
                     + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               if (!getDinamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDinamicDatabase();\n"
+                    + "               String mongodbCollectionValue = mongodbCollection;\n"
+                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
+                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
                     + "                }\n"
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDinamicDatabase(\"\");\n"
+                    + "               setDynamicDatabase(\"\");\n"  
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
                     + cursor

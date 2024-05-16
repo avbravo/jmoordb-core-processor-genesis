@@ -10,6 +10,7 @@ package com.jmoordb.core.context;
  */
 public class ContextJMoordbCore {
     static public String mongodbdatabase="";
+    static public String mongodbcollection="";
     
     
 }
