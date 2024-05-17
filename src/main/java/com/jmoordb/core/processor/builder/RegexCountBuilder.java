@@ -78,7 +78,8 @@ public class RegexCountBuilder {
                     
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "             MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                    + "             MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "            setDynamicCollection(\"\");\n"
                     + "             " + sentence + "\n"
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"

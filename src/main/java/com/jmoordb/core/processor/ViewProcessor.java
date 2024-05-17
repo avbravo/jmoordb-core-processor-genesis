@@ -33,7 +33,7 @@ import javax.tools.StandardLocation;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.view.View"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class ViewProcessor extends AbstractProcessor {
 
     private Messager messager;

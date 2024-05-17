@@ -31,7 +31,7 @@ import javax.lang.model.element.ExecutableElement;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.autosecuence.AutosecuenceRepository"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
 
     private Messager messager;

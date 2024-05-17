@@ -29,7 +29,7 @@ import javax.lang.model.type.MirroredTypesException;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.app.MyAnnotationType"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class MyAnnotationTypeProcessor extends AbstractProcessor {
 
     // <editor-fold defaultstate="collapsed" desc=" boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv)">

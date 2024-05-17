@@ -28,7 +28,7 @@ import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.DateSupport"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class DateSupportProcessor extends AbstractProcessor {
 
     private Messager messager;

@@ -28,7 +28,7 @@ import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.ViewEntity"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class ViewEntityProcessor extends AbstractProcessor {
 
     private Messager messager;

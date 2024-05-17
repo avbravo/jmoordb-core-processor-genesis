@@ -28,7 +28,7 @@ import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes(
         {"com.jmoordb.core.annotation.DocumentEmbeddable"})
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class DocummentEmbedableProcessor extends AbstractProcessor {
 
     private Messager messager;

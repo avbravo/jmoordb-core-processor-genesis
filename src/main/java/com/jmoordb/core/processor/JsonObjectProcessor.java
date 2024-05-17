@@ -30,7 +30,7 @@ import javax.tools.JavaFileObject;
  *
  * @author avbravo
  */
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_21)
 @SupportedAnnotationTypes("com.avbravo.jmoordb.core.annotation.JsonObject")
 public class JsonObjectProcessor  extends AbstractProcessor{
     

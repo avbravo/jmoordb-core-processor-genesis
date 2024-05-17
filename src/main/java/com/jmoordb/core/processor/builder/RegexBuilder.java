@@ -134,7 +134,8 @@ public class RegexBuilder {
                     
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"  
-                    + "             MongoCollection<Document> collection = database.getCollection(mongodbCollection);\n"
+                    + "             MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "             setDynamicCollection(\"\");\n"
                     + "             MongoCursor<Document> cursor;\n"
                     + "             Document sort = new Document(\"" + field + "\"," + order + ");\n"
                     + "             " + sentence + "\n"

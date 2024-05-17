@@ -455,7 +455,7 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + " try {")
                 .append(LINE_BREAK)
-//                .append(TAB + TAB + TAB + TAB + " Long  increment = new Long(1);")
+                //                .append(TAB + TAB + TAB + TAB + " Long  increment = new Long(1);")
                 .append(TAB + TAB + TAB + TAB + " Long  increment = 1L;")
                 .append(TAB + TAB + TAB + TAB + "// Integer increment = 1;")
                 .append(LINE_BREAK)
@@ -473,9 +473,11 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
+                 
+                .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Document iterable = collection.findOneAndUpdate(doc, inc, findOneAndUpdateOptions);")
                 .append(LINE_BREAK)
-                                .append(LINE_BREAK)
+                .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Autosequence autosequence = new Autosequence(databasecollection, iterable.getLong(\"sequence\"));")
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + "//Autosequence autosequence = get(Autosequence::new, iterable);")
@@ -548,7 +550,8 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
-                
+                 
+                .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " InsertOneResult insertOneResult = collection.insertOne(Document.parse(autosequence.toJson(autosequence)));")
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " if (insertOneResult.getInsertedId() != null) {")
@@ -588,6 +591,8 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(TAB + TAB + TAB + TAB + " MongoDatabase database = mongoClient.getDatabase(mongodbDatabase);")
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
+                .append(LINE_BREAK)
+                 
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Document doc = collection.find(eq(\"databasecollection\", databasecollection)).allowDiskUse(Boolean.TRUE).first();")
                 .append(LINE_BREAK)
@@ -629,7 +634,7 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " if (!autosequenceOptional.isPresent()) {")
                 .append(LINE_BREAK)
-                .append(TAB+TAB+TAB+TAB+TAB+"   Long l = Long.valueOf(\"0\");")
+                .append(TAB + TAB + TAB + TAB + TAB + "   Long l = Long.valueOf(\"0\");")
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + TAB + " Autosequence autosequence = new Autosequence(database + \"_\" + collection, l);")
                 .append(LINE_BREAK)
@@ -665,7 +670,5 @@ public class AutosecuenceRepositorySourceBuilder {
         return this;
     }
 // </editor-fold>
-    
-    
-     
+
 }
