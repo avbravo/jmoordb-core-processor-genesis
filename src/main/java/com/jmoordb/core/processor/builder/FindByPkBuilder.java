@@ -14,9 +14,9 @@ public class FindByPkBuilder {
     public static StringBuilder findByPK(RepositoryData repositoryData) {
         StringBuilder builder = new StringBuilder();
         try {
-            String EditorFoldStart = "public Optional<" + repositoryData.getNameOfEntity() + "> findByPk(" + repositoryData.getTypeParameter() + " id )";
+            String editorFoldStart = "public Optional<" + repositoryData.getNameOfEntity() + "> findByPk(" + repositoryData.getTypeParameter() + " id )";
             String code
-                    = "// <editor-fold defaultstate=\"collapsed\" desc=\"" + EditorFoldStart + "\">\n\n"
+                    = "// <editor-fold defaultstate=\"collapsed\" desc=\"" +editorFoldStart + "\">\n\n"
                     + "    public Optional<" + repositoryData.getNameOfEntity() + "> findByPk(" + repositoryData.getTypeParameter() + " id ) {\n"
                     + "        try {\n"
                     + "               String mongodbDatabaseValue = mongodbDatabase;\n"
@@ -29,6 +29,34 @@ public class FindByPkBuilder {
                     + "                }\n"
                     + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
                     + "               setDynamicDatabase(\"\");\n"
+                    + "            MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+                    + "            setDynamicCollection(\"\");\n"
+                    + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).allowDiskUse(Boolean.TRUE).first();\n"
+                    + "            if(doc == null){\n"
+                    + "               return Optional.empty();\n"
+                    + "            }\n"
+                    + "            " + repositoryData.getNameOfEntity() + " " + repositoryData.getNameOfEntityLower() + " = " + repositoryData.getNameOfEntityLower() + "Supplier.get(" + repositoryData.getNameOfEntity() + "::new, doc);\n"
+                    + "            return Optional.of(" + repositoryData.getNameOfEntityLower() + ");\n"
+                    + "       } catch (Exception e) {\n"
+                    + "            MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "             exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
+                    + "       }\n"
+                    + "       return Optional.empty();\n"
+                    + "    }\n"
+                    + "// </editor-fold>\n\n\n";
+            
+           editorFoldStart = "public Optional<" + repositoryData.getNameOfEntity() + "> findByPkInternal(" + repositoryData.getTypeParameter() + " id, String mongodbDatabaseValue, String mongodbCollectionValue  )";
+            code+= "// <editor-fold defaultstate=\"collapsed\" desc=\"" +editorFoldStart + "\">\n\n"
+                    + "    public Optional<" + repositoryData.getNameOfEntity() + "> findByPkInternal(" + repositoryData.getTypeParameter() + " id , String mongodbDatabaseValue, String mongodbCollectionValue ) {\n"
+                    + "        try {\n"
+                    + "            if (mongodbDatabaseValue.equals(\"\")) {\n"
+                    + "                mongodbDatabaseValue = mongodbDatabase; \n"
+                    + "            }\n"
+                    + "            if (mongodbCollectionValue.equals(\"\")) {\n"
+                    + "               mongodbCollectionValue = mongodbCollection;\n"
+                    + "            }\n"
+                    + "            MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "            setDynamicDatabase(\"\");\n"
                     + "            MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
                     + "            setDynamicCollection(\"\");\n"
                     + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).allowDiskUse(Boolean.TRUE).first();\n"

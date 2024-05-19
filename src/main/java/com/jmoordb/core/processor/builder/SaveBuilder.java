@@ -66,7 +66,8 @@ public class SaveBuilder {
                     + "               setDynamicCollection(\"\");\n"
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
-                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
+//                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
+                    + "               if (findByPkInternal(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "(),mongodbDatabaseValue,  mongodbCollectionValue).isPresent()) { \n"
                     + "                   MessagesUtil.warning(\"There is already a record with that id\");\n"
                     + "                   exception = new JmoordbException((\"There is already a record with that id\");\n"
                     //                    + "                  " + calculateReturn + "\n"
@@ -146,7 +147,8 @@ public class SaveBuilder {
                     + "               setDynamicCollection(\"\");\n"
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
-                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
+//                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
+                    + "               if (findByPkInternal(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "(),mongodbDatabaseValue,  mongodbCollectionValue).isPresent()) { \n"
                     + "                   MessagesUtil.warning(\"There is already a record with that id\");\n"
                     + "                    exception = new JmoordbException(\"There is already a record with that id\");\n"
                     //                    + "                  " + calculateReturn + "\n"
