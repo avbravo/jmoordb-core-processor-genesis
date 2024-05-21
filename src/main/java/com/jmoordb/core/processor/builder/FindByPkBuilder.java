@@ -50,6 +50,8 @@ public class FindByPkBuilder {
             code+= "// <editor-fold defaultstate=\"collapsed\" desc=\"" +editorFoldStart + "\">\n\n"
                     + "    public Optional<" + repositoryData.getNameOfEntity() + "> findByPkInternal(" + repositoryData.getTypeParameter() + " id , String mongodbDatabaseValue, String mongodbCollectionValue ) {\n"
                     + "        try {\n"
+                    + "            MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+                    + "            MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
 //                    + "            if (mongodbDatabaseValue.equals(\"\")) {\n"
 //                    + "                mongodbDatabaseValue = mongodbDatabase; \n"
 //                    + "            }\n"
