@@ -118,6 +118,11 @@ public class RepositorySourceBuilder {
         builder.append(DeleteByBuilder.deleteByPk(repositoryData));
         builder.append(DeleteManyBuilder.deleteMany(repositoryData));
         builder.append(UpdateManyBuilder.updateMany(repositoryData));
+
+        builder.append(IndexBuilder.createIndex(repositoryData));
+        builder.append(IndexBuilder.dropIndex(repositoryData));
+        builder.append(IndexBuilder.listIndexes(repositoryData));
+        builder.append(IndexBuilder.listCollectionNames(repositoryData));
  
             
         return this;

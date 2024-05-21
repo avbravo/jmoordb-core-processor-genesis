@@ -144,6 +144,8 @@ public class RepositorySourceBuilderUtil {
                     + "import com.mongodb.client.model.Filters;\n"
                     + "import com.mongodb.client.result.UpdateResult;\n"
                     + "import com.mongodb.client.model.UpdateOptions;\n"
+                    + "import com.mongodb.client.ListIndexesIterable;\n"
+                    + "import com.mongodb.client.MongoIterable;\n"
                     + "/**\n"
                     + "* Java\n"
                     + "*/\n"
