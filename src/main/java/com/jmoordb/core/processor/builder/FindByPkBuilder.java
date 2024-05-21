@@ -62,7 +62,7 @@ public class FindByPkBuilder {
 //                    + "            setDynamicDatabase(\"\");\n"
 //                    + "            MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
 //                    + "            setDynamicCollection(\"\");\n"
-                    + "           MongoCollection<Document> collection = getCollection().get();\n"
+//                    + "           MongoCollection<Document> collection = getCollection().get();\n"
                     + "            Document doc = collection.find(eq(\"" + repositoryData.getFieldPk() + "\", id)).allowDiskUse(Boolean.TRUE).first();\n"
                     + "            if(doc == null){\n"
                     + "               return Optional.empty();\n"
