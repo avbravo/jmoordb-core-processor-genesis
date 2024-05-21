@@ -160,19 +160,21 @@ public class SearchLikeByBuilder {
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + atribute
                     + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
-                    
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"  
-                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
+//                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+//                    + "               String mongodbCollectionValue = mongodbCollection;\n"
+//                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
+//                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
+//                    + "                }\n"
+//                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+//                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+//                    + "                }\n"
+//                    
+//                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+//                    + "               setDynamicDatabase(\"\");\n"  
+//                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+//                    + "               setDynamicCollection(\"\");\n"
+//                    
+                    + "           MongoCollection<Document> collection = getCollection().get();\n"
                     + cursor
                     + "               " + sentence + "\n"
                     + process

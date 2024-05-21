@@ -17,32 +17,34 @@ public class IndexBuilder {
         StringBuilder builder = new StringBuilder();
         try {
 
-           String code
-                    = ProcessorUtil.editorFold("public String createIndex(Bson bson)") + "\n\n"
-                    + "    @Override\n"
-                    + "    public String createIndex(Bson bson) {\n"
-                    + "        String result = \"\";\n"
-                    + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                    + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
-                    + "               result = collection.createIndex(bson);\n"
-                    + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "         }\n"
-                    + "         return result;\n"
-                    + "     }\n"
-                    + "// </editor-fold>\n";
+            String code
+                    = ProcessorUtil.editorFold("public String createIndex(Bson bson)") + "\n\n";
+            code+="""
+                @Override
+                public String createIndex(Bson bson) {
+                       String result = \"\";
+                       try {
+                           String mongodbDatabaseValue = mongodbDatabase;
+                           String mongodbCollectionValue = mongodbCollection;
+                           if (!getDynamicDatabase().equals(\"\")) {
+                               mongodbDatabaseValue = getDynamicDatabase();
+                            }
+                            if (!getDynamicCollection().equals(\"\")) {
+                                mongodbCollectionValue = getDynamicCollection();
+                            }
+                            MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);
+                            setDynamicDatabase(\"\");
+                            MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);
+                            setDynamicCollection(\"\");
+                            result = collection.createIndex(bson);
+                        } catch (Exception e) {
+                           MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                           exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                        }
+                        return result;
+                       }\
+                  // </editor-fold>;
+                  """;
 
             builder.append(code);
         } catch (Exception e) {
@@ -57,30 +59,33 @@ public class IndexBuilder {
         StringBuilder builder = new StringBuilder();
         try {
 
-           String code
-                    = ProcessorUtil.editorFold("void dropIndex(Bson bson)") + "\n\n"
-                    + "    @Override\n"
-                    + "    public void dropIndex(Bson bson) {\n"
-                                + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                    + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
-                    + "               collection.dropIndex(bson);\n"
-                    + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "         }\n"
-                    + "     }\n"
-                    + "// </editor-fold>\n";
+            String code
+                    = ProcessorUtil.editorFold("void dropIndex(Bson bson)") + "\n\n";
+            code +="""
+                   
+                @Override
+                public void dropIndex(Bson bson) {
+                try {
+                     String mongodbDatabaseValue = mongodbDatabase;
+                     String mongodbCollectionValue = mongodbCollection;
+                     if (!getDynamicDatabase().equals(\"\")) {
+                         mongodbDatabaseValue = getDynamicDatabase();
+                     }
+                     if (!getDynamicCollection().equals(\"\")) {
+                        mongodbCollectionValue = getDynamicCollection();
+                     }
+                     MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);
+                     setDynamicDatabase(\"\");
+                     MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);
+                     setDynamicCollection(\"\");
+                     collection.dropIndex(bson);
+                } catch (Exception e) {
+                     MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                     exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                }
+                }
+                 // </editor-fold>
+                   """;
 
             builder.append(code);
         } catch (Exception e) {
@@ -90,42 +95,40 @@ public class IndexBuilder {
     }
 
     // </editor-fold>
-    
-    
-    
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder listIndexes(RepositoryData repositoryData">
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder listIndexes(RepositoryData repositoryData">
     public static StringBuilder listIndexes(RepositoryData repositoryData) {
         StringBuilder builder = new StringBuilder();
         try {
 
-           String code
-                    = ProcessorUtil.editorFold("Optional<ListIndexesIterable<Document>> listIndexes()") + "\n\n"
-                    + "    @Override\n"
-                    + "   public Optional<ListIndexesIterable<Document>> listIndexes(){\n"
-                    + "        ListIndexesIterable<Document> result;\n"
-                    + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                    + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
-                    + "               result = collection.listIndexes();\n"
-                    + "               return Optional.of(result);\n"
-                    + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "         }\n"
-                    + "         return  Optional.empty();\n"
-                    + "     }\n"
-                    + "// </editor-fold>\n";
-
+            String code
+                    = ProcessorUtil.editorFold("Optional<ListIndexesIterable<Document>> listIndexes()") + "\n\n";
+            code+="""
+                   @Override
+                   public Optional<ListIndexesIterable<Document>> listIndexes(){
+                          ListIndexesIterable<Document> result;
+                          try {
+                              String mongodbDatabaseValue = mongodbDatabase;
+                              String mongodbCollectionValue = mongodbCollection;
+                              if (!getDynamicDatabase().equals(\"\")) {
+                                  mongodbDatabaseValue = getDynamicDatabase();
+                              }
+                              if (!getDynamicCollection().equals(\"\")) {
+                                mongodbCollectionValue = getDynamicCollection();
+                              }
+                              MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);
+                              setDynamicDatabase(\"\");
+                              MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);
+                              setDynamicCollection(\"\");
+                              result = collection.listIndexes();
+                              return Optional.of(result);
+                            } catch (Exception e) {
+                              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                              exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                            }
+                              return  Optional.empty();
+                    }
+                 //  </editor-fold>
+                  """;
             builder.append(code);
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " " + e.getLocalizedMessage());
@@ -134,38 +137,42 @@ public class IndexBuilder {
     }
 
     // </editor-fold>
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder listCollectionNames(RepositoryData repositoryData)">
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder listCollectionNames(RepositoryData repositoryData)">
     public static StringBuilder listCollectionNames(RepositoryData repositoryData) {
         StringBuilder builder = new StringBuilder();
         try {
 
-           String code
-                    = ProcessorUtil.editorFold("Optional<MongoIterable<String>> listCollectionNames() ") + "\n\n"
-                    + "    @Override\n"
-                    + "    public Optional<MongoIterable<String>> listCollectionNames(){ \n"
-                    + "        MongoIterable<String> result;\n"
-                    + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                    + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"
-                    + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
-                    + "               result = database.listCollectionNames();\n"
-                    + "               return Optional.of(result);\n"
-                    + "         } catch (Exception e) {\n"
-                    + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "               exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
-                    + "         }\n"
-                    + "         return  Optional.empty();\n"
-                    + "     }\n"
-                    + "// </editor-fold>\n";
+            String code
+                    = ProcessorUtil.editorFold("Optional<MongoIterable<String>> listCollectionNames() ") + "\n\n";
+            code += """
+                 
+            @Override
+            public Optional<MongoIterable<String>> listCollectionNames(){
+                   MongoIterable<String> result;
+                   try {
+                        String mongodbDatabaseValue = mongodbDatabase;
+                        String mongodbCollectionValue = mongodbCollection;
+                        if (!getDynamicDatabase().equals(\"\")) {
+                            mongodbDatabaseValue = getDynamicDatabase();
+                        }
+                        if (!getDynamicCollection().equals(\"\")) {
+                            mongodbCollectionValue = getDynamicCollection();
+                        }
+                        MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);
+                        setDynamicDatabase(\"\");
+                        MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);
+                        setDynamicCollection(\"\");
+                        result = database.listCollectionNames();
+                        return Optional.of(result);
+                    } catch (Exception e) {
+                        MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                        exception = new JmoordbException(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());
+                    }
+                     return  Optional.empty();
+                 }
+            // </editor-fold>
+           """;
+
 
             builder.append(code);
         } catch (Exception e) {
@@ -175,6 +182,4 @@ public class IndexBuilder {
     }
 
     // </editor-fold>
-  
-  
 }

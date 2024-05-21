@@ -123,6 +123,8 @@ public class RepositorySourceBuilder {
         builder.append(IndexBuilder.dropIndex(repositoryData));
         builder.append(IndexBuilder.listIndexes(repositoryData));
         builder.append(IndexBuilder.listCollectionNames(repositoryData));
+        
+        builder.append(ConnectionBuilder.getCollection(repositoryData));
  
             
         return this;

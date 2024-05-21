@@ -51,19 +51,22 @@ public class SaveBuilder {
                     + "    @Override\n"
                     + "    public " + repositoryMethod.getReturnTypeValue() + " " + repositoryMethod.getNameOfMethod() + "(" + param + ") {\n"
                     + "        try {\n"
-                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
-                    + "               String mongodbCollectionValue = mongodbCollection;\n"
-                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
-                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
-                    + "                }\n"
-                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
-                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
-                    + "                }\n"
+//                    + "               String mongodbDatabaseValue = mongodbDatabase;\n"
+//                    + "               String mongodbCollectionValue = mongodbCollection;\n"
+//                    + "               if (!getDynamicDatabase().equals(\"\")) {\n"
+//                    + "                   mongodbDatabaseValue = getDynamicDatabase();\n"
+//                    + "                }\n"
+//                         + "               if (!getDynamicCollection().equals(\"\")) {\n"
+//                    + "                   mongodbCollectionValue = getDynamicCollection();\n"
+//                    + "                }\n"
+//                    
+//                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
+//                    + "               setDynamicDatabase(\"\");\n"  
+//                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
+//                    + "               setDynamicCollection(\"\");\n"
+//                    
+                    + "           MongoCollection<Document> collection = getCollection().get();\n"
                     
-                    + "               MongoDatabase database = mongoClient.getDatabase(mongodbDatabaseValue);\n"
-                    + "               setDynamicDatabase(\"\");\n"  
-                                 + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
-                    + "               setDynamicCollection(\"\");\n"
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
 //                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
@@ -145,6 +148,7 @@ public class SaveBuilder {
                     + "               setDynamicDatabase(\"\");\n"  
                                  + "               MongoCollection<Document> collection = database.getCollection(mongodbCollectionValue);\n"
                     + "               setDynamicCollection(\"\");\n"
+     
                     + "               " + autoincrementWhileSentence
                     + "               " + autoSetField + "\n"
 //                    + "               if (findByPk(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(repositoryData.getFieldPk()) + "()).isPresent()) { \n"
