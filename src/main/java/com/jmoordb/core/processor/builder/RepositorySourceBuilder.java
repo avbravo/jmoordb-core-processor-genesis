@@ -125,6 +125,7 @@ public class RepositorySourceBuilder {
         builder.append(IndexBuilder.listCollectionNames(repositoryData));
         
         builder.append(ConnectionBuilder.getCollection(repositoryData));
+        builder.append(InitBuilder.init(repositoryData));
  
             
         return this;
