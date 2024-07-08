@@ -109,14 +109,16 @@ public class RepositorySourceBuilderUtil {
             Java EE
                  */
                 code += "import javax.enterprise.context.ApplicationScoped;\n"
-                        + "import javax.inject.Inject;\n";
+                        + "import javax.inject.Inject;\n"
+                        + "import javax.annotation.PostConstruct;\n";
 
             } else {
                 /**
                  * Jakarta EE
                  */
                 code += "import jakarta.enterprise.context.ApplicationScoped;\n"
-                        + "import jakarta.inject.Inject;\n";
+                        + "import jakarta.inject.Inject;\n"
+                        + "import jakarta.annotation.PostConstruct;\n";
 
             }
             /**
