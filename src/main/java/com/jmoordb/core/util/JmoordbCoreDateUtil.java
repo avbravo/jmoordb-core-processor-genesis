@@ -987,7 +987,7 @@ public class JmoordbCoreDateUtil implements Serializable {
      * @param date
      * @return 
      */
-    public static Date datoToiSODateToDate(Date date) {
+    public static Date dateToiSODateToDate(Date date) {
         try {
              String df = JmoordbCoreDateUtil.iSODate(date);
                 df = df.replace("Z", "");            
