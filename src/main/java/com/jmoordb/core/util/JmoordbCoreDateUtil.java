@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -978,6 +979,24 @@ public class JmoordbCoreDateUtil implements Serializable {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return dateFormat.format(date);
+    }
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc=" Date datoToiSODateToDate(Date date)"> 
+    /**
+     * Convierte de Date a IsoDate a Date
+     * @param date
+     * @return 
+     */
+    public static Date datoToiSODateToDate(Date date) {
+        try {
+             String df = JmoordbCoreDateUtil.iSODate(date);
+                df = df.replace("Z", "");            
+                SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date dateconverter = isoFormat.parse(df);
+                return dateconverter;
+        } catch (Exception e) {
+        }
+        return new Date();
     }
 // </editor-fold>
 
