@@ -89,7 +89,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
                         count++;
                         break;
@@ -97,7 +97,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
 
                         count++;
@@ -219,7 +219,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
 
                         count++;

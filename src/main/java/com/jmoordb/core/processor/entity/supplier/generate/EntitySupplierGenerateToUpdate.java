@@ -26,6 +26,7 @@ import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbedde
  * @author avbravo
  */
 public interface EntitySupplierGenerateToUpdate {
+
     // <editor-fold defaultstate="collapsed" desc="StringBuilder toUpdate(EntityData entityData, List<EntityField> entityFieldList, Element element)">
     public static StringBuilder toUpdate(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
@@ -33,27 +34,26 @@ public interface EntitySupplierGenerateToUpdate {
             Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
-
             String sentence = "\t \n";
 
             String cast = "";
             String getMethod = "";
             Integer count = 0;
             String coma = "\n";
-            String caracterComa=",";
+            String caracterComa = ",";
             for (EntityField entityField : entityFieldList) {
-                 if((count +1)== entityFieldList.size()){
-                     caracterComa="";
-                    
-                 }
-                 
+                if ((count + 1) == entityFieldList.size()) {
+                    caracterComa = "";
+
+                }
+
                 switch (entityField.getAnnotationType()) {
-                   
+
                     case EMBEDDED:
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + EntitySupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
+                        sentence += coma + EntitySupplierEmbeddedBuilder.toUpdate(entityData, entityField, caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -61,12 +61,11 @@ public interface EntitySupplierGenerateToUpdate {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                            
 
-                           sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
-                           
-                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
+
+                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -75,9 +74,9 @@ public interface EntitySupplierGenerateToUpdate {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                           sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -85,16 +84,22 @@ public interface EntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
+                        } else {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
+                        }
+
                         count++;
                         break;
                     case COLUMN:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
+                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
 
                         count++;
                         break;
@@ -128,17 +133,12 @@ public interface EntitySupplierGenerateToUpdate {
     }
 
     // </editor-fold>
-   
-    
-    
-    
     // <editor-fold defaultstate="collapsed" desc="StringBuilder toUpdateList(EntityData entityData, List<EntityField> entityFieldList, Element element)">
     public static StringBuilder toUpdateList(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
-
 
             String sentence = "\t \n";
 
@@ -148,25 +148,23 @@ public interface EntitySupplierGenerateToUpdate {
             String upper = JmoordbCoreUtil.letterToUpper(entityData.getEntityName());
             String lower = JmoordbCoreUtil.letterToLower(entityData.getEntityName());
 
-        
-      
             String cast = "";
             String getMethod = "";
             Integer count = 0;
 //            String coma = "\\n \\\"";
             String coma = "\n ";
-                String caracterComa=",";
+            String caracterComa = ",";
             for (EntityField entityField : entityFieldList) {
-                 if((count + 1) == entityFieldList.size()){
-                     caracterComa="";
-                   
-                 }
+                if ((count + 1) == entityFieldList.size()) {
+                    caracterComa = "";
+
+                }
                 switch (entityField.getAnnotationType()) {
                     case EMBEDDED:
                         if (count > 0) {
                             coma = "\n";
                         }
-                        sentence += coma + EntitySupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
+                        sentence += coma + EntitySupplierEmbeddedBuilder.toUpdate(entityData, entityField, caracterComa);
                         count++;
                         break;
                     case REFERENCED:
@@ -176,13 +174,13 @@ public interface EntitySupplierGenerateToUpdate {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                          //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
+                            //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
 //                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
-                          sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
-                            
+
 //                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
-                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -193,13 +191,13 @@ public interface EntitySupplierGenerateToUpdate {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                          //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
+                            //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
 //                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
-                          sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
-                            
+
 //                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element,caracterComa,Boolean.FALSE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -207,16 +205,23 @@ public interface EntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
+                          if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
+                          }else{
+                               getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
+                          }
+                        
+                       
                         count++;
                         break;
                     case COLUMN:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
+                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                        sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")" + caracterComa + "\n";
 
                         count++;
                         break;
@@ -224,7 +229,6 @@ public interface EntitySupplierGenerateToUpdate {
                 }
 
             }
-
 
             sentence += "\t\n";
             String code
@@ -236,8 +240,8 @@ public interface EntitySupplierGenerateToUpdate {
                     + "\t\t Bson update_ = Filters.empty();\n"
                     + "\t\t\tupdate_ = Updates.combine(\n"
                     + sentence + "\n"
-                       + "        );" + "\n"
-                    + "\t\tbsonList_.add(update_);\n "+ "\n"
+                    + "        );" + "\n"
+                    + "\t\tbsonList_.add(update_);\n " + "\n"
                     + "       }\n"
                     + "         } catch (Exception e) {\n"
                     + "              MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
@@ -255,10 +259,4 @@ public interface EntitySupplierGenerateToUpdate {
     }
 
     // </editor-fold>
-
-    
-    
-    
-    
-    
 }

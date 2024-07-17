@@ -60,15 +60,15 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                         break;
                     case ID:
                         cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(viewViewEntityField.getNameOfMethod()) + "(" + cast + ");\n";
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                         break;
                     case COLUMN:
                         if (viewViewEntityField.getReturnType().equals(ReturnType.DATE)) {
                             cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(viewViewEntityField.getNameOfMethod()) + "(" + cast + ");\n";
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
                             cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(viewViewEntityField.getNameOfMethod()) + "(" + cast + ");\n";
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                         }
 
                         break;

@@ -151,6 +151,7 @@ public class EntitySupplierBuilderUtil {
                     + "* MongoDB\n"
                     + "*/\n"
                     + "import org.bson.Document;\n"
+                    + "import org.bson.types.ObjectId;\n"
                     + "import com.mongodb.client.model.Filters;\n"
                     + "import com.mongodb.client.model.Updates;\n"
                     + "import org.bson.conversions.Bson;\n"

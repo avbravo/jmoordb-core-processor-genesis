@@ -18,6 +18,9 @@ public interface SupplierCastConverterBuilder {
             if (returnTypeString.startsWith("java.lang.String")) {
                 return "document_.getString(\"" + fieldName + "\")";
             }
+            if (returnTypeString.startsWith("org.bson.types.ObjectId")) {
+                return "document_.getString(\"" + fieldName + "\")";
+            }
             if (returnTypeString.startsWith("java.lang.Integer")) {
                 return "document_.getInteger(\"" + fieldName + "\")";
             }

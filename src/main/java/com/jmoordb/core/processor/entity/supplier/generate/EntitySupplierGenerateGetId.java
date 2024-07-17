@@ -35,8 +35,14 @@ public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocu
                 switch (entityField.getAnnotationType()) {
                   
                     case ID:
-                        cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod().replace("_", "").trim()) +"(" + cast + ");\n";
+                            }else{
+                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                         sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "(" + cast + ");\n";
+                            }
+                       
                         break;
                   
 

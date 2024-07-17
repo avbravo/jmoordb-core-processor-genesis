@@ -34,7 +34,6 @@ public interface EntitySupplierGenerateToDocument {
             Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
 
-
             String sentence = "\t \n";
 
             String cast = "";
@@ -57,11 +56,10 @@ public interface EntitySupplierGenerateToDocument {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element, Boolean.TRUE);
                         } else {
-                            
 
-                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.FALSE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -70,29 +68,34 @@ public interface EntitySupplierGenerateToDocument {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element, Boolean.TRUE);
                         } else {
-                            
-                           sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.FALSE);
+
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element, Boolean.FALSE);
                         }
                         count++;
                         break;
-                        
-                        
-                        
+
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        } else {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        }
+
                         count++;
                         break;
                     case COLUMN:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
                         count++;
@@ -165,10 +168,9 @@ public interface EntitySupplierGenerateToDocument {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            
-                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element, Boolean.TRUE);
                         } else {
-                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element,Boolean.FALSE);
+                            sentence += " " + coma + EntitySupplierReferencedUtil.referencedProcess(entityData, entityField, element, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -177,10 +179,10 @@ public interface EntitySupplierGenerateToDocument {
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.TRUE);
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element, Boolean.TRUE);
                         } else {
-                            
-                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element,Boolean.FALSE);
+
+                            sentence += " " + coma + EntitySupplierViewReferencedUtil.viewReferencedProcess(entityData, entityField, element, Boolean.FALSE);
                         }
                         count++;
                         break;
@@ -188,15 +190,23 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+
+                        } else {
+
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        }
+
                         count++;
                         break;
                     case COLUMN:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
                         count++;
@@ -231,6 +241,4 @@ public interface EntitySupplierGenerateToDocument {
     }
 
     // </editor-fold>
-   
-    
 }

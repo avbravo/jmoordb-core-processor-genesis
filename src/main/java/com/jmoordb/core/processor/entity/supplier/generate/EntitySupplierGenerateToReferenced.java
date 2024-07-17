@@ -19,19 +19,13 @@ import javax.lang.model.element.Element;
  * @author avbravo
  */
 public interface EntitySupplierGenerateToReferenced {
-   
-    
-    
-    
-    
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element)">
 
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element)">
     public static StringBuilder toReferenced(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
             Boolean haveEmbedded = EntitySupplierBuilderUtil.haveEmbedded(entityFieldList);
             Boolean haveReferenced = EntitySupplierBuilderUtil.haveReferenced(entityFieldList);
-
 
             String sentence = "\t \n";
 
@@ -47,8 +41,15 @@ public interface EntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod().replace("_", "").trim()) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+
+                        } else {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        }
+
                         count++;
                         break;
 
@@ -79,8 +80,7 @@ public interface EntitySupplierGenerateToReferenced {
     }
 
     // </editor-fold>
-    
-     // <editor-fold defaultstate="collapsed" desc="StringBuilder toRefernecedList(EntityData entityData, List<EntityField> entityFieldList, Element element)">
+    // <editor-fold defaultstate="collapsed" desc="StringBuilder toRefernecedList(EntityData entityData, List<EntityField> entityFieldList, Element element)">
     public static StringBuilder toReferencedList(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
         try {
@@ -104,16 +104,22 @@ public interface EntitySupplierGenerateToReferenced {
             String coma = "\n ";
             for (EntityField entityField : entityFieldList) {
                 switch (entityField.getAnnotationType()) {
-                  
+
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod().replace("_", "").trim()) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        } else {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                            sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        }
+
                         count++;
                         break;
-                   
+
                 }
 
             }
@@ -143,8 +149,4 @@ public interface EntitySupplierGenerateToReferenced {
     }
 
     // </editor-fold>
-    
-    
-   
-    
 }

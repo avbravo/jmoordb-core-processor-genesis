@@ -1843,7 +1843,7 @@ public class ProcessorUtil {
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="method()">
+    // <editor-fold defaultstate="collapsed" desc="Boolean isIncludeTime(RepositoryMethod repositoryMethod, String parameter)">
     private static Boolean isIncludeTime(RepositoryMethod repositoryMethod, String parameter) {
         Boolean result = Boolean.FALSE;
         try {

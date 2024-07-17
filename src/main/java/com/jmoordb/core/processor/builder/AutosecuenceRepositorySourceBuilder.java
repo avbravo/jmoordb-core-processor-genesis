@@ -417,6 +417,7 @@ public class AutosecuenceRepositorySourceBuilder {
             addImport("com.mongodb.client.MongoCollection");
             addImport("com.mongodb.client.MongoCursor");
             addImport("org.bson.Document");
+          addImport("org.bson.types.ObjectId");
             addImport("com.mongodb.client.model.FindOneAndUpdateOptions");
             addImport("com.mongodb.client.model.ReturnDocument");
             addImport("com.mongodb.client.result.InsertOneResult");

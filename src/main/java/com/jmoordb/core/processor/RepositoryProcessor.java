@@ -50,7 +50,7 @@ public class RepositoryProcessor extends AbstractProcessor {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Repository.class);
 
             List<String> uniqueIdCheckList = new ArrayList<>();
-         
+
             for (Element element : elements) {
                 Repository repository = element.getAnnotation(Repository.class);
 
@@ -74,16 +74,20 @@ public class RepositoryProcessor extends AbstractProcessor {
                     /**
                      * Obtener datos del repository para RepositoryData
                      */
-                    
+                    System.out.println("\t{test}\n\n\n");
+                    System.out.println("\t{test}{======================================================}");
+                    System.out.println("\t{test}[Analizando] " + element.toString());
                     RepositoryData repositoryData = repositoryDataSupplier.get(RepositoryData::new, element);
 //                  
                     if (uniqueIdCheckList.contains(repositoryData.getNameOfEntity())) {
+                        System.out.println("\t{test}[Repository has should be uniquely defined] " + element);
                         error("Repository has should be uniquely defined", element);
                         error = true;
                     }
 
                     error = !checkIdValidity(repositoryData.getNameOfEntity(), element);
                     if (!error) {
+                        System.out.println("\t{test}[repositoryData.getNameOfEntity()]  " + repositoryData.getNameOfEntity());
                         uniqueIdCheckList.add(repositoryData.getNameOfEntity());
                         try {
 
@@ -94,9 +98,10 @@ public class RepositoryProcessor extends AbstractProcessor {
                         }
                     }
                 }
+                System.out.println("\t{test}{======================================================}");
             }
             MessagesUtil.box("Proceso de analisis finalizado");
-              return true;
+            return true;
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
 

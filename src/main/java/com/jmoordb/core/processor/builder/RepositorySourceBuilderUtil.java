@@ -148,6 +148,7 @@ public class RepositorySourceBuilderUtil {
                     + "import com.mongodb.client.model.UpdateOptions;\n"
                     + "import com.mongodb.client.ListIndexesIterable;\n"
                     + "import com.mongodb.client.MongoIterable;\n"
+                    + "import org.bson.types.ObjectId;\n"
                     + "/**\n"
                     + "* Java\n"
                     + "*/\n"

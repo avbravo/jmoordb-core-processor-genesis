@@ -56,16 +56,29 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                         }
                         break;
                     case ID:
-                        cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "(" + cast + ");\n";
+                       
+                  
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                          
+                            /**
+                             * Convierte _id to id para las llaves primarias de
+                             * tipo ObjectId _id
+                             */
+                            cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                        } else {
+                            cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                        }
+
                         break;
                     case COLUMN:
                         if (entityField.getReturnType().equals(ReturnType.DATE)) {
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "(" + cast + ");\n";
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "(" + cast + ");\n";
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                         }
 
                         break;
@@ -78,15 +91,14 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                     = ProcessorUtil.editorFold(entityData) + "\n\n"
                     + "    public " + entityData.getEntityName() + " get(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "= s.get(); \n"
-                              + "            Boolean show = true;\n"
+                    + "            Boolean show = true;\n"
                     + "        try {\n"
-
                     + "            if (showError.length != 0) {\n"
                     + "                show = showError[0];\n"
                     + "            }\n"
                     + sentence + "\n"
                     + "         } catch (Exception e) {\n"
-                   + "             if (show) {\n"
+                    + "             if (show) {\n"
                     + "                MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "             }\n"
                     + "         }\n"
