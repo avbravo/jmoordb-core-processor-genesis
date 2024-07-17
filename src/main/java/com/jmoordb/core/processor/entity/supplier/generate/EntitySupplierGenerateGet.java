@@ -65,7 +65,7 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                              * tipo ObjectId _id
                              */
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId((" + cast + ")));\n";
                         } else {
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                             sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
@@ -73,12 +73,22 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
 
                         break;
                     case COLUMN:
+                        
                         if (entityField.getReturnType().equals(ReturnType.DATE)) {
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                             sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
-                            cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                             if (entityField.getReturnType().equals(ReturnType.OBJECTID)) {
+                                  cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                             }else{
+                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n"; 
+                             }
+                                     
+                                    
+                            
+                           
                         }
 
                         break;

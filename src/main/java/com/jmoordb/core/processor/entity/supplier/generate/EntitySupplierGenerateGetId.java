@@ -1,11 +1,8 @@
 package com.jmoordb.core.processor.entity.supplier.generate;
 
-import com.jmoordb.core.annotation.enumerations.ReturnType;
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilderUtil;
-import com.jmoordb.core.processor.entity.supplier.embedded.EntitySupplierEmbeddedGetBuilder;
 
 import com.jmoordb.core.processor.fields.EntityField;
 import com.jmoordb.core.util.JmoordbCoreUtil;
@@ -13,8 +10,6 @@ import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
-import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedGetBuilder;
 
 public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocument {
 
@@ -37,10 +32,10 @@ public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocu
                     case ID:
                             if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
                                  cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod().replace("_", "").trim()) +"(" + cast + ");\n";
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) +"(new ObjectId((" + cast + ")));\n";
                             }else{
                                  cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "(" + cast + ");\n";
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                             }
                        
                         break;

@@ -1593,6 +1593,9 @@ public class ProcessorUtil {
             if (returnTypeField.startsWith("java.lang.Float")) {
                 return ReturnType.FLOAT;
             }
+            if (returnTypeField.startsWith("org.bson.types.ObjectId")) {
+                return ReturnType.OBJECTID;
+            }
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
