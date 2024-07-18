@@ -1,21 +1,15 @@
 package com.jmoordb.core.processor.viewentity.supplier.generate;
 
-import com.jmoordb.core.annotation.enumerations.ReturnType;
-import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import static com.jmoordb.core.processor.builder.castconverter.SupplierCastConverterBuilder.castConverter;
 
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
-import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
-import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.viewentity.supplier.embedded.ViewEntitySupplierEmbeddedGetBuilder;
-import com.jmoordb.core.processor.viewentity.supplier.referenced.ViewEntitySupplierReferencedGetBuilder;
 
 public class ViewEntitySupplierGenerateGetId implements ViewEntitySupplierGenerateToDocument {
 
@@ -34,12 +28,17 @@ public class ViewEntitySupplierGenerateGetId implements ViewEntitySupplierGenera
             String cast = "";
             for (ViewEntityField viewViewEntityField : viewViewEntityFieldList) {
                 switch (viewViewEntityField.getAnnotationType()) {
-                  
+
                     case ID:
-                        cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(viewViewEntityField.getNameOfMethod()) + "(" + cast + ");\n";
+                        if (viewViewEntityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                        } else {
+                            cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(viewViewEntityField.getNameOfMethod()) + "(" + cast + ");\n";
+                        }
+
                         break;
-                 
 
                 }
 
@@ -49,9 +48,8 @@ public class ViewEntitySupplierGenerateGetId implements ViewEntitySupplierGenera
                     = ProcessorUtil.editorFoldId(viewViewEntityData) + "\n\n"
                     + "    public " + viewViewEntityData.getEntityName() + " getId(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(viewViewEntityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + "= s.get(); \n"
-                              + "            Boolean show = true;\n"
+                    + "            Boolean show = true;\n"
                     + "        try {\n"
-                    
                     + "            if (showError.length != 0) {\n"
                     + "                show = showError[0];\n"
                     + "            }\n"

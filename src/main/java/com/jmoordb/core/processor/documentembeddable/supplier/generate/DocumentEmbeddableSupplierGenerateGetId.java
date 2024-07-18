@@ -32,8 +32,14 @@ public class DocumentEmbeddableSupplierGenerateGetId {
                 switch (documentEmbeddableField.getAnnotationType()) {
                     
                     case ID:
-                        cast = castConverter(documentEmbeddableField.getReturnTypeValue(), documentEmbeddableField.getNameOfMethod());
+                         if (documentEmbeddableField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                              cast = castConverter(documentEmbeddableField.getReturnTypeValue(), documentEmbeddableField.getNameOfMethod());
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(new ObjectId(" + cast + "));\n";
+                         }else{
+                              cast = castConverter(documentEmbeddableField.getReturnTypeValue(), documentEmbeddableField.getNameOfMethod());
                         sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(" + cast + ");\n";
+                         }
+                       
                         break;
                    
 

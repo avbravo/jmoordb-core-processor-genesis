@@ -11,6 +11,7 @@ import com.jmoordb.core.util.MessagesUtil;
  * @author avbravo
  */
 public interface SupplierCastConverterBuilder {
+
     // <editor-fold defaultstate="collapsed" desc="String castConverter(String returnTypeString, String fieldName)">
     public static String castConverter(String returnTypeString, String fieldName) {
         String result = "";
@@ -19,6 +20,9 @@ public interface SupplierCastConverterBuilder {
                 return "document_.getString(\"" + fieldName + "\")";
             }
             if (returnTypeString.startsWith("org.bson.types.ObjectId")) {
+                return "document_.getString(\"" + fieldName + "\")";
+            }
+            if (returnTypeString.startsWith("java.util.UUID")) {
                 return "document_.getString(\"" + fieldName + "\")";
             }
             if (returnTypeString.startsWith("java.lang.Integer")) {
@@ -49,6 +53,9 @@ public interface SupplierCastConverterBuilder {
             }
             if (returnTypeString.contains("ObjectId")) {
                 return "document_.getObjectId(\"" + fieldName + "\")";
+            }
+            if (returnTypeString.startsWith("java.util.UUID")) {
+                return "document_.getString(\"" + fieldName + "\")";
             }
             if (returnTypeString.contains("Float")) {
                 return "(Float)document_.get(\"" + fieldName + "\")";
@@ -82,6 +89,5 @@ public interface SupplierCastConverterBuilder {
         return result;
     }
     // </editor-fold>
-   
-   
+
 }

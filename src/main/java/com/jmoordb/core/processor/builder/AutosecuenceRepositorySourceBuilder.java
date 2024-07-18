@@ -426,6 +426,7 @@ public class AutosecuenceRepositorySourceBuilder {
              */
             addImport("java.util.ArrayList");
             addImport("java.util.List");
+            addImport("java.util.UUID");
             addImport("java.util.Optional");
             addImport("java.util.function.Supplier");
             /**

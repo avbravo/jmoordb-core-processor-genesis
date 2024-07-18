@@ -56,13 +56,8 @@ public interface ViewEntitySupplierGenerateToDocument {
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierReferencedUtil.referencedProcess(viewEntityData, viewEntityField, element,Boolean.TRUE);
                         } else {
-                            
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierReferencedUtil.referencedProcess(viewEntityData, viewEntityField, element,Boolean.FALSE);
                         }
                         count++;
@@ -72,13 +67,8 @@ public interface ViewEntitySupplierGenerateToDocument {
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.viewReferencedProcess(viewEntityData, viewEntityField, element,Boolean.TRUE);
                         } else {
-                            
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.viewReferencedProcess(viewEntityData, viewEntityField, element,Boolean.FALSE);
                         }
                         count++;
@@ -99,7 +89,7 @@ public interface ViewEntitySupplierGenerateToDocument {
                             coma = "\\n, \\\"";
                         }
                         getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
-                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
+                        sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "\"," + getMethod + ");\n";
 
                         count++;
                         break;
@@ -152,13 +142,12 @@ public interface ViewEntitySupplierGenerateToDocument {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
             for (ViewEntityField viewEntityField : viewEntityFieldList) {
                 switch (viewEntityField.getAnnotationType()) {
                     case EMBEDDED:
                         if (count > 0) {
-//                            coma = "\n,";
                             coma = "\n";
                         }
                         sentence += coma + ViewEntitySupplierEmbeddedBuilder.embeddedProcess(viewEntityData, viewEntityField);
@@ -166,34 +155,25 @@ public interface ViewEntitySupplierGenerateToDocument {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            //sentence += SupplierEmbeddedBuilder.embeddedProcess(viewEntityData, viewEntityField);
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierReferencedUtil.referencedProcess(viewEntityData, viewEntityField, element,Boolean.TRUE);
                         } else {
-                            //   sentence += "+// Embedded of" + coma + referencedProcess(viewEntityData, viewEntityField, element);
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
+
                             sentence += " " + coma + ViewEntitySupplierReferencedUtil.referencedProcess(viewEntityData, viewEntityField, element,Boolean.FALSE);
                         }
                         count++;
                         break;
                     case VIEWREFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                            //sentence += SupplierEmbeddedBuilder.embeddedProcess(viewEntityData, viewEntityField);
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.viewReferencedProcess(viewEntityData, viewEntityField, element,Boolean.TRUE);
                         } else {
-                            //   sentence += "+// Embedded of" + coma + referencedProcess(viewEntityData, viewEntityField, element);
-//                            sentence += " " + coma + referencedProcess(viewEntityData, viewEntityField, element);
+
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.viewReferencedProcess(viewEntityData, viewEntityField, element,Boolean.FALSE);
                         }
                         count++;
@@ -202,7 +182,7 @@ public interface ViewEntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -220,7 +200,6 @@ public interface ViewEntitySupplierGenerateToDocument {
 
             }
             sentence += "\t\tdocumentList_.add(document_);\n";
-//            sentence += "\treturn document;\n";
             sentence += "\t\n";
             String code
                     = ProcessorUtil.editorFoldToDocumentList(viewEntityData) + "\n\n"

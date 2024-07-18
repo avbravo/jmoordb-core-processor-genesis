@@ -130,13 +130,13 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
             Boolean haveEmbedded = DocumentEmbeddableSupplierBuilderUtil.haveEmbedded(documentEmbeddableFieldList);
             Boolean haveReferenced = DocumentEmbeddableSupplierBuilderUtil.haveReferenced(documentEmbeddableFieldList);
 
-//            String sentence = "\t Document document = new Document();\n";
+
             String sentence = "\t \n";
 
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
 
             /**
@@ -160,17 +160,15 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
-//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                           
                            sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
                         } else {
                            
-//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.FALSE);
                         }
                         count++;
@@ -182,12 +180,12 @@ public interface DocumentEmbeddableSupplierGenerateToDocument {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                           // sentence += embeddedProcess(documentEmbeddableData, entityField);
-//                           sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+                           
+
                            sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.TRUE);
                         } else {
                            
-//                            sentence += " " + coma + referencedProcess(documentEmbeddableData, entityField, element);
+
                             sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.referencedProcess(documentEmbeddableData, entityField, element,Boolean.FALSE);
                         }
                         count++;

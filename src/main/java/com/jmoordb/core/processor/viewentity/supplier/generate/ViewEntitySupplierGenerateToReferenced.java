@@ -47,7 +47,7 @@ public interface ViewEntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -100,7 +100,7 @@ public interface ViewEntitySupplierGenerateToReferenced {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
             for (ViewEntityField viewEntityField : viewEntityFieldList) {
                 switch (viewEntityField.getAnnotationType()) {
@@ -109,7 +109,7 @@ public interface ViewEntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -118,7 +118,7 @@ public interface ViewEntitySupplierGenerateToReferenced {
 
             }
             sentence += "\t\tdocumentList_.add(document_);\n";
-//            sentence += "\treturn document;\n";
+
             sentence += "\t\n";
             String code
                     = ProcessorUtil.editorFoldToReferencedList(viewEntityData) + "\n\n"

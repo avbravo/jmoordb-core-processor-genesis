@@ -28,7 +28,7 @@ import javax.lang.model.element.Element;
  * @author avbravo
  */
 public interface SupplierToJsonBuilder {
-    
+
     // <editor-fold defaultstate="collapsed" desc="StringBuilder toJson(EntityData entityData, List<EntityField> entityFieldList, Element element)">
     public static StringBuilder toJson(EntityData entityData, List<EntityField> entityFieldList, Element element) {
         StringBuilder builder = new StringBuilder();
@@ -59,20 +59,26 @@ public interface SupplierToJsonBuilder {
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
                             //sentence += embeddedProcess(entityData, entityField);
-                              sentence += "+" + coma + EntitySupplierReferencedBuilder.referencedProcess(entityData, entityField, element);
+                            sentence += "+" + coma + EntitySupplierReferencedBuilder.referencedProcess(entityData, entityField, element);
                         } else {
                             sentence += "+" + coma + EntitySupplierReferencedBuilder.referencedProcess(entityData, entityField, element);
                         }
                         count++;
                         break;
-                   
+
                     case ID:
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tsb.append(\"" + coma + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\\\":\\\"\").append(" + getMethod + ").append(\"\\\"\");\n";
 
-                        getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
-                        sentence += "\t\tsb.append(\"" + coma + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\\\":\\\"\").append(" + getMethod + ").append(\"\\\"\");\n";
+                        } else {
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            sentence += "\t\tsb.append(\"" + coma + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\\\":\\\"\").append(" + getMethod + ").append(\"\\\"\");\n";
+                        }
+
                         count++;
                         break;
                     case COLUMN:
@@ -115,5 +121,4 @@ public interface SupplierToJsonBuilder {
     }
 
     // </editor-fold>
-   
 }

@@ -82,8 +82,6 @@ public interface EntitySupplierEmbeddedBuilder {
         String fieldUpper = JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod());
         String fieldLower = JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod());
         //Si es una lista
-//        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + " .$[]\"," + fieldLower + "Supplier.toUpdate(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
-//        String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + ".$[]\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         String sourceSupplier = "\t\tUpdates.set(\"" + fieldLower + "\"," + fieldLower + "Supplier.toDocument(" + entityNameLower + ".get" + fieldUpper + "())" + ")"+ caracterComa+"\n";
         
         try {

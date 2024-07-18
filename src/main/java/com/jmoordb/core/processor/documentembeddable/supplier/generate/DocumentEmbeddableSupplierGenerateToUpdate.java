@@ -65,12 +65,11 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            //sentence += embeddedProcessUpdate(documentEmbeddableData, entityField,caracterComa);
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
+                            
                             sentence += " " + coma +DocumentEmbeddableSupplierReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
                             
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(documentEmbeddableData, entityField, element,caracterComa);
+
                             sentence += " " + coma + DocumentEmbeddableSupplierReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
@@ -87,7 +86,7 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                            sentence += " " + coma +DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.TRUE);
                         } else {
                            
-//                         
+                         
                             sentence += " " + coma + DocumentEmbeddableSupplierViewReferencedUtil.toUpdate(documentEmbeddableData, entityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
@@ -96,6 +95,7 @@ public interface DocumentEmbeddableSupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                        
                         getMethod = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
                         count++;

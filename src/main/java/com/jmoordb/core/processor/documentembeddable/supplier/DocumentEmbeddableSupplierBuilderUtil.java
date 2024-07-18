@@ -142,6 +142,7 @@ public class DocumentEmbeddableSupplierBuilderUtil {
                     + "* Jmoordb\n"
                     + "*/\n"
                     + "import com.jmoordb.core.util.MessagesUtil;\n"
+                    + "import java.util.UUID;\n"
                     + "import com.jmoordb.core.annotation.Referenced;\n"
                     + "import com.jmoordb.core.annotation.enumerations.TypePK;\n"
                     + "import com.jmoordb.core.annotation.enumerations.TypeReferenced;\n"

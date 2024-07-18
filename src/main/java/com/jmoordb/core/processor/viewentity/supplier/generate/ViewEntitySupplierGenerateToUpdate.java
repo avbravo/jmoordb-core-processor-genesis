@@ -80,7 +80,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                            sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.TRUE);
                         } else {
                            
-//                         
+
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
@@ -157,7 +157,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
                 String caracterComa=",";
             for (ViewEntityField viewEntityField : viewEntityFieldList) {
@@ -175,34 +175,26 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                          //  sentence += SupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
-//                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(viewEntityData, viewEntityField, element,caracterComa);
                           sentence += " " + coma + ViewEntitySupplierReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.TRUE);
                         } else {
                             
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(viewEntityData, viewEntityField, element,caracterComa);
                             sentence += " " + coma + ViewEntitySupplierReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
                         break;
                     case VIEWREFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
                             coma = "\n";
                         }
                         if (viewEntityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                          //  sentence += SupplierEmbeddedBuilder.toUpdate(viewEntityData, viewEntityField,caracterComa);
-//                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(viewEntityData, viewEntityField, element,caracterComa);
+                          
                           sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.TRUE);
                         } else {
-                            
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(viewEntityData, viewEntityField, element,caracterComa);
                             sentence += " " + coma + ViewEntitySupplierViewReferencedUtil.toUpdate(viewEntityData, viewEntityField, element,caracterComa,Boolean.FALSE);
                         }
                         count++;
@@ -211,7 +203,7 @@ public interface ViewEntitySupplierGenerateToUpdate {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(viewEntityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
                         sentence += "\t\tUpdates.set(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ")"+ caracterComa+"\n";
                         count++;
                         break;

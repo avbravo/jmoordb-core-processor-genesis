@@ -37,6 +37,9 @@ public class DateSupplierBuilder {
             if (returnTypeString.contains("ObjectId")) {
                 return "document.getObjectId(\"" + fieldName + "\")";
             }
+             if (returnTypeString.startsWith("java.util.UUID")) {
+                return "document_.getString(\"" + fieldName + "\")";
+            }
             if (returnTypeString.contains("Float")) {
                 return "(Float)document.get(\"" + fieldName + "\")";
             }

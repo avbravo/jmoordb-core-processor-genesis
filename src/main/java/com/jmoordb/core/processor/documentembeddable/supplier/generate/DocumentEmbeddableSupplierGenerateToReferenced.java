@@ -42,7 +42,7 @@ public interface DocumentEmbeddableSupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -89,7 +89,7 @@ public interface DocumentEmbeddableSupplierGenerateToReferenced {
             String cast = "";
             String getMethod = "";
             Integer count = 0;
-//            String coma = "\\n \\\"";
+
             String coma = "\n ";
 
             /**
@@ -108,7 +108,7 @@ public interface DocumentEmbeddableSupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                        getMethod = JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -118,11 +118,11 @@ public interface DocumentEmbeddableSupplierGenerateToReferenced {
 
             }
             sentence += "\t\tdocumentList_.add(document_);\n";
-//            sentence += "\treturn document;\n";
+
             sentence += "\t\n";
             String code
                     = ProcessorUtil.editorFoldToReferencedList(documentEmbeddableData) + "\n\n"
-                    + "    public List<Document> toReferenced(List<" + documentEmbeddableData.getDocumentEmbeddableName() + "> " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + "List) {\n"
+                    + "    public List<Document> toReferenced(List<" + documentEmbeddableData.getDocumentEmbeddableName() + "> " + JmoordbCoreUtil.letterToLower(JmoordbCoreUtil.rename_IdToId(documentEmbeddableData.getDocumentEmbeddableName())) + "List) {\n"
                     + "        List<Document> documentList_ = new ArrayList<>();\n"
                     + "        try {\n"
                     + sentence + "\n"

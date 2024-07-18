@@ -59,16 +59,30 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                         }
                         break;
                     case ID:
-                        cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
+                        if (viewViewEntityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+
+                            cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                        } else {
+
+                            cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
+                        }
                         break;
                     case COLUMN:
                         if (viewViewEntityField.getReturnType().equals(ReturnType.DATE)) {
                             cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
                             sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
-                            cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            
+                            if (viewViewEntityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                                   cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                            }else{
+                                   cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
                             sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
+                            }
+                         
                         }
 
                         break;
@@ -81,9 +95,8 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                     = ProcessorUtil.editorFold(viewViewEntityData) + "\n\n"
                     + "    public " + viewViewEntityData.getEntityName() + " get(Supplier<? extends " + viewViewEntityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(viewViewEntityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + "= s.get(); \n"
-                              + "            Boolean show = true;\n"
+                    + "            Boolean show = true;\n"
                     + "        try {\n"
-                    
                     + "            if (showError.length != 0) {\n"
                     + "                show = showError[0];\n"
                     + "            }\n"

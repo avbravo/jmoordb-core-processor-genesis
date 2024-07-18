@@ -155,6 +155,7 @@ public class RepositorySourceBuilderUtil {
                     + "import java.util.ArrayList;\n"
                     + "import java.util.List;\n"
                     + "import java.util.Set;\n"
+                    + "import java.util.UUID;\n"
                     + "import java.util.Optional;\n"
                     + "import java.util.function.Supplier;\n"
                     + "import com.jmoordb.core.util.MessagesUtil;\n"

@@ -169,34 +169,28 @@ public interface EntitySupplierGenerateToUpdate {
                         break;
                     case REFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
+
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
-
-                            //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
-//                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                             sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
-
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
                             sentence += " " + coma + EntitySupplierReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;
                         break;
                     case VIEWREFERENCED:
                         if (count > 0) {
-//                            coma = "\n, \"";
+
                             coma = "\n";
                         }
                         if (entityField.getTypeReferenced().equals(TypeReferenced.EMBEDDED)) {
 
-                            //  sentence += SupplierEmbeddedBuilder.toUpdate(entityData, entityField,caracterComa);
-//                          sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
+                            
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.TRUE);
                         } else {
 
-//                            sentence += " " + coma + SupplierReferencedBuilder.toUpdate(entityData, entityField, element,caracterComa);
+
                             sentence += " " + coma + EntitySupplierViewReferencedUtil.toUpdate(entityData, entityField, element, caracterComa, Boolean.FALSE);
                         }
                         count++;

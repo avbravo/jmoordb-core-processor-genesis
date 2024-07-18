@@ -92,11 +92,11 @@ public interface EntitySupplierEmbeddedGetBuilder {
                 return result;
             }
             result += "\n\t// Embedded of [" + fieldLower + "]\n";
-            //   result += "\t" + entityNameLower + ".set" + fieldUpper + "((" + fieldUpper + ") document_.get(\"" + fieldLower + "\"));\n";
+            
             result += "\t" + entityNameLower + ".set" + fieldUpper + "(" + fieldLower + "Supplier.get("
                     + fieldUpper + "::new,(Document) document_.get(\"" + fieldLower + "\")));\n";
 
-//            animal.setEspecie(especieSupplier.get(Especie::new, (Document) document_.get("especie")));
+
             result += sourceSupplier;
 
         } catch (Exception e) {
