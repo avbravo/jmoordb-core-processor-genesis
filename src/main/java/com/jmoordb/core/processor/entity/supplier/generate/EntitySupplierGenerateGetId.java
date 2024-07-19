@@ -28,18 +28,23 @@ public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocu
             String cast = "";
             for (EntityField entityField : entityFieldList) {
                 switch (entityField.getAnnotationType()) {
-                  
+
                     case ID:
-                            if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
-                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) +"(new ObjectId((" + cast + ")));\n";
-                            }else{
-                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
-                            }
-                       
+                        if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
+                            cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId((" + cast + ")));\n";
+                        } else {
+                              if (entityField.getReturnTypeValue().equals("java.util.UUID")) {
+                                   cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(UUID.fromString(" + cast + "));\n";
+                              }else{
+                                   cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                              }
+                           
+                        }
+
                         break;
-                  
 
                 }
 
@@ -49,15 +54,14 @@ public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocu
                     = ProcessorUtil.editorFoldId(entityData) + "\n\n"
                     + "    public " + entityData.getEntityName() + " getId(Supplier<? extends " + entityData.getEntityName() + "> s, Document document_, Boolean... showError) {\n"
                     + "        " + JmoordbCoreUtil.letterToUpper(entityData.getEntityName()) + " " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + "= s.get(); \n"
-                              + "            Boolean show = true;\n"
+                    + "            Boolean show = true;\n"
                     + "        try {\n"
-
                     + "            if (showError.length != 0) {\n"
                     + "                show = showError[0];\n"
                     + "            }\n"
                     + sentence + "\n"
                     + "         } catch (Exception e) {\n"
-                   + "             if (show) {\n"
+                    + "             if (show) {\n"
                     + "                MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + \" \" + e.getLocalizedMessage());\n"
                     + "             }\n"
                     + "         }\n"

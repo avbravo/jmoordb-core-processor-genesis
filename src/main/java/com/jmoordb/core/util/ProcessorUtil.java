@@ -1596,6 +1596,9 @@ public class ProcessorUtil {
             if (returnTypeField.startsWith("org.bson.types.ObjectId")) {
                 return ReturnType.OBJECTID;
             }
+            if (returnTypeField.startsWith("java.util.UUID")) {
+                return ReturnType.UUID;
+            }
 
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());

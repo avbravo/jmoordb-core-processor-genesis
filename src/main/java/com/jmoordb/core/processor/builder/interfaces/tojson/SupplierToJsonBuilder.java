@@ -75,6 +75,7 @@ public interface SupplierToJsonBuilder {
                             sentence += "\t\tsb.append(\"" + coma + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\\\":\\\"\").append(" + getMethod + ").append(\"\\\"\");\n";
 
                         } else {
+                            
                             getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                             sentence += "\t\tsb.append(\"" + coma + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\\\":\\\"\").append(" + getMethod + ").append(\"\\\"\");\n";
                         }

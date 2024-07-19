@@ -138,6 +138,7 @@ public class DocumentEmbeddableSupplierBuilderUtil {
                     + "import java.util.List;\n"
                     + "import java.util.Optional;\n"
                     + "import java.util.function.Supplier;\n"
+                    + "import java.util.UUID;\n"
                     + "/**\n"
                     + "* Jmoordb\n"
                     + "*/\n"

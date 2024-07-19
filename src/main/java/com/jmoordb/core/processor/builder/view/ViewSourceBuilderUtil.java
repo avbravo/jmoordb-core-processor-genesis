@@ -158,6 +158,8 @@ public class ViewSourceBuilderUtil {
                     + "import com.jmoordb.core.model.Sorted;\n"
                     + "import com.jmoordb.core.util.JmoordbCoreDateUtil;\n"
                     + "import java.util.HashSet;\n"
+                    + "import java.util.UUID;\n"
+                    
                     + "import " + viewData.getNameOfPackage() + viewData.getNameOfEntity() + ";\n\n\n"
                     + "// </editor-fold>\n";
             builder.append(code);
