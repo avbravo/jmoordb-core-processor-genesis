@@ -10,8 +10,9 @@ Codigo base para los proyectos que implementan jmoordb-core-procesor
 
 
 ```
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @GeneratedValue(strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+@GeneratedValue(strategy = GenerationType.AUTO)
 
 GenerationType.AUTO
 GenerationType.IDENTITY
