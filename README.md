@@ -10,33 +10,6 @@ Codigo base para los proyectos que implementan jmoordb-core-procesor
 
 
 ```
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-
-@GeneratedValue(strategy = GenerationType.AUTO)
-
-GenerationType.AUTO
-GenerationType.IDENTITY
-GenerationType.SEQUENCE
-GenerationType.TABLE
-
-GenerationType.AUTO
-AUTO is the default strategy for @GeneratedValue. If we just want to have a primary key, we can use the AUTO strategy. The JPA provider will choose an appropriate strategy for the underlying database:
-
-
- GenerationType.IDENTITY
-The IDENTITY strategy relies on the database auto-increment column. The database generates the primary key after each insert operation. JPA assigns the primary key value after performing the insert operation or upon transaction commit:
-
-GenerationType.SEQUENCE
-By using the SEQUENCE strategy, JPA generates the primary key using a database sequence. We first need to create a sequence on the database side before applying this strategy:
-
-
-The TABLE strategy generates the primary key from a table and works the same regardless of the underlying database.
-
-We need to create a generator table on the database side to generate the primary key. The table should at least have two columns: one column to represent the generator’s name and another to store the primary key value.
-
-
-
-```
 ObjectID layout
 0	1	2	3|	4	5	6|	7	8	9	10	11
 time	machine	pid	inc
@@ -82,6 +55,19 @@ private ObjectId _id;
 * Aplica a @Entity @ViewEntity @Embeddadble
 
 
+## Convertir un String a ObjectId
+```java
+ ObjectId id =new ObjectId(stringvalue);
+
+```
+
+### Convertir Un ObjectId to String
+
+```java
+
+id.toString();
+
+``
 
 ## Soporte para UUID
 
@@ -105,3 +91,5 @@ ObjectId _id;
 
 // convertir a UUID
 idUuidMongo.setId(UUID.fromString(document_.getString("id")));
+
+

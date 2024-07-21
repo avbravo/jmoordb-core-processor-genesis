@@ -34,7 +34,8 @@ public class DocumentEmbeddableSupplierGenerateGetId {
                     case ID:
                          if (documentEmbeddableField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
                               cast = castConverter(documentEmbeddableField.getReturnTypeValue(), documentEmbeddableField.getNameOfMethod());
-                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(new ObjectId(" + cast + "));\n";
+//                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(new ObjectId(" + cast + "));\n";
+                        sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(" + cast + ");\n";
                          }else{
                               cast = castConverter(documentEmbeddableField.getReturnTypeValue(), documentEmbeddableField.getNameOfMethod());
                         sentence += "\n\t " + JmoordbCoreUtil.letterToLower(documentEmbeddableData.getDocumentEmbeddableName()) + ".set" + JmoordbCoreUtil.letterToUpper(documentEmbeddableField.getNameOfMethod()) + "(" + cast + ");\n";

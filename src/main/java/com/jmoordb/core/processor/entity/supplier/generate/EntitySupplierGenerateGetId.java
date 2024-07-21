@@ -32,7 +32,8 @@ public class EntitySupplierGenerateGetId implements EntitySupplierGenerateToDocu
                     case ID:
                         if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId((" + cast + ")));\n";
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "((" + cast + "));\n";
+//                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId((" + cast + ")));\n";
                         } else {
                               if (entityField.getReturnTypeValue().equals("java.util.UUID")) {
                                    cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());

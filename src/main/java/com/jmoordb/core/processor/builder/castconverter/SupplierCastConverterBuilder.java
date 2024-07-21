@@ -20,8 +20,11 @@ public interface SupplierCastConverterBuilder {
                 return "document_.getString(\"" + fieldName + "\")";
             }
             if (returnTypeString.startsWith("org.bson.types.ObjectId")) {
-                return "document_.getString(\"" + fieldName + "\")";
+                return "document_.getObjectId(\"" + fieldName + "\")";
             }
+//            if (returnTypeString.startsWith("org.bson.types.ObjectId")) {
+//                return "document_.getString(\"" + fieldName + "\")";
+//            }
             if (returnTypeString.startsWith("java.util.UUID")) {
                 return "document_.getString(\"" + fieldName + "\")";
             }

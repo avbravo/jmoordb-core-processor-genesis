@@ -76,7 +76,7 @@ public class SaveBuilder {
             String insertValidation = "";
             String insertOne = "";
             if (repositoryData.getGenerationType().equals(GenerationType.OBJECTID)) {
-                insertOne = "               Document doc = medicionSupplier.toDocument(medicion);\n"
+                insertOne = "               Document doc ="+repositoryData.getNameOfEntityLower()+ "Supplier.toDocument("+repositoryData.getNameOfEntityLower()+");\n"
                         + "                 doc.remove(\"_id\");\n"
                         + "                 InsertOneResult insertOneResult = collection.insertOne(doc);\n";
             } else {
@@ -193,7 +193,7 @@ public class SaveBuilder {
             String insertValidation = "";
             String insertOne = "";
             if (repositoryData.getGenerationType().equals(GenerationType.OBJECTID)) {
-                insertOne = "             Document doc = medicionSupplier.toDocument(medicion);\n"
+               insertOne = "               Document doc ="+repositoryData.getNameOfEntityLower()+ "Supplier.toDocument("+repositoryData.getNameOfEntityLower()+");\n"
                         + "            doc.remove(\"_id\");\n"
                         + "            InsertOneResult insertOneResult = collection.insertOne(doc);\n";
             } else {

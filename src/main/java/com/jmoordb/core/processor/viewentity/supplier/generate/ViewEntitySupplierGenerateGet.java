@@ -62,7 +62,8 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                         if (viewViewEntityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
 
                             cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+//                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
 
                             cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
@@ -77,7 +78,8 @@ public class ViewEntitySupplierGenerateGet implements ViewEntitySupplierGenerate
                             
                             if (viewViewEntityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
                                    cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
-                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+//                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(new ObjectId(" + cast + "));\n";
+                            sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
                             }else{
                                    cast = castConverter(viewViewEntityField.getReturnTypeValue(), viewViewEntityField.getNameOfMethod());
                             sentence += "\t" + JmoordbCoreUtil.letterToLower(viewViewEntityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewViewEntityField.getNameOfMethod())) + "(" + cast + ");\n";
