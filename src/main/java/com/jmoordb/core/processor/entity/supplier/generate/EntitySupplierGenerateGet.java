@@ -13,7 +13,6 @@ import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 import java.util.List;
 import javax.lang.model.element.Element;
-import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.entity.supplier.referenced.EntitySupplierReferencedGetBuilder;
 
 public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocument {
@@ -64,7 +63,6 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                              * tipo ObjectId _id
                              */
                             cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
-//                            sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(new ObjectId((" + cast + ")));\n";
                             sentence += "\n\t " + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "((" + cast + "));\n";
                         } else {
                             if (entityField.getReturnTypeValue().equals("java.util.UUID")) {
@@ -85,7 +83,6 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                             sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                         } else {
                             if (entityField.getReturnType().equals(ReturnType.OBJECTID)) {
-//                                cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                                 sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                             } else {

@@ -4,6 +4,7 @@ import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerat
 import com.jmoordb.core.annotation.Entity;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGenerateGetId;
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGeneratePutObjectId;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.fields.EntityField;
 import java.util.*;
@@ -55,6 +56,10 @@ public class EntitySupplierBuilder {
             builder.append(EntitySupplierGenerateGet.get(entityData, entityFieldList, element));
             //getId
             builder.append(EntitySupplierGenerateGetId.getId(entityData, entityFieldList, element));
+            //putObjectId
+            builder.append(EntitySupplierGeneratePutObjectId.putObjectId(entityData, entityFieldList, element));
+            
+            
 //toDocument
             builder.append(EntitySupplierGenerateToDocument.toDocument(entityData, entityFieldList, element));
             builder.append(EntitySupplierGenerateToDocument.toDocumentList(entityData, entityFieldList, element));

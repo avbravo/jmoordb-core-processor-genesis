@@ -1,6 +1,7 @@
 package com.jmoordb.core.processor.viewentity.supplier;
 
 import com.jmoordb.core.annotation.ViewEntity;
+import com.jmoordb.core.processor.entity.supplier.generate.EntitySupplierGeneratePutObjectId;
 import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.processor.methods.ViewEntityField;
@@ -8,6 +9,7 @@ import java.util.*;
 import javax.lang.model.element.Element;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGet;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateGetId;
+import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGeneratePutObjectId;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToDocument;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToReferenced;
 import com.jmoordb.core.processor.viewentity.supplier.generate.ViewEntitySupplierGenerateToUpdate;
@@ -53,6 +55,9 @@ public class ViewEntitySupplierBuilder {
 //get
             builder.append(ViewEntitySupplierGenerateGet.get(viewEntityData, viewEntityFieldList, element));
 //getId
+ //putObjectId
+            builder.append(ViewEntitySupplierGeneratePutObjectId.putObjectId(viewEntityData, viewEntityFieldList, element));
+            
             builder.append(ViewEntitySupplierGenerateGetId.getId(viewEntityData, viewEntityFieldList, element));
 //toDocument
             builder.append(ViewEntitySupplierGenerateToDocument.toDocument(viewEntityData, viewEntityFieldList, element));

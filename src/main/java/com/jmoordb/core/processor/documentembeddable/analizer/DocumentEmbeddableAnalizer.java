@@ -110,6 +110,12 @@ public class DocumentEmbeddableAnalizer {
                     if (documentEmbeddableField.getReturnTypeValue().equals("java.util.UUID")) {
                         messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " UUID not available for @Column..", element);
                     }
+                    if (documentEmbeddableField.getReturnTypeValue().equals("org.bson.types.ObjectId")) {
+                        messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " ObjectId not available for @Column..", element);
+                    }
+                    
+                    
+                    
                 }
                 Embedded embedded = v.getAnnotation(Embedded.class);
                 if (embedded != null) {

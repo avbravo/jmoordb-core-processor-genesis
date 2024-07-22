@@ -9,7 +9,7 @@ import com.jmoordb.core.util.JmoordbCoreUtil;
 import com.jmoordb.core.util.MessagesUtil;
 import com.jmoordb.core.util.ProcessorUtil;
 
-public class SaveBuilder {
+public class SaveBuilderOld {
 
     public static final String LINE_BREAK = System.getProperty("line.separator");
     public static String TAB = "   ";
@@ -28,21 +28,14 @@ public class SaveBuilder {
             if (repositoryMethod.getReturnType().equals(ReturnType.OPTIONAL)) {
                 if (repositoryData.getGenerationType().equals(GenerationType.OBJECTID)) {
 
-                    calculateReturn += "\t\tString _id =insertOneResult.getInsertedId().asObjectId().toString();\n";
-                    calculateReturn += "\t\t_id = _id.substring(_id.indexOf(\"{\")+1,_id.indexOf(\"}\"));\n";
-                    calculateReturn += "\t\t_id = _id.replace(\"value=\", \"\");\n";
-                    calculateReturn += "\t\t" + repositoryData.getNameOfEntityLower() + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(repositoryData.getFieldPk())) + "(new ObjectId(_id));\n";
-
-                } else {
-                    calculateReturn += "\tif (haveId) {\n";
                     calculateReturn += "\tString _id =insertOneResult.getInsertedId().asObjectId().toString();\n";
-                    calculateReturn += "         _id = _id.substring(_id.indexOf(\"{\")+1,_id.indexOf(\"}\"));\n";
-                    calculateReturn += "         _id = _id.replace(\"value=\", \"\");\n";
-                    calculateReturn += "         " + repositoryData.getNameOfEntityLower() + " = " + repositoryData.getNameOfEntityLower() + "Supplier.putObjectId(" + repositoryData.getNameOfEntityLower() + ",_id);\n";
-
-                    calculateReturn += "\t}\n";
+                    calculateReturn += "\t_id = _id.substring(_id.indexOf(\"{\")+1,_id.indexOf(\"}\"));\n";
+                    calculateReturn += "\t_id = _id.replace(\"value=\", \"\");\n";
+                    calculateReturn += "\t" + repositoryData.getNameOfEntityLower() + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(repositoryData.getFieldPk())) + "(new ObjectId(_id));\n";
                 }
 
+                calculateReturn += "return Optional.of(" + repositoryData.getNameOfEntityLower() + ");";
+                catchReturn = "return Optional.empty();";
             } else {
                 if (repositoryMethod.getReturnType().equals(ReturnType.BOOLEAN)) {
                     calculateReturn = "return Boolean.TRUE;";
@@ -95,13 +88,7 @@ public class SaveBuilder {
                         + "               }\n"
                         + "               " + elseAutoincrementWhileSentence;
 
-                insertOne = "              Boolean haveId = Boolean.FALSE;\n";
-                insertOne += "               Document doc =" + repositoryData.getNameOfEntityLower() + "Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + ");\n"
-                        + "             if(doc.containsKey(\"_id\")){\n"
-                        + "                   haveId = Boolean.TRUE;\n"
-                        + "                doc.remove(\"_id\");\n"
-                        + "             }\n"
-                        + "            InsertOneResult insertOneResult = collection.insertOne(doc);\n";
+                insertOne = "               InsertOneResult insertOneResult = collection.insertOne(" + repositoryData.getNameOfEntityLower() + "Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + "));\n";
             }
             String code
                     = ProcessorUtil.editorFold(repositoryMethod, param) + "\n\n"
@@ -159,19 +146,10 @@ public class SaveBuilder {
 
             if (repositoryData.getGenerationType().equals(GenerationType.OBJECTID)) {
 
-                calculateReturn += "\t\tString _id =insertOneResult.getInsertedId().asObjectId().toString();\n";
+                calculateReturn += "\tString _id =insertOneResult.getInsertedId().asObjectId().toString();\n";
                 calculateReturn += "\t\t_id = _id.substring(_id.indexOf(\"{\")+1,_id.indexOf(\"}\"));\n";
                 calculateReturn += "\t\t_id = _id.replace(\"value=\", \"\");\n";
                 calculateReturn += "\t\t" + repositoryData.getNameOfEntityLower() + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(repositoryData.getFieldPk())) + "(new ObjectId(_id));\n";
-
-            } else {
-                calculateReturn += "\tif (haveId) {\n";
-                calculateReturn += "\tString _id =insertOneResult.getInsertedId().asObjectId().toString();\n";
-                calculateReturn += "         _id = _id.substring(_id.indexOf(\"{\")+1,_id.indexOf(\"}\"));\n";
-                calculateReturn += "         _id = _id.replace(\"value=\", \"\");\n";
-                calculateReturn += "         " + repositoryData.getNameOfEntityLower() + " = " + repositoryData.getNameOfEntityLower() + "Supplier.putObjectId(" + repositoryData.getNameOfEntityLower() + ",_id);\n";
-
-                calculateReturn += "\t}\n";
             }
 
             calculateReturn += "return Optional.of(" + repositoryData.getNameOfEntityLower() + ");";
@@ -208,18 +186,12 @@ public class SaveBuilder {
                 }
 
             }
-
-            if (!repositoryData.getIsAutogenerated()) {
-                returnAutoincrementWhileSentence = "  return Optional.of(" + repositoryData.getNameOfEntityLower() + ");\n";
-            }
-
             String insertValidation = "";
             String insertOne = "";
-
             if (repositoryData.getGenerationType().equals(GenerationType.OBJECTID)) {
                 insertOne = "               Document doc =" + repositoryData.getNameOfEntityLower() + "Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + ");\n"
-                        + "            doc.remove(\"_id\");\n"
-                        + "            InsertOneResult insertOneResult = collection.insertOne(doc);\n";
+                        + "                 doc.remove(\"_id\");\n"
+                        + "                 InsertOneResult insertOneResult = collection.insertOne(doc);\n";
             } else {
 
                 insertValidation = "               if (findByPkInternal(" + repositoryData.getNameOfEntityLower() + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(repositoryData.getFieldPk())) + "(),mongodbDatabaseValue,  mongodbCollectionValue).isPresent()) { \n"
@@ -229,13 +201,7 @@ public class SaveBuilder {
                         + "               }\n"
                         + "               " + elseAutoincrementWhileSentence;
 
-                insertOne = "              Boolean haveId = Boolean.FALSE;\n";
-                insertOne += "               Document doc =" + repositoryData.getNameOfEntityLower() + "Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + ");\n"
-                        + "             if(doc.containsKey(\"_id\")){\n"
-                        + "                   haveId = Boolean.TRUE;\n"
-                        + "                   doc.remove(\"_id\");\n"
-                        + "             }\n"
-                        + "            InsertOneResult insertOneResult = collection.insertOne(doc);\n";
+                insertOne = "               InsertOneResult insertOneResult = collection.insertOne(" + repositoryData.getNameOfEntityLower() + "Supplier.toDocument(" + repositoryData.getNameOfEntityLower() + "));\n";
             }
 
             String text = " public Optional<" + nameOfEntityUpper + "> save(" + nameOfEntityUpper + " " + nameOfEntityLower + ")";
