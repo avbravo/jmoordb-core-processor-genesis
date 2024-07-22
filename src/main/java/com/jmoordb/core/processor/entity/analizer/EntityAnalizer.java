@@ -113,9 +113,7 @@ public class EntityAnalizer {
                  if(entityField.getReturnTypeValue().equals("org.bson.types.ObjectId") && !entityField.getNameOfMethod().equals("_id")){
                     messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " Fields of type ObjectId as primary key must be named _id...", element); 
                  }
-                 System.out.println("____________________________________________________________________________");
-                System.out.println("\t {} " + entityField.toString());
-                System.out.println("____________________________________________________________________________");
+                
             }
             Column column = v.getAnnotation(Column.class);
             if (column != null) {

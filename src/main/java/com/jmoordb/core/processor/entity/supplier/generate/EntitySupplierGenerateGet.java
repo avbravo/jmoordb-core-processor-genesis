@@ -86,8 +86,10 @@ public class EntitySupplierGenerateGet implements EntitySupplierGenerateToDocume
                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                                 sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
                             } else {
+                               
                                 cast = castConverter(entityField.getReturnTypeValue(), entityField.getNameOfMethod());
                                 sentence += "\t" + JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".set" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "(" + cast + ");\n";
+                              
                             }
 
                         }

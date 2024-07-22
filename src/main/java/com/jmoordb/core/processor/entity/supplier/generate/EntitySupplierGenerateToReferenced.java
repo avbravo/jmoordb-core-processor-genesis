@@ -5,6 +5,7 @@
 package com.jmoordb.core.processor.entity.supplier.generate;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
+import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilderUtil;
 import com.jmoordb.core.processor.fields.EntityField;
@@ -41,12 +42,17 @@ public interface EntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                           String sentenceToString="";
+                         if (entityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
                         if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
                         } else {
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         }
 
@@ -109,11 +115,16 @@ public interface EntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                           String sentenceToString="";
+                         if (entityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
                         if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         } else {
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(entityField.getNameOfMethod()) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         }
 

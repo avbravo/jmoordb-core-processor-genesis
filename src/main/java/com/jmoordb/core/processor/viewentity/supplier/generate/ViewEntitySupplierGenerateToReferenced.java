@@ -5,6 +5,7 @@
 package com.jmoordb.core.processor.viewentity.supplier.generate;
 
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
+import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.processor.methods.ViewEntityField;
 import com.jmoordb.core.processor.model.ViewEntityData;
 import com.jmoordb.core.processor.viewentity.supplier.ViewEntitySupplierBuilderUtil;
@@ -47,7 +48,12 @@ public interface ViewEntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
+                            String sentenceToString="";
+                         if (viewEntityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()"+sentenceToString;
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;
@@ -109,7 +115,12 @@ public interface ViewEntitySupplierGenerateToReferenced {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()";
+                            String sentenceToString="";
+                         if (viewEntityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
+                        getMethod = JmoordbCoreUtil.letterToLower(viewEntityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(viewEntityField.getNameOfMethod())) + "()"+sentenceToString;
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(viewEntityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         count++;
                         break;

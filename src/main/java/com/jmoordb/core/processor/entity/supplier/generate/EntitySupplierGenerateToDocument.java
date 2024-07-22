@@ -8,6 +8,7 @@ import static com.jmoordb.core.annotation.enumerations.AnnotationType.COLUMN;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.EMBEDDED;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.ID;
 import static com.jmoordb.core.annotation.enumerations.AnnotationType.REFERENCED;
+import com.jmoordb.core.annotation.enumerations.ReturnType;
 import com.jmoordb.core.annotation.enumerations.TypeReferenced;
 import com.jmoordb.core.processor.entity.model.EntityData;
 import com.jmoordb.core.processor.entity.supplier.EntitySupplierBuilderUtil;
@@ -80,15 +81,28 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
-
+                        if(entityData.getEntityName().equals("Equipo")){
+                            System.out.println("entityField.getReturnType():"+entityField.getReturnType());
+                            if (entityField.getReturnType().equals(ReturnType.UUID)) {
+                                System.out.println("\t {es UUID}");
+                             
+                         }else{
+                                System.out.println("\t {no es UUID}");
+                            }
+                        }
+  String sentenceToString="";
+                         if (entityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
                         if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
                             
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         } else {
                             
                             
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         }
 
@@ -98,6 +112,7 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                      
                         getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
@@ -193,13 +208,18 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                          String sentenceToString="";
+                         if (entityField.getReturnType().equals(ReturnType.UUID)) {
+                             sentenceToString=".toString()";
+                             
+                         }
                         if (entityField.getNameOfMethod().toLowerCase().trim().equals("_id")) {
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
                         } else {
 
-                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
+                            getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()"+sentenceToString;
                             sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
                         }
 
@@ -209,6 +229,8 @@ public interface EntitySupplierGenerateToDocument {
                         if (count > 0) {
                             coma = "\\n, \\\"";
                         }
+                      
+                        
                         getMethod = JmoordbCoreUtil.letterToLower(entityData.getEntityName()) + ".get" + JmoordbCoreUtil.letterToUpper(JmoordbCoreUtil.rename_IdToId(entityField.getNameOfMethod())) + "()";
                         sentence += "\t\tdocument_.put(\"" + JmoordbCoreUtil.letterToLower(entityField.getNameOfMethod()) + "\"," + getMethod + ");\n";
 
