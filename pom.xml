@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.avbravo.jmoordb.core.processor</groupId>
     <artifactId>jmoordb-core-processor-genesis</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1-alpha-1</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.jmoordb-core-annotations>2.0.0</version.jmoordb-core-annotations>
+        <version.jmoordb-core-annotations>2.0.1</version.jmoordb-core-annotations>
     </properties>
     
     <developers>

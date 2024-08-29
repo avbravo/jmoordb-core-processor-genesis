@@ -119,7 +119,7 @@ public class EntityAnalizer {
             if (column != null) {
                 entityField.setAnnotationType(AnnotationType.COLUMN);
                 entityField.setColumn(column);
-                if(entityField.getReturnTypeValue().equals("java.util.UUID")){
+                     if(entityField.getReturnTypeValue().equals("java.util.UUID")){
                      messager.printMessage(Diagnostic.Kind.ERROR, "Field: " + nameOfField + " UUID not available for @Column..", element);
                 }
             }

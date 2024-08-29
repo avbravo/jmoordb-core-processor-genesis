@@ -29,6 +29,7 @@ public class EntityField {
     private Referenced referenced;
    private ViewReferenced viewReferenced;
     private TypeReferenced typeReferenced;
+    
 
     public EntityField(String returnTypeValue, String nameOfMethod, AnnotationType annotationType, ReturnType returnType, Id id, Column column, Embedded embedded, Referenced referenced, ViewReferenced viewReferenced, TypeReferenced typeReferenced) {
         this.returnTypeValue = returnTypeValue;
