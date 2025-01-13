@@ -21,6 +21,7 @@ import java.util.*;
 
 import static com.jmoordb.core.annotation.app.MyAnnotationTypeProcessor.mirror;
 import com.jmoordb.core.annotation.autosecuence.AutosecuenceRepository;
+import com.jmoordb.core.annotation.enumerations.ConfigEngine;
 import com.jmoordb.core.processor.analizer.autosecuencerepository.AutosecuenceRepositoryAnalizer;
 import com.jmoordb.core.processor.builder.AutosecuenceRepositorySourceBuilder;
 import com.jmoordb.core.util.MessagesUtil;
@@ -40,7 +41,6 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         try {
-           
 
             if (annotations.size() == 0) {
                 return false;
@@ -54,8 +54,6 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
 
             for (Element element : elements) {
                 AutosecuenceRepository autosecuenceRepository = element.getAnnotation(AutosecuenceRepository.class);
-                
-                
 
                 TypeMirror typeEntity = mirror(autosecuenceRepository::entity);
                 if (typeEntity == null) {
@@ -76,15 +74,14 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
 
                     String nameOfEntity = ProcessorUtil.nameOfEntity(typeEntity);
                     String packageOfEntity = ProcessorUtil.packageOfTypeMirror(typeEntity);
-                   
-/**
- * Aqui verificaba que solo existiera uno
- */
+
+                    /**
+                     * Aqui verificaba que solo existiera uno
+                     */
 //                    if (uniqueIdCheckList.contains(nameOfEntity)) {
 //                        error("AutosecuenceRepository has should be uniquely defined", element);
 //                        error = true;
 //                    }
-
                     error = !checkIdValidity(nameOfEntity, element);
                     if (!error) {
                         uniqueIdCheckList.add(nameOfEntity);
@@ -98,7 +95,7 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
                     }
                 }
             }
-        
+
         } catch (Exception e) {
             MessagesUtil.error(MessagesUtil.nameOfClassAndMethod() + " error() " + e.getLocalizedMessage());
 
@@ -120,8 +117,7 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
             String packageOfEntity = ProcessorUtil.packageOfTypeMirror(typeEntity);
             // Valida el nombre de la base de datos
             String database = autosecuenceRepository.database().trim();
-            
-           
+
             if (autosecuenceRepository.database().equals("")) {
 //                database = "{mongodb.database}";
                 database = "{mongodb.jmoordb}";
@@ -130,7 +126,6 @@ public class AutosecuenceRepositoryProcessor extends AbstractProcessor {
             }
             String collection = autosecuenceRepository.collection().trim();
 
-            
             /**
              *
              * Procesa el contenido de la interface
@@ -158,29 +153,34 @@ Import
             /*
         Clase
              */
-            autosecuenceRepositorySourceBuilder.defineClass("public class ", interfaceName + "Impl", " implements " + interfaceName);
-
+            if (autosecuenceRepository.configEngine() == ConfigEngine.MICROPROFILE_CONFIG) {
+                autosecuenceRepositorySourceBuilder.defineClass("public class ", interfaceName + "Impl", " implements " + interfaceName);
+            } else {
+                autosecuenceRepositorySourceBuilder.defineClass("public class ", interfaceName + "Impl", " implements " + interfaceName+" , JettraConfig");
+            }
             /**
              * Inject
              */
             autosecuenceRepositorySourceBuilder.addEditorFoldStart("inject");
             autosecuenceRepositorySourceBuilder.addInject("MongoClient mongoClient");
 
-            autosecuenceRepositorySourceBuilder.addComment("Microprofile Config");
-            autosecuenceRepositorySourceBuilder.addInject("Config config");
+            if (autosecuenceRepository.configEngine() == ConfigEngine.MICROPROFILE_CONFIG) {
+                autosecuenceRepositorySourceBuilder.addComment("Microprofile Config");
+                autosecuenceRepositorySourceBuilder.addInject("Config config");
 
-            autosecuenceRepositorySourceBuilder.addInjectConfigProperties(database, "String", "mongodbDatabase");
+                autosecuenceRepositorySourceBuilder.addInjectConfigProperties(database, "String", "mongodbDatabase");
+
+            } else {
+                autosecuenceRepositorySourceBuilder.addComment("Jettra Config");
+                autosecuenceRepositorySourceBuilder.addJettraConfigProperties(database, "String", "mongodbDatabase");
+            }
             autosecuenceRepositorySourceBuilder.addSentence("String mongodbCollection = \"" + collection + "\";");
-
-            
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
-            
-            
-            
-              /**
+
+            /**
              * generate()
              */
-               autosecuenceRepositorySourceBuilder.addEditorFoldStart("Long generate(String database, String collection)");
+            autosecuenceRepositorySourceBuilder.addEditorFoldStart("Long generate(String database, String collection)");
             autosecuenceRepositorySourceBuilder.generate();
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
 
@@ -190,33 +190,28 @@ Import
             autosecuenceRepositorySourceBuilder.addEditorFoldStart("Optional<Autosequence> findOneAndUpdate(String databasecollection)");
             autosecuenceRepositorySourceBuilder.findOneAndUpdate();
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
-            
+
             /**
              * get
              */
-
             autosecuenceRepositorySourceBuilder.addEditorFoldStart("Autosequence get(Supplier<? extends Autosequence> s, Document document)");
             autosecuenceRepositorySourceBuilder.get();
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
             /**
-             *save
+             * save
              */
 
             autosecuenceRepositorySourceBuilder.addEditorFoldStart("Optional<Autosequence> save(Autosequence autosequence)");
             autosecuenceRepositorySourceBuilder.save();
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
-            
+
             /**
              * findById()
              */
-               autosecuenceRepositorySourceBuilder.addEditorFoldStart("Optional<Autosequence> findById(String databasecollection)");
+            autosecuenceRepositorySourceBuilder.addEditorFoldStart("Optional<Autosequence> findById(String databasecollection)");
             autosecuenceRepositorySourceBuilder.findById();
             autosecuenceRepositorySourceBuilder.addEditorFoldEnd();
-            
-          
-            
-            
-            
+
 //        //nested builder class
             AutosecuenceRepositorySourceBuilder builder = null;
             String builderClassName = null;
@@ -403,7 +398,7 @@ Import
     private void checkMethod(ExecutableElement method) {
         // check for valid name
         String name = method.getSimpleName().toString();
-     
+
 //        if (!name.startsWith("set")) {
 //            printError(method, "setter name must start with \"set\"");
 //        } else if (name.length() == 3) {
@@ -413,7 +408,6 @@ Import
 //                printError(method, "character following \"set\" must be upper case");
 //            }
 //        }
-
         // check, if setter is public
 //        if (!method.getModifiers().contains(Modifier.PUBLIC)) {
 //            printError(method, "setter must be public");

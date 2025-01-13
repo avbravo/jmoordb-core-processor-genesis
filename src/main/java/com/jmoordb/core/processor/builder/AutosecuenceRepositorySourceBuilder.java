@@ -1,6 +1,7 @@
 package com.jmoordb.core.processor.builder;
 
 import com.jmoordb.core.annotation.autosecuence.AutosecuenceRepository;
+import com.jmoordb.core.annotation.enumerations.ConfigEngine;
 import com.jmoordb.core.annotation.enumerations.JakartaSource;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
 import com.jmoordb.core.util.MessagesUtil;
@@ -151,6 +152,23 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(TAB + javatype + " " + javaNameVariable)
                 .append(";")
                 .append(LINE_BREAK);
+        return this;
+    }
+// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="AutosecuenceRepositorySourceBuilder addInjectConfigProperties(String injectSentence)">
+
+    /**
+     * Injecta config properties
+     *
+     * @param injectSentence
+     * @return
+     */
+    public AutosecuenceRepositorySourceBuilder addJettraConfigProperties(String nameConfigProperty, String javatype, String javaNameVariable) {
+        builder.append(LINE_BREAK)
+                .append(TAB + javatype + " " + javaNameVariable +" = getMicroprofileConfig(\"" + nameConfigProperty + "\")")
+                .append(";")
+                .append(LINE_BREAK);
+
         return this;
     }
 // </editor-fold>
@@ -390,24 +408,25 @@ public class AutosecuenceRepositorySourceBuilder {
                  */
                 addImport("javax.enterprise.context.ApplicationScoped");
                 addImport("javax.inject.Inject");
-//                addImport("javax.json.bind.Jsonb");
-//                addImport("javax.json.bind.JsonbBuilder");
+
             } else {
                 /**
                  * Jakarta EE
                  */
                 addImport("jakarta.enterprise.context.ApplicationScoped");
                 addImport("jakarta.inject.Inject");
-//                addImport("jakarta.json.bind.Jsonb");
-//                addImport("jakarta.json.bind.JsonbBuilder");
 
             }
             /**
-             * Microprofile
+             * Microprofile Config Engine
              */
+            if (autosecuencerepository.configEngine() == ConfigEngine.MICROPROFILE_CONFIG) {
+                addImport("org.eclipse.microprofile.config.Config");
+                addImport("org.eclipse.microprofile.config.inject.ConfigProperty");
+            } else {
+                addImport("com.jettraserver.config.JettraConfig");
+            }
 
-            addImport("org.eclipse.microprofile.config.Config");
-            addImport("org.eclipse.microprofile.config.inject.ConfigProperty");
             /**
              * MongoDB
              */
@@ -417,7 +436,7 @@ public class AutosecuenceRepositorySourceBuilder {
             addImport("com.mongodb.client.MongoCollection");
             addImport("com.mongodb.client.MongoCursor");
             addImport("org.bson.Document");
-          addImport("org.bson.types.ObjectId");
+            addImport("org.bson.types.ObjectId");
             addImport("com.mongodb.client.model.FindOneAndUpdateOptions");
             addImport("com.mongodb.client.model.ReturnDocument");
             addImport("com.mongodb.client.result.InsertOneResult");
@@ -475,7 +494,6 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
-                 
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Document iterable = collection.findOneAndUpdate(doc, inc, findOneAndUpdateOptions);")
                 .append(LINE_BREAK)
@@ -552,7 +570,6 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
-                 
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " InsertOneResult insertOneResult = collection.insertOne(Document.parse(autosequence.toJson(autosequence)));")
                 .append(LINE_BREAK)
@@ -594,7 +611,6 @@ public class AutosecuenceRepositorySourceBuilder {
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " MongoCollection<Document> collection = database.getCollection(mongodbCollection);")
                 .append(LINE_BREAK)
-                 
                 .append(LINE_BREAK)
                 .append(TAB + TAB + TAB + TAB + " Document doc = collection.find(eq(\"databasecollection\", databasecollection)).allowDiskUse(Boolean.TRUE).first();")
                 .append(LINE_BREAK)

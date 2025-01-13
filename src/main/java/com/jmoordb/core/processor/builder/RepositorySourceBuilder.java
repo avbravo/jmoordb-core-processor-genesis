@@ -1,5 +1,6 @@
 package com.jmoordb.core.processor.builder;
 
+import com.jmoordb.core.annotation.enumerations.ConfigEngine;
 import com.jmoordb.core.annotation.repository.Repository;
 import com.jmoordb.core.processor.model.RepositoryData;
 import com.jmoordb.core.processor.internal.MethodProcessorAux;
@@ -29,7 +30,14 @@ public class RepositorySourceBuilder {
         builder.append(sourceUtilBuilder.definePackage(repositoryData.getPackageOfRepository()));
         builder.append(sourceUtilBuilder.generateImport(repository, repositoryData));
         builder.append(sourceUtilBuilder.addApplicationScoped());
-        builder.append(sourceUtilBuilder.defineClass(repositoryData.getInterfaceName() + "Impl", " implements " + repositoryData.getInterfaceName()));
+        
+        if(repository.configEngine() == ConfigEngine.MICROPROFILE_CONFIG){
+             builder.append(sourceUtilBuilder.defineClass(repositoryData.getInterfaceName() + "Impl", " implements " + repositoryData.getInterfaceName()));
+        }else{
+             builder.append(sourceUtilBuilder.defineClass(repositoryData.getInterfaceName() + "Impl", " implements " + repositoryData.getInterfaceName() + ", JettraConfig"));
+
+        }
+       
 
         builder.append(sourceUtilBuilder.inject(repository, repositoryData, database, collection));
         builder.append(sourceUtilBuilder.exception(repository, repositoryData, database, collection));
