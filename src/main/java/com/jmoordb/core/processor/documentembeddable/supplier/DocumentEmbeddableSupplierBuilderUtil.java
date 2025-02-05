@@ -118,11 +118,20 @@ public class DocumentEmbeddableSupplierBuilderUtil {
                         + "import javax.inject.Inject;\n";
 
             } else {
-                /**
-                 * Jakarta EE
-                 */
-                code += "import jakarta.enterprise.context.RequestScoped;\n"
-                        + "import jakarta.inject.Inject;\n";
+                if (documentEmbeddable.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
+                    /**
+                     * Jakarta EE
+                     */
+                    code += "import jakarta.enterprise.context.RequestScoped;\n"
+                            + "import jakarta.inject.Inject;\n";
+                } else {
+                    /**
+                     * /**
+                     * Jettra
+                     */
+                    code += "import com.avbravo.jettraframework.cdi.RequestScoped;\n"
+                            + "import com.avbravo.jettraframework.cdi.Inject;\n";
+                }
 
             }
             /**
@@ -177,7 +186,7 @@ public class DocumentEmbeddableSupplierBuilderUtil {
 
             if (haveReferenced || haveViewReferenced) {
                 for (DocumentEmbeddableField ef : documentEmbeddableFieldList) {
-                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED) 
+                    if (ef.getAnnotationType().equals(AnnotationType.REFERENCED)
                             || ef.getAnnotationType().equals(AnnotationType.VIEWREFERENCED)) {
 
                         String packagePath = JmoordbCoreFileUtil.packageOfFileInProject(element, JmoordbCoreUtil.letterToUpper(ef.getNameOfMethod()) + "Repository.java");
