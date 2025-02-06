@@ -410,11 +410,22 @@ public class AutosecuenceRepositorySourceBuilder {
                 addImport("javax.inject.Inject");
 
             } else {
-                /**
+                if (autosecuencerepository.jakartaSource() == JakartaSource.JAKARTA) {
+                      /**
                  * Jakarta EE
                  */
                 addImport("jakarta.enterprise.context.ApplicationScoped");
                 addImport("jakarta.inject.Inject");
+                }else{
+                      /**
+                 * Jettra
+                 */
+                addImport("com.avbravo.jettraframework.cdi.ApplicationScoped");
+                addImport("com.avbravo.jettraframework.cdi.Inject");
+                }
+              
+                
+                
 
             }
             /**
@@ -424,7 +435,7 @@ public class AutosecuenceRepositorySourceBuilder {
                 addImport("org.eclipse.microprofile.config.Config");
                 addImport("org.eclipse.microprofile.config.inject.ConfigProperty");
             } else {
-                addImport("com.jettraserver.config.JettraConfig");
+                addImport("com.avbravo.jettraframework.config.JettraConfig");
             }
 
             /**

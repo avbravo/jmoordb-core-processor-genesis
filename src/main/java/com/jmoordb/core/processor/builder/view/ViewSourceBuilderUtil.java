@@ -115,11 +115,20 @@ public class ViewSourceBuilderUtil {
                         + "import javax.inject.Inject;\n";
 
             } else {
-                /**
+                 if (view.jakartaSource() == JakartaSource.JAKARTA) {
+                      /**
                  * Jakarta EE
                  */
                 code += "import jakarta.enterprise.context.ApplicationScoped;\n"
                         + "import jakarta.inject.Inject;\n";
+                 }else{
+                     /**
+                 * Jettra
+                 */
+                code += "import com.avbravo.jettraframework.cdi.ApplicationScoped;\n"
+                        + "import com.avbravo.jettraframework.cdi.Inject;\n";
+                 }
+                
 
 
             }

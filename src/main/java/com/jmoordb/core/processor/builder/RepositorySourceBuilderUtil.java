@@ -115,12 +115,22 @@ public class RepositorySourceBuilderUtil {
                         + "import javax.annotation.PostConstruct;\n";
 
             } else {
-                /**
+                if (repository.jakartaSource() == JakartaSource.JAKARTA) {
+                     /**
                  * Jakarta EE
                  */
                 code += "import jakarta.enterprise.context.ApplicationScoped;\n"
                         + "import jakarta.inject.Inject;\n"
                         + "import jakarta.annotation.PostConstruct;\n";
+                }else{
+                     /**
+                 * Jettra
+                 */
+                code += "import com.avbravo.jettraframework.cdi.ApplicationScoped;\n"
+                        + "import com.avbravo.jettraframework.cdi.Inject;\n"
+                        + "import com.avbravo.jettraframework.cdi.PostConstruct;\n";
+                }
+               
 
             }
             /**
@@ -130,7 +140,7 @@ public class RepositorySourceBuilderUtil {
                 code += "import org.eclipse.microprofile.config.Config;\n"
                         + "import org.eclipse.microprofile.config.inject.ConfigProperty;\n";
             } else {
-                code += "import com.jettraserver.config.JettraConfig;\n";
+                code += "import com.avbravo.jettraframework.config.JettraConfig;\n";
             }
 
             code += "/**\n"

@@ -118,11 +118,20 @@ public class ViewEntitySupplierBuilderUtil {
                         + "import javax.inject.Inject;\n";
 
             } else {
-                /**
+                 if (viewEntity.jakartaSource() == JakartaSource.JAKARTA) {
+                     /**
                  * Jakarta EE
                  */
                 code += "import jakarta.enterprise.context.RequestScoped;\n"
                         + "import jakarta.inject.Inject;\n";
+                 }else{
+                     /**
+                 * Jettra
+                 */
+                code += "import com.avbravo.jettraframework.cdi.RequestScoped;\n"
+                        + "import com.avbravo.jettraframework.cdi.Inject;\n";
+                 }
+                
                         
             }
             /**

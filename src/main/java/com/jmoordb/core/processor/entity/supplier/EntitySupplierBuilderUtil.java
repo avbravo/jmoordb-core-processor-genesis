@@ -119,7 +119,7 @@ public class EntitySupplierBuilderUtil {
 
             } else {
                 
-          if (entity.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
+          if (entity.jakartaSource() == JakartaSource.JAKARTA) {
               /**
                  * Jakarta EE
                  */

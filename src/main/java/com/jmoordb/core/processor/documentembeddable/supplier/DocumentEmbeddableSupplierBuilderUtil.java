@@ -118,7 +118,7 @@ public class DocumentEmbeddableSupplierBuilderUtil {
                         + "import javax.inject.Inject;\n";
 
             } else {
-                if (documentEmbeddable.jakartaSource() == JakartaSource.JAVAEE_LEGACY) {
+                if (documentEmbeddable.jakartaSource() == JakartaSource.JAKARTA) {
                     /**
                      * Jakarta EE
                      */

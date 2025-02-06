@@ -116,12 +116,23 @@ public class DateSupportSupplierSourceBuilderUtil {
                         + "import javax.ws.rs.ext.ParamConverter;\n";
 
             } else {
-                /**
+                 if (dateSupport.jakartaSource() == JakartaSource.JAKARTA) {
+                            /**
                  * Jakarta EE
                  */
                 code += "import jakarta.ws.rs.ext.ParamConverter;\n"
                         + "import jakarta.ws.rs.WebApplicationException;\n"
                         + "import jakarta.ws.rs.ext.ParamConverter;\n";
+                 }else{
+                            /**
+                 * Jettra
+                 */
+                code += "import com.avbravo.jettraframework.cdi.ParamConverter;\n"
+                        + "import com.avbravo.jettraframework.cdi.WebApplicationException;\n"
+                        + "import com.avbravo.jettraframework.cdi.ParamConverter;\n";
+                 }
+                
+         
 
             }
             /**
